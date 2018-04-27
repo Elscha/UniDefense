@@ -15,7 +15,7 @@ public class PathFinder {
 	private static final int START      = 5;
 	private static final int GOAL       = 6;
 	private static final int NOTVISITED = 0;
-	private static final int FINAL      = 6; 
+//	private static final int FINAL      = 6; 
 	private static final int INFINITEE  = Integer.MAX_VALUE;
 	
 	private World world;

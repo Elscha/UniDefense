@@ -36,7 +36,7 @@ public class GraphicUtils {
 	     BufferedImage after = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
 	     AffineTransform at = new AffineTransform();
 	     
-	     System.out.println(after.getWidth());
+//	     System.out.println(after.getWidth());
 	     
 	     double widthScale = 0.5f * ((double) size / after.getWidth());
 	     double heightcale = 0.5f * ((double) size / after.getHeight());

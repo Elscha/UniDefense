@@ -80,7 +80,7 @@ public class WorldRenderer extends JPanel {
 		    	int tileY = pixelsToTile(e.getY());
 		    	MouseMenu menu = new MouseMenu(worldModel, towers, tileX, tileY);
 		        menu.show(e.getComponent(), e.getX(), e.getY());
-		        System.out.println("tile: " + pixelsToTile(e.getX()) +":"+ pixelsToTile(e.getY()));
+//		        System.out.println("tile: " + pixelsToTile(e.getX()) +":"+ pixelsToTile(e.getY()));
 		    }
 		});
 	}

@@ -64,8 +64,6 @@ public abstract class Enemy extends MovableObject {
     protected Point findNextCurrentTarget() {
         List<Point> path = pathFinder.findPath((int) Math.round(getX()), (int) Math.round(getY()), finalTarget.getX(), finalTarget.getY());
         
-        System.out.println("Got Path: " + path);
-        
         if (path == null || path.size() < 2) {
             return new Point((int) Math.round(getX()), (int) Math.round(getY()));
         } else {
