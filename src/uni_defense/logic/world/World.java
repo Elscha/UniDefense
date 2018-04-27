@@ -4,13 +4,10 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import uni_defense.Main;
 import uni_defense.logic.buildings.Building;
 
 public class World {
-
-    private int height;
-    
-    private int width;
     
     private Point spawn;
     
@@ -21,16 +18,13 @@ public class World {
     
     // [x][y]
     private Building[][] buildings;
-    
     private Set<MovableObject> objects;
     
     public World() {
-        height = 64;
-        width = 64;
-        
+
         initGround();
-        
-        buildings = new Building[width][height];
+
+        buildings = new Building[Main.STANDARD_WIDTH][Main.STANDARD_HEIGHT];
         
         objects = new HashSet<>(1337);
         
@@ -39,7 +33,7 @@ public class World {
     }
     
     private void initGround() {
-        ground = new GroundTile[width][height];
+        ground = new GroundTile[Main.STANDARD_WIDTH][Main.STANDARD_HEIGHT];
         
         for (int i = 0; i < ground.length; i++) {
             for (int j = 0; j < ground[i].length; j++) {
@@ -58,6 +52,7 @@ public class World {
     public boolean isWalkable (int x, int y) {
     	return ground[x][y].isWalkable() && buildings[x][y]==null;
     }
+
     /**
      * [0][0] is top left.
      * 
@@ -68,11 +63,11 @@ public class World {
     }
     
     public int getWidth() {
-        return width;
+        return ground.length;
     }
     
     public int getHeight() {
-        return height;
+        return ground[0].length;
     }
     
     public Set<MovableObject> getObjects() {
@@ -105,5 +100,12 @@ public class World {
             obj.step(dtime);
         }
     }
-    
+
+    public GroundTile[][] getGround() {
+        return ground;
+    }
+
+    public void setGround(GroundTile[][] newGround) {
+        ground = newGround;
+    }
 }
