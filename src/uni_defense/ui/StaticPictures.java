@@ -1,9 +1,14 @@
 package uni_defense.ui;
 
-import javax.swing.ImageIcon;
+import java.awt.image.BufferedImage;
+import java.io.File;
 
 public class StaticPictures {
 	
-	public static ImageIcon GRASS_BACKGROUND = new ImageIcon(GraphicUtils.BASE_FOLDER  + "ground/grass.png");
+	// Grounding
+	public static BufferedImage GRASS_BACKGROUND = GraphicUtils.loadImage(new File(GraphicUtils.BASE_FOLDER  + "ground/grass.png"));
 
+	// Buildings
+	public static BufferedImage ARCHER_BUILDING = GraphicUtils.loadImage(new File(GraphicUtils.BASE_FOLDER  + "buildings/archer.png"));
+	
 }
