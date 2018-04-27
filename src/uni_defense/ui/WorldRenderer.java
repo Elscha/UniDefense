@@ -23,17 +23,16 @@ import uni_defense.ui.menus.MouseMenu;
 
 public class WorldRenderer extends JPanel {
 	
-	/**
+    private static final long serialVersionUID = -4005332381854987871L;
+
+    /**
 	 * Tile size in pixels.
 	 */
 	public static final int TILE_SIZE = 32;
 	
-	private static final int TILE_OFFSET = TILE_SIZE / 2;
-	
 	private static final Map<GroundTile, Image> GROUND_TILE_MAPPING;
 	private static final Map<Class<? extends Building>, Image> BUILDING_MAPPING;
 	private Map<String, Sprite> enemies = new HashMap<>();
-	private Map<String, Sprite> buildings = new HashMap<>();
 	private List<Class<? extends Building>> towers = new ArrayList<>();
 	
 	static {
@@ -80,10 +79,10 @@ public class WorldRenderer extends JPanel {
 	}
 
 	private int pixelsToTile(int pixel) {
-		return (pixel / TILE_SIZE) + TILE_OFFSET;
+		return (pixel / TILE_SIZE);
 	}
 	private int tileToPixels(int pixel) {
-		return (pixel * TILE_SIZE) - TILE_OFFSET;
+		return (pixel * TILE_SIZE);
 	}
 	
 	@Override
@@ -134,12 +133,7 @@ public class WorldRenderer extends JPanel {
 				size = TILE_SIZE;
 			}
 			
-			int xStart = Math.min(0, drawToX + size / 2);
-			int yStart = Math.min(0, drawToY + size / 2);
-//			int xMax = Math.max(getWidth(), size);
-//			int yMax = Math.max(getHeight(), size);
-			
-			g.drawImage(sprite.getImage(), xStart, yStart, size, size, null);
+			g.drawImage(sprite.getImage(), drawToX + size / 2, drawToY + size / 2, size, size, null);
 		}
 	}
 }
