@@ -1,6 +1,8 @@
 package uni_defense.ui;
 
 import java.awt.Dimension;
+import java.io.File;
+import java.io.IOException;
 
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
@@ -8,18 +10,21 @@ import javax.swing.JSplitPane;
 
 import uni_defense.audio.Music;
 import uni_defense.logic.world.World;
+import uni_defense.logic.world.loading.WorldManager;
 import uni_defense.ui.menus.GameMenu;
 
 public class MainWindow extends JFrame implements Runnable {
-	
+
     private static final long serialVersionUID = -5181257872336051731L;
-    
-    private World world = new World();
-    
+
     private WorldRenderer renderer;
+    
+	private World world;
 	
-	public MainWindow() {
+	public MainWindow() throws IOException {
 		super("UniDefense");
+
+		world = WorldManager.loadMap(new File(getClass().getClassLoader().getResource("sampleMap_01.csv").getFile()));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(true);
         
@@ -49,7 +54,8 @@ public class MainWindow extends JFrame implements Runnable {
         th.start();
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
+
 		new MainWindow();
 	}
 

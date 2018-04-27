@@ -20,9 +20,9 @@ public class IOUtilsTest {
         assertNotNull(map2);
 
         assertEquals(6, map.length);
-        assertEquals(6, map[0].length);
+        assertEquals(7, map[0].length);
 
         assertEquals(6, map2.length); //x
-        assertEquals(8, map2[0].length); //y
+        assertEquals(9, map2[0].length); //y
     }
 }

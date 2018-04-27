@@ -47,7 +47,12 @@ public class World {
 
         setGround(ground);
 
+        buildings[15][3] = new Archer(this);
+
         objects = new HashSet<>(1337);
+
+        objects.add(new Worker(this));
+        objects.add(new Worker(this, 0.1f, 64));
     }
     
     private void initGround() {

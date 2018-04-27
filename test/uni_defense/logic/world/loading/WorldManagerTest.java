@@ -23,7 +23,7 @@ public class WorldManagerTest {
 
         assertNotNull(ground);
 
-        assertEquals(6, w.getHeight());
+        assertEquals(7, w.getHeight());
         assertEquals(6, w.getWidth());
 
         WorldManager.loadMap(testFile2);
@@ -34,7 +34,7 @@ public class WorldManagerTest {
 
         assertNotNull(2);
 
-        assertEquals(8, w2.getHeight());
+        assertEquals(9, w2.getHeight());
         assertEquals(6, w2.getWidth());
 
     }

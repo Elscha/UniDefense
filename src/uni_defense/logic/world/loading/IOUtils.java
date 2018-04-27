@@ -17,8 +17,14 @@ public class IOUtils {
             List<String> row = Arrays.asList(line.split(";"));
             map.add(row);
         }
+        Integer biggestX = 0;
+        for(List<String> row : map){
+            if(row.size() > biggestX){
+                biggestX = row.size();
+            }
+        }
 
-        String[][] mapArr = new String[map.get(0).size()][map.size()];
+        String[][] mapArr = new String[biggestX][map.size()];
 
         for (int y = 0; y < map.size(); y++) {
             List<String> row = map.get(y);
