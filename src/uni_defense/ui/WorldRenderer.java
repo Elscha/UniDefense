@@ -133,7 +133,7 @@ public class WorldRenderer extends JPanel {
 				size = TILE_SIZE;
 			}
 			
-			g.drawImage(sprite.getImage(), drawToX + size / 2, drawToY + size / 2, size, size, null);
+			g.drawImage(sprite.getImage(), drawToX - size / 2 + TILE_SIZE / 2, drawToY - size / 2 + TILE_SIZE / 2, size, size, null);
 		}
 	}
 }
