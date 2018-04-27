@@ -21,6 +21,8 @@ public class World {
     private Building[][] buildings;
     private Set<MovableObject> objects;
     
+    private Set<MovableObject> markedForRemoval = new HashSet<>();
+    
     public World() {
         this.spawn = new Point(Math.round(Main.STANDARD_WIDTH/2), Math.round(Main.STANDARD_HEIGHT/2));
         this.castle = new Point(Math.round(Main.STANDARD_WIDTH/2), 0);
@@ -108,8 +110,11 @@ public class World {
         objects.add(object);
     }
     
+    /**
+     * Will remove once step() is called next.
+     */
     public void removeObject(MovableObject object) {
-        objects.remove(object);
+        markedForRemoval.add(object);
     }
 
     public Point getCastlePos() {
@@ -126,6 +131,8 @@ public class World {
      * @param dtime The time since the last step in milliseconds.
      */
     public void step(double dtime) {
+        objects.removeAll(markedForRemoval);
+        
         for (MovableObject obj : objects) {
             obj.step(dtime);
         }

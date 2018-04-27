@@ -2,6 +2,7 @@ package uni_defense.logic.enemies;
 
 import java.util.List;
 
+import uni_defense.logic.player.Player;
 import uni_defense.logic.world.MovableObject;
 import uni_defense.logic.world.PathFinder;
 import uni_defense.logic.world.Point;
@@ -9,6 +10,8 @@ import uni_defense.logic.world.World;
 
 public abstract class Enemy extends MovableObject {
 
+    private World world;
+    
     private PathFinder pathFinder;
     
     /**
@@ -33,11 +36,12 @@ public abstract class Enemy extends MovableObject {
      */
     public Enemy(World world, double speed) {
         this(world, speed, 0);
-        
     }
     
     public Enemy(World world, double speed, int size) {
         super(world.getSpawnPos().getX(), world.getSpawnPos().getY());
+        
+        this.world = world;
         
         this.speed = speed;
         this.finalTarget = world.getCastlePos();
@@ -69,6 +73,12 @@ public abstract class Enemy extends MovableObject {
     @Override
     public void step(double dtime) {
         double walkInThisStep = (dtime / 1000) * speed;
+        
+        if (Math.round(getX()) == finalTarget.getX() && Math.round(getY()) == finalTarget.getY()) {
+            Player.INSTANCE.damage(getDamage());
+            world.removeObject(this);
+            return;
+        }
         
         double dx = currentTarget.getX() - getX();
         double dy = currentTarget.getY() - getY();
@@ -106,4 +116,12 @@ public abstract class Enemy extends MovableObject {
     public String getID() {
     	return this.getClass().getSimpleName().toLowerCase() + size;
     }
+    
+    /**
+     * How much damage this enemy does, when it reaches the castle.
+     */
+    public int getDamage() {
+        return 1;
+    }
+    
 }
