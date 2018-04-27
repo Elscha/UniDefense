@@ -55,6 +55,9 @@ public class World {
         return ground[x][y];
     }
     
+    public boolean isWalkable (int x, int y) {
+    	return ground[x][y].isWalkable() && buildings[x][y]==null;
+    }
     /**
      * [0][0] is top left.
      * 
