@@ -26,6 +26,9 @@ public class MouseMenu extends JPopupMenu {
 	    		int price = BuildingModel.BUILDING_PRICES.get(towerClass);
 				JMenuItem btn = new JMenuItem(towerClass.getSimpleName() + " (" + price + ")");
 				add(btn);
+				if (price > Player.INSTANCE.getGold()) {
+					btn.setEnabled(false);
+				}
 				
 				btn.addMouseListener(new MouseAdapter() {
 					public void mousePressed(MouseEvent e) {
