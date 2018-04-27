@@ -125,9 +125,30 @@ public class PathFinder {
 					//check if candidate is accessible
 					if (world.isWalkable(visitx, visity)){
 						//check if it's visited, or else add it to the priority list
-						if(this.dirMap[visitx][visity]==NOTVISITED||this.dirMap[visitx][visity]==GOAL)prio.add(new NodeSearch(currentD+1,
-																					  new Point(visitx,visity),
-																					  currentD+1+this.manhattanD(visitx, visity, x2, y2)));
+					    
+					    int heuristicCost = currentD+1+this.manhattanD(visitx, visity, x2, y2);
+					    
+						if(this.dirMap[visitx][visity]==NOTVISITED||this.dirMap[visitx][visity]==GOAL) {
+						    prio.add(new NodeSearch(currentD+1, new Point(visitx,visity),
+                                    heuristicCost));
+						    
+						} else {
+						    NodeSearch found = null;
+						    for (NodeSearch ns : prio) {
+						        if (ns.getP().getX() == visitx && ns.getP().getY() == visity) {
+						            found = ns;
+						            break;
+						        }
+						    }
+						    
+						    if (found != null) {
+						        prio.remove(found);
+						        found.setFcost(heuristicCost);
+						        prio.add(found);
+						    }
+						    
+						}
+																					  
 						//check if this path is better, then update your costs.
 						int tentativeScore = currentD+1;
 						if (tentativeScore < this.costMap[visitx][visity]) {
