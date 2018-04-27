@@ -1,7 +1,5 @@
 package uni_defense.logic.world;
 
-import uni_defense.ui.Sprite;
-
 public abstract class MovableObject {
 
     private double x;
@@ -46,7 +44,5 @@ public abstract class MovableObject {
     public Point getCurrentTile() {
         return new Point((int) Math.round(x), (int) Math.round(y));
     }
-    
-    public abstract Sprite getSprite();
     
 }

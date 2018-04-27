@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import uni_defense.logic.buildings.Building;
+import uni_defense.logic.enemies.Worker;
 
 public class World {
 
@@ -33,6 +34,7 @@ public class World {
         buildings = new Building[width][height];
         
         objects = new HashSet<>(1337);
+        objects.add(new Worker(this));
         
         this.spawn = new Point(32, 63);
         this.castle = new Point(32, 0);

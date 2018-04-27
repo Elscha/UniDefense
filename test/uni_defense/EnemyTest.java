@@ -7,7 +7,6 @@ import org.junit.Test;
 import uni_defense.logic.enemies.Enemy;
 import uni_defense.logic.world.Point;
 import uni_defense.logic.world.World;
-import uni_defense.ui.Sprite;
 
 public class EnemyTest {
 
@@ -24,11 +23,6 @@ public class EnemyTest {
         @Override
         protected Point findNextCurrentTarget() {
             return target;
-        }
-        
-        @Override
-        public Sprite getSprite() {
-            return null;
         }
         
     }
