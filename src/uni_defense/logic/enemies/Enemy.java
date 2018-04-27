@@ -1,10 +1,11 @@
 package uni_defense.logic.enemies;
 
+import java.util.List;
+
 import uni_defense.logic.world.MovableObject;
 import uni_defense.logic.world.PathFinder;
 import uni_defense.logic.world.Point;
 import uni_defense.logic.world.World;
-import uni_defense.ui.WorldRenderer;
 
 public abstract class Enemy extends MovableObject {
 
@@ -53,8 +54,16 @@ public abstract class Enemy extends MovableObject {
 
 	// protected for test cases
     protected Point findNextCurrentTarget() {
-//        return pathFinder.findPath((int) Math.round(getX()), (int) Math.round(getY()), finalTarget.getX(), finalTarget.getY()).get(1);
-        return new Point(16, 30);
+        List<Point> path = pathFinder.findPath((int) Math.round(getX()), (int) Math.round(getY()), finalTarget.getX(), finalTarget.getY());
+        
+        System.out.println("Got Path: " + path);
+        
+        if (path == null || path.size() < 2) {
+            return new Point((int) Math.round(getX()), (int) Math.round(getY()));
+        } else {
+            return path.get(1);
+        }
+        
     }
     
     @Override
