@@ -26,8 +26,8 @@ public class World {
     private Set<MovableObject> objects;
     
     public World() {
-        height = 64;
-        width = 64;
+        height = 32;
+        width = 32;
         this.spawn = new Point(16, 31);
         this.castle = new Point(16, 0);
         
