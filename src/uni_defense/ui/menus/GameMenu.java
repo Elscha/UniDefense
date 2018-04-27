@@ -1,7 +1,5 @@
 package uni_defense.ui.menus;
 
-import java.awt.Dimension;
-
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;

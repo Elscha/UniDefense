@@ -38,9 +38,16 @@ public class MouseMenu extends JPopupMenu {
 				});
 	    	}
 		} else {
-			JMenuItem btn = new JMenuItem("Sell tower");
-			add(btn);
-			btn.addMouseListener(new MouseAdapter() {
+			JMenuItem btnUpgrade = new JMenuItem("Upgrade");
+			add(btnUpgrade);
+			btnUpgrade.addMouseListener(new MouseAdapter() {
+				public void mousePressed(MouseEvent e) {
+					worldModel.setBuildings(tileX, tileY, null);
+				}
+			});
+			JMenuItem btnSell = new JMenuItem("Sell tower");
+			add(btnSell);
+			btnSell.addMouseListener(new MouseAdapter() {
 				public void mousePressed(MouseEvent e) {
 					worldModel.setBuildings(tileX, tileY, null);
 				}

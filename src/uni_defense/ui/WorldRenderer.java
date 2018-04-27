@@ -44,7 +44,7 @@ public class WorldRenderer extends JPanel {
 		// Buildings
 		Map<Class<? extends Building>, Image> tmpBuildings = new HashMap<>();
 		tmpBuildings.put(Archer.class, StaticPictures.ARCHER_BUILDING);
-		tmpBuildings.put(Canon.class, StaticPictures.ARCHER_BUILDING);
+		tmpBuildings.put(Canon.class, StaticPictures.CANON_BUILDING);
 		BUILDING_MAPPING = Collections.unmodifiableMap(tmpBuildings);
 	}
 	
