@@ -32,7 +32,15 @@ public class World {
         objects = new HashSet<>(1337);
         objects.add(new Worker(this));
         objects.add(new Worker(this, 0.1f, 64));
+    }
 
+    public World(GroundTile[][] ground, Point spawn, Point castle){
+        this.spawn = spawn;
+        this.castle = castle;
+
+        setGround(ground);
+
+        objects = new HashSet<>(1337);
     }
     
     private void initGround() {

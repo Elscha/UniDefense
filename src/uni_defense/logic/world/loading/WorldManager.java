@@ -2,6 +2,7 @@ package uni_defense.logic.world.loading;
 
 import uni_defense.logic.exceptions.WorldNotFittingException;
 import uni_defense.logic.world.GroundTile;
+import uni_defense.logic.world.Point;
 import uni_defense.logic.world.World;
 
 import java.io.File;
@@ -11,8 +12,8 @@ public class WorldManager {
 
     private static World world;
 
-    public static void loadMap(File file) throws IOException, WorldNotFittingException {
-        World newWorld = getWorld();
+    public static World loadMap(File file) throws IOException, WorldNotFittingException {
+
 
         String[][] stringMap = IOUtils.loadMap(file);
         GroundTile[][] ground = new GroundTile[stringMap.length][stringMap[0].length];
@@ -23,13 +24,12 @@ public class WorldManager {
             }
         }
 
-        newWorld.setGround(ground);
+        World newWorld = new World(ground, new Point(0, 0), new Point(0, 0));
+        setWorld(newWorld);
+        return newWorld;
     }
 
     public static World getWorld() {
-        if(world == null){
-            world = new World();
-        }
         return world;
     }
 

@@ -1,15 +1,11 @@
 package uni_defense.logic.world.loading;
 
 import org.junit.Test;
-<<<<<<< HEAD
 import uni_defense.logic.exceptions.WorldNotFittingException;
-=======
->>>>>>> bde6f90bc18285c4119ee7dbe86c16c0b7eb6a43
 import uni_defense.logic.world.GroundTile;
 import uni_defense.logic.world.World;
 
 import java.io.File;
-import java.io.IOException;
 
 import static org.junit.Assert.*;
 
