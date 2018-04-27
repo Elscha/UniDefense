@@ -82,8 +82,12 @@ public class PathFinder {
 		
 		prio.add(new NodeSearch(0,new Point(x1,y1),manhattanD(x1, y1, x2, y2))); //add start node
 		//while there is stuff to check! CHECK DAT STUFF!
+		System.out.println("before while");
+		System.out.println(x2);
+		System.out.println(y2);
 		while (!prio.isEmpty())
 		{
+			System.out.println("enter while");
 			//load actual position data
 			actual = prio.poll(); //get priority node
 			int actx = actual.getP().getX();
@@ -91,8 +95,12 @@ public class PathFinder {
 			int currentD = this.costMap[actx][acty];
 			
 			//if this is the goal
+			System.out.println(actx);
+			System.out.println(acty);
+			
 			if (actx==x2&&acty==y2) {
-				//end create the list and return			
+				//end create the list and return
+				System.out.println("get here");
 				return this.getPath(x2, y2);
 			}//if end
 			
@@ -108,7 +116,7 @@ public class PathFinder {
 					//check if candidate is accessible
 					if (world.isWalkable(visitx, visity)){
 						//check if it's visited, or else add it to the priority list
-						if(this.dirMap[visitx][visity]==NOTVISITED)prio.add(new NodeSearch(currentD+1,
+						if(this.dirMap[visitx][visity]==NOTVISITED||this.dirMap[visitx][visity]==GOAL)prio.add(new NodeSearch(currentD+1,
 																					  new Point(visitx,visity),
 																					  currentD+1+this.manhattanD(visitx, visity, x2, y2)));
 						//check if this path is better, then update your costs.
