@@ -97,7 +97,7 @@ public class WorldRenderer extends JPanel {
 				int drawToX = tileToPixels(x);
 				int drawToY = tileToPixels(y);
 				
-				g.drawImage(GROUND_TILE_MAPPING.get(tile), drawToX, drawToY, TILE_SIZE - 1, TILE_SIZE - 1, null);
+				g.drawImage(GROUND_TILE_MAPPING.get(tile), drawToX, drawToY, TILE_SIZE, TILE_SIZE, null);
 				
 			}
 		}
@@ -112,7 +112,7 @@ public class WorldRenderer extends JPanel {
                     int drawToX = tileToPixels(x);
                     int drawToY = tileToPixels(y);
                     
-                    g.drawImage(BUILDING_MAPPING.get(building.getClass()), drawToX, drawToY, TILE_SIZE - 1, TILE_SIZE - 1, null);
+                    g.drawImage(BUILDING_MAPPING.get(building.getClass()), drawToX, drawToY, TILE_SIZE, TILE_SIZE, null);
                 }
             }
         }
