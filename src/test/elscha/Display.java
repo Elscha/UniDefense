@@ -9,7 +9,7 @@ import javax.swing.JFrame;
 
 import uni_defense.ui.AbstractGraphicComponent;
 import uni_defense.ui.BackgroundTile;
-import uni_defense.ui.BackgroundTile2;
+import uni_defense.ui.BackgroundTile;
 import uni_defense.ui.Enemy;
 import uni_defense.ui.StaticPictures;
 
@@ -51,14 +51,14 @@ public class Display implements Runnable {
 	        for (int row = 0; row < (rows - 1); row++) {
 	        	for (int column = 0; column < columns; column++) {
 //	        		BackgroundTile background = new BackgroundTile("ground/grass.png");
-	        		BackgroundTile2 background = new BackgroundTile2(StaticPictures.GRASS_BACKGROUND);
+	        		BackgroundTile background = new BackgroundTile(StaticPictures.GRASS_BACKGROUND);
 	        		jframe.add(background);
 	        	}
 				
 			}
 	        
 	        for (int column = 0; column < (columns- 1); column++) {
-	        	BackgroundTile2 background = new BackgroundTile2(StaticPictures.GRASS_BACKGROUND);
+	        	BackgroundTile background = new BackgroundTile(StaticPictures.GRASS_BACKGROUND);
 	        	jframe.add(background);
 	        }
 
