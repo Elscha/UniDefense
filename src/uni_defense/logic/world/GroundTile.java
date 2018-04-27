@@ -1,5 +1,7 @@
 package uni_defense.logic.world;
 
+import uni_defense.logic.exceptions.WorldNotFittingException;
+
 import java.util.Arrays;
 
 public enum GroundTile {
@@ -33,7 +35,7 @@ public enum GroundTile {
     public static GroundTile getByFirstLetter(String letter){
         return Arrays.stream(values())
                 .filter(groundTile -> groundTile.name().startsWith(letter))
-                .findFirst().orElse(null);
+                .findFirst().orElseThrow(() -> new WorldNotFittingException());
     }
     
 }

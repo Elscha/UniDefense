@@ -33,7 +33,9 @@ public class World {
         objects = new HashSet<>(1337);
         objects.add(new Worker(this));
         objects.add(new Worker(this, 0.1f, 64));
-        
+
+        this.spawn = new Point(Math.round(Main.STANDARD_WIDTH/2), Math.round(Main.STANDARD_HEIGHT/2));
+        this.castle = new Point(Math.round(Main.STANDARD_WIDTH/2), 0);
     }
     
     private void initGround() {
@@ -130,5 +132,6 @@ public class World {
 
     public void setGround(GroundTile[][] newGround) {
         ground = newGround;
+        buildings = new Building[getWidth()][getHeight()];
     }
 }

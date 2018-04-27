@@ -1,5 +1,6 @@
 package uni_defense.logic.world.loading;
 
+import uni_defense.logic.exceptions.WorldNotFittingException;
 import uni_defense.logic.world.GroundTile;
 import uni_defense.logic.world.World;
 
@@ -10,7 +11,7 @@ public class WorldManager {
 
     private static World world;
 
-    public static void loadMap(File file) throws IOException {
+    public static void loadMap(File file) throws IOException, WorldNotFittingException {
         World newWorld = getWorld();
 
         String[][] stringMap = IOUtils.loadMap(file);
@@ -29,7 +30,6 @@ public class WorldManager {
         if(world == null){
             world = new World();
         }
-
         return world;
     }
 

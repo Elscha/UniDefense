@@ -1,6 +1,7 @@
 package uni_defense.logic.world.loading;
 
 import org.junit.Test;
+import uni_defense.logic.exceptions.WorldNotFittingException;
 import uni_defense.logic.world.GroundTile;
 import uni_defense.logic.world.World;
 
@@ -37,5 +38,12 @@ public class WorldManagerTest {
         assertEquals(8, w2.getHeight());
         assertEquals(6, w2.getWidth());
 
+    }
+
+    @Test(expected = WorldNotFittingException.class)
+    public void shouldNotLoadMap() throws Exception {
+        File testFile = new File(getClass().getClassLoader().getResource("sampleMap_01_not_passing.csv").getFile());
+
+        WorldManager.loadMap(testFile);
     }
 }
