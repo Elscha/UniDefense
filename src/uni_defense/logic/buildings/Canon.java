@@ -24,7 +24,7 @@ public class Canon extends ShootingBuilding {
     @Override
     public void shootEnemy(int x, int y, Enemy enemy) {
         getWorld().addObject(new Fireball(getWorld(), x, y, enemy));
-        new Sound("sfx/bleep2.wav").soundStart();
+        new Sound("sfx/bleep3.wav").soundStart();
     }
     
 }

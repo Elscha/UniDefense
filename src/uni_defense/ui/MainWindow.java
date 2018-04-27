@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 
+import uni_defense.audio.Music;
 import uni_defense.logic.world.World;
 import uni_defense.ui.menus.GameMenu;
 
@@ -41,6 +42,9 @@ public class MainWindow extends JFrame implements Runnable {
         add(splitPane);
         
         setVisible(true);
+        
+        new Music("bgm/1.wav").musicStart();
+        
         Thread th = new Thread(this);
         th.start();
 	}

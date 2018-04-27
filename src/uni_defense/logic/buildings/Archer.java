@@ -24,7 +24,7 @@ public class Archer extends ShootingBuilding {
     @Override
     public void shootEnemy(int x, int y, Enemy enemy) {
         getWorld().addObject(new Bullet(getWorld(), x, y, (Enemy) enemy));
-        new Sound("sfx/bleep2.wav").soundStart();
+        new Sound("sfx/bleep3.wav").soundStart();
     }
     
 }
