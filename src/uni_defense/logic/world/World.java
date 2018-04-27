@@ -22,6 +22,8 @@ public class World {
     private Set<MovableObject> objects;
     
     public World() {
+        this.spawn = new Point(Math.round(Main.STANDARD_WIDTH/2), Math.round(Main.STANDARD_HEIGHT/2));
+        this.castle = new Point(Math.round(Main.STANDARD_WIDTH/2), 0);
 
         initGround();
 
@@ -31,8 +33,6 @@ public class World {
         objects.add(new Worker(this));
         objects.add(new Worker(this, 0.1f, 64));
 
-        this.spawn = new Point(Math.round(Main.STANDARD_WIDTH/2), Math.round(Main.STANDARD_HEIGHT/2));
-        this.castle = new Point(Math.round(Main.STANDARD_WIDTH/2), 0);
     }
     
     private void initGround() {
