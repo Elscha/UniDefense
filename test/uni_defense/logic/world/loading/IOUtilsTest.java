@@ -13,8 +13,8 @@ public class IOUtilsTest {
         File testFile = new File(getClass().getClassLoader().getResource("sampleMap_01.csv").getFile());
         File testFile2 = new File(getClass().getClassLoader().getResource("sampleMap_02.csv").getFile());
 
-        String[][] map = IOUtils.loadMap(testFile);
-        String[][] map2 = IOUtils.loadMap(testFile2);
+        String[][] map = IOUtils.loadLevelConfiguration(testFile);
+        String[][] map2 = IOUtils.loadLevelConfiguration(testFile2);
 
         assertNotNull(map);
         assertNotNull(map2);

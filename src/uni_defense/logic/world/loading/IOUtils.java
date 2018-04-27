@@ -7,7 +7,7 @@ import java.util.List;
 
 public class IOUtils {
 
-    public static String[][] loadMap(File file) throws IOException{
+    public static String[][] loadLevelConfiguration(File file) throws IOException{
         List<List<String>> map = new ArrayList<>();
         BufferedReader br = new BufferedReader(new FileReader(file));
 
