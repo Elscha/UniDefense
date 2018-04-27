@@ -31,6 +31,8 @@ public abstract class Enemy extends MovableObject {
     
     private int size;
     
+    private int maxHp;
+    
     private int hp;
     
     /**
@@ -52,6 +54,7 @@ public abstract class Enemy extends MovableObject {
         currentTarget = findNextCurrentTarget();
         
         this.size = size;
+        this.maxHp = hp;
         this.hp = hp;
     }
     
@@ -131,6 +134,14 @@ public abstract class Enemy extends MovableObject {
      */
     public int getDamage() {
         return 1;
+    }
+    
+    public int getHp() {
+        return hp;
+    }
+    
+    public int getMaxHp() {
+        return maxHp;
     }
     
 }

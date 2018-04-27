@@ -1,5 +1,6 @@
 package uni_defense.ui;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -16,6 +17,7 @@ import javax.swing.JPanel;
 import uni_defense.logic.buildings.Archer;
 import uni_defense.logic.buildings.Building;
 import uni_defense.logic.buildings.Canon;
+import uni_defense.logic.enemies.Enemy;
 import uni_defense.logic.world.GroundTile;
 import uni_defense.logic.world.MovableObject;
 import uni_defense.logic.world.World;
@@ -128,16 +130,16 @@ public class WorldRenderer extends JPanel {
         }
 		
 		// Draw enemies
-		for (MovableObject enemy : worldModel.getObjects()) {
-			int drawToX = (int) (enemy.getX() * TILE_SIZE);
-			int drawToY = (int) (enemy.getY() * TILE_SIZE);
+		for (MovableObject obj : worldModel.getObjects()) {
+			int drawToX = (int) (obj.getX() * TILE_SIZE);
+			int drawToY = (int) (obj.getY() * TILE_SIZE);
 			
 			
-			String id = enemy.getID();
+			String id = obj.getID();
 			Sprite sprite = enemies.get(id);
-			int size = enemy.getSize();
+			int size = obj.getSize();
 			if (null == sprite) {
-				sprite = new Sprite("sprites/enemies/" + enemy.getClass().getSimpleName().toLowerCase(), size);
+				sprite = new Sprite("sprites/enemies/" + obj.getClass().getSimpleName().toLowerCase(), size);
 				enemies.put(id, sprite);
 			}
 			if (size == 0) {
@@ -145,6 +147,17 @@ public class WorldRenderer extends JPanel {
 			}
 			
 			g.drawImage(sprite.getImage(dtime), drawToX - size / 2 + TILE_SIZE / 2, drawToY - size / 2 + TILE_SIZE / 2, size, size, null);
+			
+			if (obj instanceof Enemy) {
+			    Enemy enemy = (Enemy) obj;
+			    
+			    double hpRatio = (double) enemy.getHp() / enemy.getMaxHp();
+			    
+			    g.setColor(Color.RED);
+			    g.fillRect(drawToX - size / 2 + TILE_SIZE / 2, drawToY - size / 2 + TILE_SIZE / 2, (int) (size * hpRatio), 5);
+			    
+			    
+			}
 		}
 	}
 }
