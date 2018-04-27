@@ -33,6 +33,7 @@ public class WorldRenderer extends JPanel {
 	private static final Map<GroundTile, Image> GROUND_TILE_MAPPING;
 	private static final Map<Class<? extends Building>, Image> BUILDING_MAPPING;
 	private Map<String, Sprite> enemies = new HashMap<>();
+	private Map<String, Sprite> buildings = new HashMap<>();
 	private List<Class<? extends Building>> towers = new ArrayList<>();
 	
 	static {
@@ -96,11 +97,32 @@ public class WorldRenderer extends JPanel {
 				int drawToX = tileToPixels(x);
 				int drawToY = tileToPixels(y);
 				
-				g.drawImage(GROUND_TILE_MAPPING.get(tile), drawToX, drawToY, TILE_SIZE, TILE_SIZE, null);
+				g.drawImage(GROUND_TILE_MAPPING.get(tile), drawToX, drawToY, TILE_SIZE - 1, TILE_SIZE - 1, null);
 				
 			}
 		}
 		
+		// draw buildings
+		for (int x = 0; x < worldModel.getWidth(); x++) {
+            for (int y = 0; y < worldModel.getHeight(); y++) {
+                
+                Building building = worldModel.getBuilding(x, y);
+                
+                if (building != null) {
+                    int drawToX = tileToPixels(x);
+                    int drawToY = tileToPixels(y);
+                    
+                    String id = building.getID();
+                    Sprite sprite = buildings.get(id);
+                    if (null == sprite) {
+                        sprite = new Sprite("sprites/buildings/" + building.getClass().getSimpleName().toLowerCase(), TILE_SIZE);
+                        buildings.put(id, sprite);
+                    }
+                    
+                    g.drawImage(sprite.getImage(), drawToX, drawToY, TILE_SIZE - 1, TILE_SIZE - 1, null);
+                }
+            }
+        }
 		
 		// Draw enemies
 		for (MovableObject enemy : worldModel.getObjects()) {
@@ -119,7 +141,7 @@ public class WorldRenderer extends JPanel {
 				size = TILE_SIZE;
 			}
 			
-			g.drawImage(sprite.getImage(), drawToX, drawToY, size, size, null);
+			g.drawImage(sprite.getImage(), drawToX + size / 2, drawToY + size / 2, size, size, null);
 		}
 	}
 }

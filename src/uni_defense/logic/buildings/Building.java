@@ -7,4 +7,8 @@ public abstract class Building {
      */
     public abstract void step(double dtime, int x, int y);
     
+    public String getID() {
+        return this.getClass().getSimpleName().toLowerCase();
+    }
+    
 }
