@@ -38,7 +38,6 @@ public class Display implements Runnable {
 	        jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	        jframe.setResizable(true);
 	        jframe.setVisible(true);
-	        jframe.setLocationRelativeTo(null);
 	        //int rows = 64;
 	        //int columns = 64;
 	        //jframe.setLayout(new GridLayout(rows, columns, 0, 0));
@@ -68,6 +67,7 @@ public class Display implements Runnable {
 //	        add(canvas);
 //	        jframe.add(canvas);
 	        jframe.pack();
+            jframe.setLocationRelativeTo(null);
 
 	        Thread th = new Thread(this);
 	        th.start();
