@@ -34,6 +34,12 @@ public class PathFinder {
 		return x;
 	}
 	
+	private void reset() {
+		this.costMap= new int[world.getWidth()][world.getHeight()];
+		for (int i=0;i<world.getWidth();i++) for (int j=0;j<world.getHeight();j++) this.costMap[i][j]=INFINITEE;
+		this.dirMap= new int[world.getWidth()][world.getHeight()];
+	}
+	
 	private int manhattanD(int x1, int y1, int x2, int y2)
 	{
 		int xd = this.absoluteV(x1-x2);
@@ -61,7 +67,7 @@ public class PathFinder {
 	
 	public List<Point> findPath(int x1, int y1, int x2, int y2) {
 		 //First point on this list is the start
-		
+		this.reset();
 		NodeSearch actual;
 		this.costMap[x1][y1]=0;
 		this.dirMap[x1][y1]=START;
@@ -82,12 +88,12 @@ public class PathFinder {
 		
 		prio.add(new NodeSearch(0,new Point(x1,y1),manhattanD(x1, y1, x2, y2))); //add start node
 		//while there is stuff to check! CHECK DAT STUFF!
-		System.out.println("before while");
-		System.out.println(x2);
-		System.out.println(y2);
+//		System.out.println("before while");
+//		System.out.println(x2);
+//		System.out.println(y2);
 		while (!prio.isEmpty())
 		{
-			System.out.println("enter while");
+//			System.out.println("enter while");
 			//load actual position data
 			actual = prio.poll(); //get priority node
 			int actx = actual.getP().getX();
@@ -95,12 +101,12 @@ public class PathFinder {
 			int currentD = this.costMap[actx][acty];
 			
 			//if this is the goal
-			System.out.println(actx);
-			System.out.println(acty);
+//			System.out.println(actx);
+//			System.out.println(acty);
 			
 			if (actx==x2&&acty==y2) {
 				//end create the list and return
-				System.out.println("get here");
+//				System.out.println("get here");
 				return this.getPath(x2, y2);
 			}//if end
 			
