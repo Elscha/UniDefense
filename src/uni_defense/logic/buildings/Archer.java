@@ -2,51 +2,27 @@ package uni_defense.logic.buildings;
 
 import uni_defense.logic.buildings.bullets.Bullet;
 import uni_defense.logic.enemies.Enemy;
-import uni_defense.logic.world.MovableObject;
 import uni_defense.logic.world.World;
 
-public class Archer extends Building {
+public class Archer extends ShootingBuilding {
 
-    private final double MAX_COOLDOWN = 2000;
-    
-    private int range = 5;
-    
-    private double cooldown;
-    
-    private World world;
-    
     public Archer(World world) {
-        this.world = world;
-    }
-    
-    private boolean isInRange(Enemy enemy, int x, int y) {
-        double dx = enemy.getX() - x;
-        double dy = enemy.getY() - y;
-        
-        double distance = Math.sqrt(dx * dx + dy * dy); 
-        
-        return distance <= range;
+        super(world);
     }
     
     @Override
-    public void step(double dtime, int x, int y) {
-        if (cooldown > 0) {
-            cooldown -= dtime;
-        }
-        
-        if (cooldown <= 0) {
-            // search enemy in range
-            for (MovableObject enemy : world.getObjects()) {
-                if (enemy instanceof Enemy && isInRange((Enemy) enemy, x, y)) {
-                    // shoot the enemy
-                    world.addObject(new Bullet(world, x, y, (Enemy) enemy));
-                    
-                    // cooldown
-                    cooldown = MAX_COOLDOWN;
-                    break;
-                }
-            }
-        }
+    public double getCooldown() {
+        return 2000;
+    }
+    
+    @Override
+    public int getRange() {
+        return 5;
+    }
+    
+    @Override
+    public void shootEnemy(int x, int y, Enemy enemy) {
+        getWorld().addObject(new Bullet(getWorld(), x, y, (Enemy) enemy));        
     }
     
 }
