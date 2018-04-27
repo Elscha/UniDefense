@@ -35,6 +35,8 @@ public class WorldRenderer extends JPanel {
 	private Map<String, Sprite> enemies = new HashMap<>();
 	private List<Class<? extends Building>> towers = new ArrayList<>();
 	
+	private double dtime;
+	
 	static {
 		// Ground tiles
 		Map<GroundTile, Image> tmpTiles = new HashMap<>();
@@ -90,6 +92,10 @@ public class WorldRenderer extends JPanel {
 		return (pixel * TILE_SIZE);
 	}
 	
+	public void setDtime(double dtime) {
+	    this.dtime = dtime;
+	}
+	
 	@Override
 	public void paint(Graphics g) {
 		// Draw Background
@@ -138,7 +144,7 @@ public class WorldRenderer extends JPanel {
 				size = TILE_SIZE;
 			}
 			
-			g.drawImage(sprite.getImage(), drawToX - size / 2 + TILE_SIZE / 2, drawToY - size / 2 + TILE_SIZE / 2, size, size, null);
+			g.drawImage(sprite.getImage(dtime), drawToX - size / 2 + TILE_SIZE / 2, drawToY - size / 2 + TILE_SIZE / 2, size, size, null);
 		}
 	}
 }

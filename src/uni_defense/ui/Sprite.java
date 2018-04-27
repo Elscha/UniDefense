@@ -8,6 +8,8 @@ public class Sprite {
 	private BufferedImage[] images;
 	private int pictureIndex = 0;
 	
+	private double cummulatedDtime;
+	
 	
 	public Sprite(String path) {
 		this(path, 0);
@@ -34,12 +36,19 @@ public class Sprite {
 	}
 	
 	
-	public BufferedImage getImage() {
-		if (pictureIndex == images.length) {
-			pictureIndex = 0;
-		}
+	public BufferedImage getImage(double dtime) {
+	    
+	    cummulatedDtime += dtime;
+	    
+	    if (cummulatedDtime > 300) {
+	        pictureIndex++;
+	        if (pictureIndex == images.length) {
+	            pictureIndex = 0;
+	        }
+	        cummulatedDtime = 0;
+	    }
 		
-		return images[pictureIndex++];
+		return images[pictureIndex];
 		
 	}
 }
