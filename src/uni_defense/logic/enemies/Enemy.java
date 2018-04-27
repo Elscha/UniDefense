@@ -12,7 +12,7 @@ public abstract class Enemy extends MovableObject {
     /**
      * tiles per second.
      */
-    private float speed;
+    private double speed;
     
     /**
      * The final target to move to.
@@ -27,43 +27,50 @@ public abstract class Enemy extends MovableObject {
     /**
      * @param speed Tiles per second.
      */
-    public Enemy(World world, float speed) {
+    public Enemy(World world, double speed) {
         super(world.getSpawnPos().getX(), world.getSpawnPos().getY());
         
+        this.speed = speed;
         this.finalTarget = world.getCastlePos();
         this.pathFinder = new PathFinder(world);
         
-        findNextCurrentTarget();
+        currentTarget = findNextCurrentTarget();
+        
     }
     
-    private void findNextCurrentTarget() {
-        currentTarget = pathFinder.findPath(Math.round(getX()), Math.round(getY()), finalTarget.getX(), finalTarget.getY()).get(1);
+    // protected for test cases
+    protected Point findNextCurrentTarget() {
+        return pathFinder.findPath((int) Math.round(getX()), (int) Math.round(getY()), finalTarget.getX(), finalTarget.getY()).get(1);
     }
     
     @Override
-    public void step(long dtime) {
-        float walkInThisStep = (float) (dtime / 1000000000.) * speed;
+    public void step(double dtime) {
+        double walkInThisStep = (dtime / 1000) * speed;
         
-        float dx = (getX() - currentTarget.getX());
-        float dy = (getY() - currentTarget.getY());
+        double dx = currentTarget.getX() - getX();
+        double dy = currentTarget.getY() - getY();
         
-        float distToCurrentTarget = (float) Math.sqrt(dx * dx + dy * dy);
-        
-        if (walkInThisStep >= distToCurrentTarget) {
-            setX(currentTarget.getX());
-            setY(currentTarget.getY());
+        if (Math.abs(dx) > Math.abs(dy)) {
             
-            findNextCurrentTarget();
+            if (walkInThisStep > Math.abs(dx)) {
+                setX(currentTarget.getX());
+                currentTarget = findNextCurrentTarget();
+                
+            } else {
+                setX(getX() + Math.signum(dx) * walkInThisStep);
+            }
             
         } else {
             
-            float ratio = walkInThisStep / distToCurrentTarget;
-            float moveX = dx * ratio;
-            float moveY = dy * ratio;
+            if (walkInThisStep > Math.abs(dy)) {
+                setY(currentTarget.getY());
+                currentTarget = findNextCurrentTarget();
+                
+            } else {
+                setY(getY() + Math.signum(dy) * walkInThisStep);
+            }
             
-            move(moveX, moveY);
         }
-        
     }
     
     public Point getCurrentTile() {

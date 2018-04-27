@@ -98,9 +98,9 @@ public class World {
     /**
      * Simulates a single step for the enemies.
      * 
-     * @param dtime The time since the last step in nanseconds.
+     * @param dtime The time since the last step in milliseconds.
      */
-    public void step(long dtime) {
+    public void step(double dtime) {
         for (MovableObject obj : objects) {
             obj.step(dtime);
         }
