@@ -12,6 +12,10 @@ public class World {
     
     private int width;
     
+    private Point spawn;
+    
+    private Point castle;
+    
     // [x][y]
     private GroundTile[][] ground;
     
@@ -29,6 +33,9 @@ public class World {
         buildings = new Building[height][width];
         
         objects = new HashSet<>(1337);
+        
+        this.spawn = new Point(32, 63);
+        this.castle = new Point(32, 0);
     }
     
     private void initGround() {
@@ -76,11 +83,21 @@ public class World {
     public void removeObject(MovableObject object) {
         objects.remove(object);
     }
+
+    public Point getCastlePos() {
+        return castle;
+    }
+    
+    public Point getSpawnPos() {
+        return spawn;
+    }
     
     /**
      * Simulates a single step for the enemies.
+     * 
+     * @param dtime The time since the last step in nanseconds.
      */
-    public void step() {
+    public void step(long dtime) {
         
     }
     

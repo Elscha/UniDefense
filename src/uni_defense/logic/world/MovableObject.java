@@ -32,4 +32,10 @@ public abstract class MovableObject {
         this.y += dy;
     }
     
+    /**
+     * @param dtime The time since the last step in nanseconds.
+     */
+    public void step(long dtime) {
+    }
+    
 }

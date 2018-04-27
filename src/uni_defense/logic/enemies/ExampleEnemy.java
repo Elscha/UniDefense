@@ -1,9 +1,11 @@
 package uni_defense.logic.enemies;
 
+import uni_defense.logic.world.World;
+
 public class ExampleEnemy extends Enemy {
 
-    public ExampleEnemy(float x, float y) {
-        super(x, y);
+    public ExampleEnemy(World world) {
+        super(world);
     }
 
 }
