@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 
 import uni_defense.logic.buildings.Archer;
 import uni_defense.logic.buildings.Building;
-import uni_defense.logic.enemies.Enemy;
+import uni_defense.logic.buildings.Canon;
 import uni_defense.logic.world.GroundTile;
 import uni_defense.logic.world.MovableObject;
 import uni_defense.logic.world.World;
@@ -23,7 +23,9 @@ import uni_defense.ui.menus.MouseMenu;
 
 public class WorldRenderer extends JPanel {
 	
-	/**
+    private static final long serialVersionUID = -4005332381854987871L;
+
+    /**
 	 * Tile size in pixels.
 	 */
 	public static final int TILE_SIZE = 32;
@@ -42,6 +44,7 @@ public class WorldRenderer extends JPanel {
 		// Buildings
 		Map<Class<? extends Building>, Image> tmpBuildings = new HashMap<>();
 		tmpBuildings.put(Archer.class, StaticPictures.ARCHER_BUILDING);
+		tmpBuildings.put(Canon.class, StaticPictures.ARCHER_BUILDING);
 		BUILDING_MAPPING = Collections.unmodifiableMap(tmpBuildings);
 	}
 	
@@ -77,7 +80,10 @@ public class WorldRenderer extends JPanel {
 	}
 
 	private int pixelsToTile(int pixel) {
-		return pixel / TILE_SIZE;
+		return (pixel / TILE_SIZE);
+	}
+	private int tileToPixels(int pixel) {
+		return (pixel * TILE_SIZE);
 	}
 	
 	@Override
@@ -88,14 +94,28 @@ public class WorldRenderer extends JPanel {
 				
 				GroundTile tile = worldModel.getGroundTile(x, y);
 				
-				int drawToX = x * TILE_SIZE;
-				int drawToY = y * TILE_SIZE;
+				int drawToX = tileToPixels(x);
+				int drawToY = tileToPixels(y);
 				
 				g.drawImage(GROUND_TILE_MAPPING.get(tile), drawToX, drawToY, TILE_SIZE, TILE_SIZE, null);
 				
 			}
 		}
 		
+		// draw buildings
+		for (int x = 0; x < worldModel.getWidth(); x++) {
+            for (int y = 0; y < worldModel.getHeight(); y++) {
+                
+                Building building = worldModel.getBuilding(x, y);
+                
+                if (building != null) {
+                    int drawToX = tileToPixels(x);
+                    int drawToY = tileToPixels(y);
+                    
+                    g.drawImage(BUILDING_MAPPING.get(building.getClass()), drawToX, drawToY, TILE_SIZE, TILE_SIZE, null);
+                }
+            }
+        }
 		
 		// Draw enemies
 		for (MovableObject enemy : worldModel.getObjects()) {
@@ -105,7 +125,7 @@ public class WorldRenderer extends JPanel {
 			
 			String id = enemy.getID();
 			Sprite sprite = enemies.get(id);
-			int size = (enemy instanceof Enemy) ? ((Enemy) enemy).getSize() : 0;
+			int size = enemy.getSize();
 			if (null == sprite) {
 				sprite = new Sprite("sprites/enemies/" + enemy.getClass().getSimpleName().toLowerCase(), size);
 				enemies.put(id, sprite);
@@ -114,7 +134,7 @@ public class WorldRenderer extends JPanel {
 				size = TILE_SIZE;
 			}
 			
-			g.drawImage(sprite.getImage(), drawToX, drawToY, size, size, null);
+			g.drawImage(sprite.getImage(), drawToX - size / 2 + TILE_SIZE / 2, drawToY - size / 2 + TILE_SIZE / 2, size, size, null);
 		}
 	}
 }

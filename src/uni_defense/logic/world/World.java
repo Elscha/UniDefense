@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import uni_defense.Main;
+import uni_defense.logic.buildings.Archer;
 import uni_defense.logic.buildings.Building;
 import uni_defense.logic.enemies.Worker;
 
@@ -32,7 +33,10 @@ public class World {
 
         buildings = new Building[Main.STANDARD_WIDTH][Main.STANDARD_HEIGHT];
         
+        buildings[15][3] = new Archer(this);
+        
         objects = new HashSet<>(1337);
+        
         objects.add(new Worker(this));
         objects.add(new Worker(this, 0.1f, 64));
     }

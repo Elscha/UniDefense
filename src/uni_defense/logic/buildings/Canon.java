@@ -5,17 +5,17 @@ import uni_defense.logic.enemies.Enemy;
 import uni_defense.logic.world.MovableObject;
 import uni_defense.logic.world.World;
 
-public class Archer extends Building {
+public class Canon extends Building {
 
     private final double MAX_COOLDOWN = 2000;
     
-    private int range = 5;
+    private int range;
     
     private double cooldown;
     
     private World world;
     
-    public Archer(World world) {
+    public Canon(World world) {
         this.world = world;
     }
     
@@ -23,9 +23,7 @@ public class Archer extends Building {
         double dx = enemy.getX() - x;
         double dy = enemy.getY() - y;
         
-        double distance = Math.sqrt(dx * dx + dy * dy); 
-        
-        return distance <= range;
+        return Math.sqrt(dx * dx + dy * dy) <= range;
     }
     
     @Override

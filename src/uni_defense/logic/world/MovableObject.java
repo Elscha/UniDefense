@@ -49,4 +49,8 @@ public abstract class MovableObject {
     	return this.getClass().getSimpleName().toLowerCase();
     }
     
+    public int getSize() {
+        return 0;
+    }
+    
 }

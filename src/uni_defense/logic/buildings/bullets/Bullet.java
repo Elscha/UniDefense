@@ -11,6 +11,8 @@ public class Bullet extends MovableObject {
      */
     private double speed = 4;
     
+    private int damage = 5;
+    
     private Enemy target;
     
     private World world;
@@ -18,6 +20,7 @@ public class Bullet extends MovableObject {
     public Bullet(World world, double x, double y, Enemy target) {
         super(x, y);
         this.world = world;
+        this.target = target;
     }
     
     @Override
@@ -31,7 +34,7 @@ public class Bullet extends MovableObject {
         
         if (movementThisStep >= distance) {
             world.removeObject(this);
-            // TODO: damage enemy
+            target.damage(damage);
             
         } else {
             double ratio = movementThisStep / distance;
@@ -39,6 +42,11 @@ public class Bullet extends MovableObject {
             move(dx * ratio, dy * ratio);
         }
         
+    }
+    
+    @Override
+    public int getSize() {
+        return 8;
     }
 
 }
