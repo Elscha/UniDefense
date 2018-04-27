@@ -99,6 +99,10 @@ public class World {
         return buildings[x][y];
     }
     
+    public void setBuildings(int x, int y, Building building) {
+        this.buildings[x][y] = building;
+    }
+    
     public int getWidth() {
         return ground.length;
     }
