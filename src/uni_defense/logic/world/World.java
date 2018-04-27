@@ -8,10 +8,10 @@ import uni_defense.logic.buildings.Building;
 
 public class World {
 
-    public int height;
+    private int height;
     
-    public int width;
-
+    private int width;
+    
     // [x][y]
     private GroundTile[][] ground;
     
@@ -75,6 +75,13 @@ public class World {
     
     public void removeObject(MovableObject object) {
         objects.remove(object);
+    }
+    
+    /**
+     * Simulates a single step for the enemies.
+     */
+    public void step() {
+        
     }
     
 }
