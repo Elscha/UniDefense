@@ -51,6 +51,7 @@ public class PathFinder {
 	{
 		List<Point> closed = new LinkedList<>();
 		//start from the end
+		int auxx, auxy;
 		int xa=xg;
 		int ya=yg;
 		int modx [] = {-1,+1,0,0};
@@ -58,8 +59,10 @@ public class PathFinder {
 		
 		while(this.dirMap[xa][ya]!=START){
 			closed.add(0, new Point(xa,ya));
-			xa=xa - modx[this.dirMap[xa][ya]-1];
-			ya=ya - mody[this.dirMap[xa][ya]-1];
+			auxx=xa - modx[this.dirMap[xa][ya]-1];
+			auxy=ya - mody[this.dirMap[xa][ya]-1];
+			xa=auxx;
+			ya=auxy;
 		}
 		closed.add(0, new Point(xa,ya));
 		return closed;
