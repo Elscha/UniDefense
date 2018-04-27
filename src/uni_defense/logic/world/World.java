@@ -21,7 +21,8 @@ public class World {
     private Building[][] buildings;
     private Set<MovableObject> objects;
     
-    private Set<MovableObject> markedForRemoval = new HashSet<>();
+    private Set<MovableObject> markedForRemoval = new HashSet<>(100);
+    private Set<MovableObject> markedForAdding = new HashSet<>(100);
     
     public World() {
         this.spawn = new Point(Math.round(Main.STANDARD_WIDTH/2), Math.round(Main.STANDARD_HEIGHT/2));
@@ -107,7 +108,7 @@ public class World {
     }
     
     public void addObject(MovableObject object) {
-        objects.add(object);
+        markedForAdding.add(object);
     }
     
     /**
@@ -131,11 +132,25 @@ public class World {
      * @param dtime The time since the last step in milliseconds.
      */
     public void step(double dtime) {
+        objects.addAll(markedForAdding);
+        markedForAdding.clear();
+        
         objects.removeAll(markedForRemoval);
+        markedForRemoval.clear();
         
         for (MovableObject obj : objects) {
             obj.step(dtime);
         }
+        
+        for (int x = 0; x < getWidth(); x++) {
+            for (int y = 0; y < getHeight(); y++) {
+                Building b = buildings[x][y];
+                if (b != null) {
+                    b.step(dtime, x, y);
+                }
+            }
+        }
+        
     }
 
     public GroundTile[][] getGround() {
