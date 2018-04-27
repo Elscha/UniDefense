@@ -20,6 +20,7 @@ public class Bullet extends MovableObject {
     public Bullet(World world, double x, double y, Enemy target) {
         super(x, y);
         this.world = world;
+        this.target = target;
     }
     
     @Override
@@ -41,6 +42,11 @@ public class Bullet extends MovableObject {
             move(dx * ratio, dy * ratio);
         }
         
+    }
+    
+    @Override
+    public int getSize() {
+        return 8;
     }
 
 }

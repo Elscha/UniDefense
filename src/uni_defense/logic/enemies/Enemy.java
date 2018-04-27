@@ -55,6 +55,7 @@ public abstract class Enemy extends MovableObject {
         this.hp = hp;
     }
     
+    @Override
     public int getSize() {
 		return size;
 	}

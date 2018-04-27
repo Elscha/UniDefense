@@ -9,7 +9,7 @@ public class Archer extends Building {
 
     private final double MAX_COOLDOWN = 2000;
     
-    private int range;
+    private int range = 5;
     
     private double cooldown;
     
@@ -23,7 +23,9 @@ public class Archer extends Building {
         double dx = enemy.getX() - x;
         double dy = enemy.getY() - y;
         
-        return Math.sqrt(dx * dx + dy * dy) <= range;
+        double distance = Math.sqrt(dx * dx + dy * dy); 
+        
+        return distance <= range;
     }
     
     @Override

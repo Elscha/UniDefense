@@ -16,7 +16,6 @@ import javax.swing.JPanel;
 import uni_defense.logic.buildings.Archer;
 import uni_defense.logic.buildings.Building;
 import uni_defense.logic.buildings.Canon;
-import uni_defense.logic.enemies.Enemy;
 import uni_defense.logic.world.GroundTile;
 import uni_defense.logic.world.MovableObject;
 import uni_defense.logic.world.World;
@@ -126,7 +125,7 @@ public class WorldRenderer extends JPanel {
 			
 			String id = enemy.getID();
 			Sprite sprite = enemies.get(id);
-			int size = (enemy instanceof Enemy) ? ((Enemy) enemy).getSize() : 0;
+			int size = enemy.getSize();
 			if (null == sprite) {
 				sprite = new Sprite("sprites/enemies/" + enemy.getClass().getSimpleName().toLowerCase(), size);
 				enemies.put(id, sprite);
