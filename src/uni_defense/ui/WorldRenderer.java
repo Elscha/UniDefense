@@ -18,7 +18,7 @@ public class WorldRenderer extends JPanel {
 	/**
 	 * Tile size in pixels.
 	 */
-	private static final int TILE_SIZE = 16;
+	private static final int TILE_SIZE = 32;
 	
 	private static final Map<GroundTile, Image> GROUND_TILE_MAPPING;
 	private Map<String, Sprite> enemies = new HashMap<>();

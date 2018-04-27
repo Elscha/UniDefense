@@ -9,7 +9,7 @@ import uni_defense.logic.world.World;
 import uni_defense.ui.AbstractGraphicComponent;
 import uni_defense.ui.WorldRenderer;
 
-public class Display  {
+public class Display implements Runnable {
 	
 		private List<AbstractGraphicComponent> components = new ArrayList<>();
 	
@@ -17,6 +17,7 @@ public class Display  {
 	    private static AbstractGraphicComponent canvas;
 	    private String title;
 	    private int width, height;
+	    private World world = new World();
 
 	    public Display(String tuade, int rong, int dai) {
 	        this.title = tuade;
@@ -41,7 +42,7 @@ public class Display  {
 	        //int rows = 64;
 	        //int columns = 64;
 	        //jframe.setLayout(new GridLayout(rows, columns, 0, 0));
-	        jframe.add(new WorldRenderer(new World()));
+	        jframe.add(new WorldRenderer(world));
 	        
 	        
 //	        for (int row = 0; row < (rows - 1); row++) {
@@ -68,8 +69,8 @@ public class Display  {
 //	        jframe.add(canvas);
 	        jframe.pack();
 
-//	        Thread th = new Thread(this);
-//	        th.start();
+	        Thread th = new Thread(this);
+	        th.start();
 	    }
 
 	
@@ -77,22 +78,21 @@ public class Display  {
 		new Display("Test", 640, 480);
 	}
 
-//	@Override
-//	public void run() {
-//		while(true) {
-//			for (AbstractGraphicComponent abstractGraphicComponent : components) {
-//				abstractGraphicComponent.update(abstractGraphicComponent.getGraphics());
-//				
-//			}
-//			
-//			try {
-//				Thread.sleep(200);
-//			} catch (InterruptedException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//		}
-//		
-//	}
+	@Override
+	public void run() {
+		final int stepSize = 200;
+		while(true) {
+			world.step(stepSize);
+			jframe.repaint();
+			
+			try {
+				Thread.sleep(stepSize);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+	}
 
 }

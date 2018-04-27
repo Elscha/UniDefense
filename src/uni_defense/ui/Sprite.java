@@ -35,7 +35,7 @@ public class Sprite {
 	
 	
 	public BufferedImage getImage() {
-		if (pictureIndex > images.length) {
+		if (pictureIndex == images.length) {
 			pictureIndex = 0;
 		}
 		
