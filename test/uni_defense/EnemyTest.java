@@ -14,8 +14,10 @@ public class EnemyTest {
 
         private static Point target;
         
+        private double speed;
+        
         public TestEnemy(double speed, Point start) {
-            super(new World(), speed, 5);
+            super(new World());
             setX(start.getX());
             setY(start.getY());
         }
@@ -23,6 +25,21 @@ public class EnemyTest {
         @Override
         protected Point findNextCurrentTarget() {
             return target;
+        }
+
+        @Override
+        public double getSpeed() {
+            return speed;
+        }
+
+        @Override
+        public int getMaxHp() {
+            return 10;
+        }
+
+        @Override
+        public int getGold() {
+            return 1;
         }
         
     }

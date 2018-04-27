@@ -5,11 +5,26 @@ import uni_defense.logic.world.World;
 public class Worker extends Enemy {
 
     public Worker(World world) {
-        super(world, 0.5, 10);
+        super(world);
     }
     
     public Worker(World world, double speed, int size) {
-    	super(world, speed, size, 10);
+    	super(world, size);
+    }
+    
+    @Override
+    public double getSpeed() {
+        return 0.5;
+    }
+    
+    @Override
+    public int getMaxHp() {
+        return 10;
+    }
+    
+    @Override
+    public int getGold() {
+        return 1;
     }
 
 }

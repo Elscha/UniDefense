@@ -16,11 +16,6 @@ public abstract class Enemy extends MovableObject {
     private PathFinder pathFinder;
     
     /**
-     * tiles per second.
-     */
-    private double speed;
-    
-    /**
      * The final target to move to.
      */
     private Point finalTarget;
@@ -32,32 +27,35 @@ public abstract class Enemy extends MovableObject {
     
     private int size;
     
-    private int maxHp;
-    
     private int hp;
     
     /**
      * @param speed Tiles per second.
      */
-    public Enemy(World world, double speed, int hp) {
-        this(world, speed, 0, hp);
+    public Enemy(World world) {
+        this(world, 0);
     }
     
-    public Enemy(World world, double speed, int size, int hp) {
+    public Enemy(World world, int size) {
         super(world.getSpawnPos().getX(), world.getSpawnPos().getY());
         
         this.world = world;
         
-        this.speed = speed;
         this.finalTarget = world.getCastlePos();
         this.pathFinder = new PathFinder(world);
         
         currentTarget = findNextCurrentTarget();
         
         this.size = size;
-        this.maxHp = hp;
-        this.hp = hp;
+        this.hp = getMaxHp();
     }
+    
+    /**
+     * tiles per second. 
+     */
+    public abstract double getSpeed();
+    
+    
     
     @Override
     public int getSize() {
@@ -78,7 +76,7 @@ public abstract class Enemy extends MovableObject {
     
     @Override
     public void step(double dtime) {
-        double walkInThisStep = (dtime / 1000) * speed;
+        double walkInThisStep = (dtime / 1000) * getSpeed();
         
         if (Math.round(getX()) == finalTarget.getX() && Math.round(getY()) == finalTarget.getY()) {
             Player.INSTANCE.damage(getDamage());
@@ -142,8 +140,8 @@ public abstract class Enemy extends MovableObject {
         return hp;
     }
     
-    public int getMaxHp() {
-        return maxHp;
-    }
+    public abstract int getMaxHp();
+    
+    public abstract int getGold();
     
 }
