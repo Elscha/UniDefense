@@ -1,8 +1,10 @@
 package uni_defense.ui;
 
 import javax.swing.JFrame;
+import javax.swing.JSplitPane;
 
 import uni_defense.logic.world.World;
+import uni_defense.ui.menus.GameMenu;
 
 public class MainWindow extends JFrame implements Runnable {
 	
@@ -14,7 +16,13 @@ public class MainWindow extends JFrame implements Runnable {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(true);
         setVisible(true);
-        add(new WorldRenderer(world));
+        
+        JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, new WorldRenderer(world), new GameMenu());
+        splitPane.setDividerLocation(150);
+        
+//        add(new WorldRenderer(world));
+//        add(new GameMenu());
+        add(splitPane);
         
         Thread th = new Thread(this);
         th.start();
@@ -22,7 +30,6 @@ public class MainWindow extends JFrame implements Runnable {
 
 	public static void main(String[] args) {
 		new MainWindow();
-
 	}
 
 	@Override

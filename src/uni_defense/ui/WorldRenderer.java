@@ -28,6 +28,8 @@ public class WorldRenderer extends JPanel {
 	 */
 	public static final int TILE_SIZE = 32;
 	
+	private static final int TILE_OFFSET = TILE_SIZE / 2;
+	
 	private static final Map<GroundTile, Image> GROUND_TILE_MAPPING;
 	private static final Map<Class<? extends Building>, Image> BUILDING_MAPPING;
 	private Map<String, Sprite> enemies = new HashMap<>();
@@ -77,7 +79,10 @@ public class WorldRenderer extends JPanel {
 	}
 
 	private int pixelsToTile(int pixel) {
-		return pixel / TILE_SIZE;
+		return (pixel / TILE_SIZE) + TILE_OFFSET;
+	}
+	private int tileToPixels(int pixel) {
+		return (pixel * TILE_SIZE) - TILE_OFFSET;
 	}
 	
 	@Override
@@ -88,8 +93,8 @@ public class WorldRenderer extends JPanel {
 				
 				GroundTile tile = worldModel.getGroundTile(x, y);
 				
-				int drawToX = x * TILE_SIZE;
-				int drawToY = y * TILE_SIZE;
+				int drawToX = tileToPixels(x);
+				int drawToY = tileToPixels(y);
 				
 				g.drawImage(GROUND_TILE_MAPPING.get(tile), drawToX, drawToY, TILE_SIZE, TILE_SIZE, null);
 				
