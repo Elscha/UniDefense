@@ -10,6 +10,8 @@ import javax.imageio.ImageIO;
 
 public class GraphicUtils {
 	
+	public final static String BASE_FOLDER =  GraphicUtils.class.getResource(".").getFile() + "/";
+	
 	public static BufferedImage loadImage(File file) {
 		BufferedImage bi = null;
         //System.err.println("....setimg...." + fileName);

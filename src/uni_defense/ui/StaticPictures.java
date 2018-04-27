@@ -4,6 +4,6 @@ import javax.swing.ImageIcon;
 
 public class StaticPictures {
 	
-	public static ImageIcon GRASS_BACKGROUND = new ImageIcon(AbstractGraphicComponent.BASE_FOLDER + "ground/grass.png");
+	public static ImageIcon GRASS_BACKGROUND = new ImageIcon(GraphicUtils.BASE_FOLDER  + "ground/grass.png");
 
 }

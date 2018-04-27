@@ -5,7 +5,7 @@ import javax.swing.JLabel;
 
 public class AbstractGraphicComponent extends JLabel {
 	
-	static final String BASE_FOLDER =  Sprite.class.getResource(".").getFile() + "/";
+	
 
 	public AbstractGraphicComponent() {
 		setDoubleBuffered(true);

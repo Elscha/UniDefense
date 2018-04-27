@@ -1,12 +1,9 @@
 package uni_defense.ui;
 
-import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
-public class Sprite extends AbstractGraphicComponent {
-	
+public class Sprite {
 	private File folder;
 	private BufferedImage[] images;
 	private int pictureIndex = 0;
@@ -18,7 +15,7 @@ public class Sprite extends AbstractGraphicComponent {
 	}
 	
 	public Sprite(String path, int size) {
-		folder = new File(AbstractGraphicComponent.BASE_FOLDER + path);
+		folder = new File(GraphicUtils.BASE_FOLDER + path);
 		
 		if (null != folder && folder.isDirectory()) {
 			File[] pictures = folder.listFiles();
@@ -34,24 +31,15 @@ public class Sprite extends AbstractGraphicComponent {
 		} else {
 			System.err.println("Couldn't load picture");
 		}
-		
-		setPreferredSize(new Dimension(size, size));
-        setMaximumSize(new Dimension(size, size));
-        setMinimumSize(new Dimension(size, size));
-		
-		//new Thread(this).start();
-		
 	}
 	
 	
-	@Override
-	public void update(Graphics g) {
-		super.update(g);
-		g.drawImage(images[pictureIndex++], 0, 0, null);
-		
-		if (pictureIndex >= images.length) {
+	public BufferedImage getImage() {
+		if (pictureIndex > images.length) {
 			pictureIndex = 0;
 		}
+		
+		return images[pictureIndex++];
 		
 	}
 }
