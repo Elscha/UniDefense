@@ -62,11 +62,15 @@ public class WorldRenderer extends JPanel {
 		addMouseListener(new MouseAdapter() {
 			
 			public void mousePressed(MouseEvent e){
-		        doPop(e);
+				if (e.isPopupTrigger()) {
+					doPop(e);
+				}
 		    }
 
 		    public void mouseReleased(MouseEvent e){
-		        doPop(e);
+		    	if (e.isPopupTrigger()) {
+					doPop(e);
+				}
 		    }
 
 		    private void doPop(MouseEvent e){
