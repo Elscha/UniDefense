@@ -72,8 +72,13 @@ public class PathFinder {
 		return null != findPath(start.getX(), start.getY(), destination.getX(), destination.getY());
 	}
 	
-	public List<Point> findPath(int x1, int y1, int x2, int y2) {
+	
+	public List<Point> findPath(int x1, int y1, int x2, int y2)
+	{
+		return findPath(x1,y1,x2,y2,null);
+	}
 		 //First point on this list is the start
+	public List<Point> findPath(int x1, int y1, int x2, int y2, int[][]influence) {
 
 		this.reset();
 		NodeSearch actual;
@@ -134,11 +139,15 @@ public class PathFinder {
 					//check if candidate is accessible
 					if (world.isWalkable(visitx, visity)){
 						//check if it's visited, or else add it to the priority list
-					    
-					    int heuristicCost = currentD+1+this.manhattanD(visitx, visity, x2, y2);
+						int influ =0;
+					    if (influence!=null)
+					    {
+					    	influ = influence[visitx][visity];
+					    }
+					    int heuristicCost = influ+currentD+1+this.manhattanD(visitx, visity, x2, y2);
 					    
 						if(this.dirMap[visitx][visity]==NOTVISITED||this.dirMap[visitx][visity]==GOAL) {
-						    prio.add(new NodeSearch(currentD+1, new Point(visitx,visity),
+						    prio.add(new NodeSearch(currentD+1+influ, new Point(visitx,visity),
                                     heuristicCost));
 						    
 						} else {
@@ -159,7 +168,7 @@ public class PathFinder {
 						}
 																					  
 						//check if this path is better, then update your costs.
-						int tentativeScore = currentD+1;
+						int tentativeScore = currentD+1+influ;
 						if (tentativeScore < this.costMap[visitx][visity]) {
 							this.costMap[visitx][visity] = tentativeScore;
 							this.dirMap [visitx][visity] = dirV[i];
