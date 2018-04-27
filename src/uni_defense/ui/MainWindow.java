@@ -9,6 +9,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 
 import uni_defense.audio.Music;
+import uni_defense.logic.player.Player;
 import uni_defense.logic.world.World;
 import uni_defense.logic.world.loading.WorldManager;
 import uni_defense.ui.menus.GameMenu;
@@ -29,6 +30,8 @@ public class MainWindow extends JFrame implements Runnable {
         setResizable(true);
         
         renderer = new WorldRenderer(world);
+        Player.INSTANCE.setGold(100);
+        WorldRenderer renderer = new WorldRenderer(world);
         JScrollPane worldPane = new JScrollPane(renderer, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         GameMenu menu = new GameMenu();
         Dimension menuSize = new Dimension(renderer.getWidth(), 100);

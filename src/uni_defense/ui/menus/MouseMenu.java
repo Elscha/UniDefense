@@ -9,6 +9,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
 import uni_defense.logic.buildings.Building;
+import uni_defense.logic.buildings.BuildingModel;
+import uni_defense.logic.player.Player;
 import uni_defense.logic.world.World;
 
 public class MouseMenu extends JPopupMenu {
@@ -21,18 +23,24 @@ public class MouseMenu extends JPopupMenu {
         
     	if (worldModel.isBuildable(tileX, tileY)) {
 	    	for (Class<? extends Building> towerClass : towers) {
-				JMenuItem btn = new JMenuItem(towerClass.getSimpleName());
+	    		int price = BuildingModel.BUILDING_PRICES.get(towerClass);
+				JMenuItem btn = new JMenuItem(towerClass.getSimpleName() + " (" + price + ")");
 				add(btn);
 				
 				btn.addMouseListener(new MouseAdapter() {
 					public void mousePressed(MouseEvent e) {
-						try {
-							Constructor<? extends Building> constructor = towerClass.getConstructor(World.class);
-							Building newTower = constructor.newInstance(worldModel);
-							worldModel.setBuildings(tileX, tileY, newTower);
-						} catch (ReflectiveOperationException | SecurityException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
+						if (Player.INSTANCE.getGold() >= price) {
+							try {
+								Constructor<? extends Building> constructor = towerClass.getConstructor(World.class);
+								Building newTower = constructor.newInstance(worldModel);
+								worldModel.setBuildings(tileX, tileY, newTower);
+								
+								// TODO check if there still exist a path
+								Player.INSTANCE.updateGold(-price);
+							} catch (ReflectiveOperationException | SecurityException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
 						}
 				    }
 				});
