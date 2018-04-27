@@ -18,5 +18,10 @@ public class PathFindingTest {
 		System.out.println(world.getSpawnPos().getY());
 		System.out.println(finder.findPath(world.getSpawnPos().getX(), world.getSpawnPos().getY()-1, world.getCastlePos().getX(), world.getCastlePos().getY()));
 		System.out.println(finder.findPath(5, 5, 5, 5));
+		int in[][]=new int [world.getWidth()][world.getHeight()];
+		in[16][14]=4;
+		System.out.println(finder.findPath(world.getSpawnPos().getX(), world.getSpawnPos().getY()-1, world.getCastlePos().getX(), world.getCastlePos().getY(),in));
+		
+		assertEquals(5, 6);
 	}
 }
