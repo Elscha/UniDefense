@@ -62,6 +62,8 @@ public class World {
     public boolean isBuildable(int x, int y) {
         boolean canBuild = ground[x][y].isBuildable() && buildings[x][y] == null;
         
+        canBuild &= castle.getX() != x || castle.getY() != y;
+        
         if (canBuild) {
             for (MovableObject obj : objects) {
                 Point objPos = obj.getCurrentTile();
