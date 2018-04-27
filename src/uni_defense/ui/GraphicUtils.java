@@ -14,17 +14,13 @@ public class GraphicUtils {
 	
 	public static BufferedImage loadImage(File file) {
 		BufferedImage bi = null;
-        //System.err.println("....setimg...." + fileName);
-
         try {
             bi = ImageIO.read(file); 
 
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("Image could not be read");
             System.exit(1);
         }
-        System.out.println(bi);
 
         return bi;
     }
