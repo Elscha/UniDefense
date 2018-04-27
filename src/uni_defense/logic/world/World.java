@@ -55,9 +55,27 @@ public class World {
         return ground[x][y];
     }
     
-    public boolean isWalkable (int x, int y) {
-    	return ground[x][y].isWalkable() && buildings[x][y]==null;
+    public boolean isWalkable(int x, int y) {
+    	return ground[x][y].isWalkable() && buildings[x][y] == null;
     }
+    
+    public boolean isBuildable(int x, int y) {
+        boolean canBuild = ground[x][y].isBuildable() && buildings[x][y] == null;
+        
+        if (canBuild) {
+            for (MovableObject obj : objects) {
+                Point objPos = obj.getCurrentTile();
+                canBuild &= objPos.getX() != x || objPos.getY() != y;
+                
+                if (!canBuild) {
+                    break;
+                }
+            }
+        }
+        
+        return canBuild;
+    }
+    
     /**
      * [0][0] is top left.
      * 

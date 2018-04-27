@@ -38,4 +38,11 @@ public abstract class MovableObject {
     public void step(double dtime) {
     }
     
+    /**
+     * The tile that this object is considered to be on.
+     */
+    public Point getCurrentTile() {
+        return new Point((int) Math.round(x), (int) Math.round(y));
+    }
+    
 }

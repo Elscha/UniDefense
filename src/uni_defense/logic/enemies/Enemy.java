@@ -73,7 +73,9 @@ public abstract class Enemy extends MovableObject {
         }
     }
     
+    @Override
     public Point getCurrentTile() {
+        // an enemey always "blocks" the tile that it is moving to
         return currentTarget;
     }
 
