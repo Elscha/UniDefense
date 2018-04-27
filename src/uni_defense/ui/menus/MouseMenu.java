@@ -45,7 +45,7 @@ public class MouseMenu extends JPopupMenu {
 				    }
 				});
 	    	}
-		} else {
+		} else if (worldModel.getBuilding(tileX, tileY) != null) {
 			JMenuItem btnUpgrade = new JMenuItem("Upgrade");
 			add(btnUpgrade);
 			btnUpgrade.addMouseListener(new MouseAdapter() {
