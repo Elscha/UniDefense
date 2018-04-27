@@ -16,6 +16,6 @@ public class PathFindingTest {
 		PathFinder finder = new PathFinder(world);
 		System.out.println(world.getSpawnPos().getX());
 		System.out.println(world.getSpawnPos().getY());
-		System.out.println(finder.findPath(world.getSpawnPos().getX(), world.getSpawnPos().getY(), world.getCastlePos().getX(), world.getCastlePos().getY()));
+		System.out.println(finder.findPath(world.getSpawnPos().getX(), world.getSpawnPos().getY()-1, world.getCastlePos().getX(), world.getCastlePos().getY()));
 	}
 }
