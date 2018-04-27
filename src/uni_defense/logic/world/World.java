@@ -101,7 +101,9 @@ public class World {
      * @param dtime The time since the last step in nanseconds.
      */
     public void step(long dtime) {
-        
+        for (MovableObject obj : objects) {
+            obj.step(dtime);
+        }
     }
     
 }
