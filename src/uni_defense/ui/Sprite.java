@@ -5,19 +5,19 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
-public class Enemy extends AbstractGraphicComponent {
+public class Sprite extends AbstractGraphicComponent {
 	
 	private File folder;
 	private BufferedImage[] images;
 	private int pictureIndex = 0;
 	
 	
-	public Enemy(String path) {
+	public Sprite(String path) {
 		this(path, 0);
 		
 	}
 	
-	public Enemy(String path, int size) {
+	public Sprite(String path, int size) {
 		folder = new File(AbstractGraphicComponent.BASE_FOLDER + path);
 		
 		if (null != folder && folder.isDirectory()) {
