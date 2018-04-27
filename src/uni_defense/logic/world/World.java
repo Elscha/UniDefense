@@ -30,7 +30,7 @@ public class World {
         
         initGround();
         
-        buildings = new Building[height][width];
+        buildings = new Building[width][height];
         
         objects = new HashSet<>(1337);
         
@@ -39,7 +39,7 @@ public class World {
     }
     
     private void initGround() {
-        ground = new GroundTile[height][width];
+        ground = new GroundTile[width][height];
         
         for (int i = 0; i < ground.length; i++) {
             for (int j = 0; j < ground[i].length; j++) {
