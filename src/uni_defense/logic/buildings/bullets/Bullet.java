@@ -11,6 +11,8 @@ public class Bullet extends MovableObject {
      */
     private double speed = 4;
     
+    private int damage = 5;
+    
     private Enemy target;
     
     private World world;
@@ -31,7 +33,7 @@ public class Bullet extends MovableObject {
         
         if (movementThisStep >= distance) {
             world.removeObject(this);
-            // TODO: damage enemy
+            target.damage(damage);
             
         } else {
             double ratio = movementThisStep / distance;

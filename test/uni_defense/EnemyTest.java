@@ -15,7 +15,7 @@ public class EnemyTest {
         private static Point target;
         
         public TestEnemy(double speed, Point start) {
-            super(new World(), speed);
+            super(new World(), speed, 5);
             setX(start.getX());
             setY(start.getY());
         }

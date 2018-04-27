@@ -31,14 +31,16 @@ public abstract class Enemy extends MovableObject {
     
     private int size;
     
+    private int hp;
+    
     /**
      * @param speed Tiles per second.
      */
-    public Enemy(World world, double speed) {
-        this(world, speed, 0);
+    public Enemy(World world, double speed, int hp) {
+        this(world, speed, 0, hp);
     }
     
-    public Enemy(World world, double speed, int size) {
+    public Enemy(World world, double speed, int size, int hp) {
         super(world.getSpawnPos().getX(), world.getSpawnPos().getY());
         
         this.world = world;
@@ -50,6 +52,7 @@ public abstract class Enemy extends MovableObject {
         currentTarget = findNextCurrentTarget();
         
         this.size = size;
+        this.hp = hp;
     }
     
     public int getSize() {
@@ -103,6 +106,13 @@ public abstract class Enemy extends MovableObject {
                 setY(getY() + Math.signum(dy) * walkInThisStep);
             }
             
+        }
+    }
+    
+    public void damage(int damage) {
+        this.hp -= damage;
+        if (hp <= 0) {
+            world.removeObject(this);
         }
     }
     
