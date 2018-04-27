@@ -22,7 +22,21 @@ public class BackgroundTile extends AbstractGraphicComponent {
 	@Override
 	public void update(Graphics g) {
 		super.update(g);
-		g.drawImage(image, 50, 50, null);
+		if (null != image) {
+			g.drawImage(image, 0, 0, null);
+		} else {
+			System.err.println("image is null in " + this.getClass().getSimpleName());
+		}
 		
 	}
+	
+//	@Override
+//    protected void paintComponent(Graphics g) {
+//        super.paintComponent(g);
+//        if (null != image) {
+//        	g.drawImage(image, 0, 0, this);
+//        } else {
+//			System.err.println("image is null in " + this.getClass().getSimpleName());
+//		}
+//    }
 }

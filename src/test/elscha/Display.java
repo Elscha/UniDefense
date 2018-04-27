@@ -1,6 +1,7 @@
 package test.elscha;
 
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,18 +42,23 @@ public class Display implements Runnable {
 	        jframe.setLocationRelativeTo(null);
 	        int rows = 1;
 	        int columns = 1;
-	        //jframe.setLayout(new GridLayout(64, 64));
+	        jframe.setLayout(new GridLayout(rows, columns));
 	        
-	        BackgroundTile background = new BackgroundTile("/ground/grass.png");
+	        BackgroundTile background = new BackgroundTile("ground/grass.png");
+	        background.setPreferredSize(new Dimension(width, height));
+	        background.setMaximumSize(new Dimension(width, height));
+	        background.setMinimumSize(new Dimension(width, height));
+	        add(background);
 	        
-	        for (int row = 0; row < rows; row++) {
-	        	for (int column = 0; column < columns; column++) {
-	        		add(background);
-	        	}
-				
-			}
+//	        for (int row = 0; row < rows; row++) {
+//	        	for (int column = 0; column < columns; column++) {
+//	        		add(background);
+//	        	}
+//				
+//			}
 
 	        canvas = new Enemy("sprites/enemies/worker");
+//	        canvas = new Enemy("ground");
 	        canvas.setPreferredSize(new Dimension(width, height));
 	        canvas.setMaximumSize(new Dimension(width, height));
 	        canvas.setMinimumSize(new Dimension(width, height));
