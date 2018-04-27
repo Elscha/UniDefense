@@ -23,9 +23,6 @@ public class World {
     
     public World() {
 
-        this.spawn = new Point(16, 31);
-        this.castle = new Point(16, 0);
-
         initGround();
 
         buildings = new Building[Main.STANDARD_WIDTH][Main.STANDARD_HEIGHT];

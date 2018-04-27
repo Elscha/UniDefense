@@ -1,7 +1,10 @@
 package uni_defense.logic.world.loading;
 
 import org.junit.Test;
+<<<<<<< HEAD
 import uni_defense.logic.exceptions.WorldNotFittingException;
+=======
+>>>>>>> bde6f90bc18285c4119ee7dbe86c16c0b7eb6a43
 import uni_defense.logic.world.GroundTile;
 import uni_defense.logic.world.World;
 
@@ -39,6 +42,7 @@ public class WorldManagerTest {
         assertEquals(6, w2.getWidth());
 
     }
+<<<<<<< HEAD
 
     @Test(expected = WorldNotFittingException.class)
     public void shouldNotLoadMap() throws Exception {
@@ -46,4 +50,6 @@ public class WorldManagerTest {
 
         WorldManager.loadMap(testFile);
     }
+=======
+>>>>>>> bde6f90bc18285c4119ee7dbe86c16c0b7eb6a43
 }
