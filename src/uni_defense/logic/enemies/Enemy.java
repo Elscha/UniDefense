@@ -4,6 +4,7 @@ import uni_defense.logic.world.MovableObject;
 import uni_defense.logic.world.PathFinder;
 import uni_defense.logic.world.Point;
 import uni_defense.logic.world.World;
+import uni_defense.ui.WorldRenderer;
 
 public abstract class Enemy extends MovableObject {
 
@@ -24,10 +25,17 @@ public abstract class Enemy extends MovableObject {
      */
     private Point currentTarget;
     
+    private int size;
+    
     /**
      * @param speed Tiles per second.
      */
     public Enemy(World world, double speed) {
+        this(world, speed, 0);
+        
+    }
+    
+    public Enemy(World world, double speed, int size) {
         super(world.getSpawnPos().getX(), world.getSpawnPos().getY());
         
         this.speed = speed;
@@ -36,9 +44,14 @@ public abstract class Enemy extends MovableObject {
         
         currentTarget = findNextCurrentTarget();
         
+        this.size = size;
     }
     
-    // protected for test cases
+    public int getSize() {
+		return size;
+	}
+
+	// protected for test cases
     protected Point findNextCurrentTarget() {
 //        return pathFinder.findPath((int) Math.round(getX()), (int) Math.round(getY()), finalTarget.getX(), finalTarget.getY()).get(1);
         return new Point(16, 30);
@@ -80,4 +93,8 @@ public abstract class Enemy extends MovableObject {
         return currentTarget;
     }
 
+    @Override
+    public String getID() {
+    	return this.getClass().getSimpleName().toLowerCase() + size;
+    }
 }

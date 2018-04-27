@@ -45,4 +45,8 @@ public abstract class MovableObject {
         return new Point((int) Math.round(x), (int) Math.round(y));
     }
     
+    public String getID() {
+    	return this.getClass().getSimpleName().toLowerCase();
+    }
+    
 }

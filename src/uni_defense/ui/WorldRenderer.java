@@ -9,6 +9,7 @@ import java.util.Map;
 
 import javax.swing.JPanel;
 
+import uni_defense.logic.enemies.Enemy;
 import uni_defense.logic.world.GroundTile;
 import uni_defense.logic.world.MovableObject;
 import uni_defense.logic.world.World;
@@ -18,7 +19,7 @@ public class WorldRenderer extends JPanel {
 	/**
 	 * Tile size in pixels.
 	 */
-	private static final int TILE_SIZE = 32;
+	public static final int TILE_SIZE = 32;
 	
 	private static final Map<GroundTile, Image> GROUND_TILE_MAPPING;
 	private Map<String, Sprite> enemies = new HashMap<>();
@@ -65,14 +66,18 @@ public class WorldRenderer extends JPanel {
 			int drawToY = (int) (enemy.getY() * TILE_SIZE);
 			
 			
-			String className = enemy.getClass().getSimpleName().toLowerCase();
-			Sprite sprite = enemies.get(className);
+			String id = enemy.getID();
+			Sprite sprite = enemies.get(id);
+			int size = (enemy instanceof Enemy) ? ((Enemy) enemy).getSize() : 0;
 			if (null == sprite) {
-				sprite = new Sprite("sprites/enemies/" + className);
-				enemies.put(className, sprite);
+				sprite = new Sprite("sprites/enemies/" + enemy.getClass().getSimpleName().toLowerCase(), size);
+				enemies.put(id, sprite);
+			}
+			if (size == 0) {
+				size = TILE_SIZE;
 			}
 			
-			g.drawImage(sprite.getImage(), drawToX, drawToY, TILE_SIZE, TILE_SIZE, null);
+			g.drawImage(sprite.getImage(), drawToX, drawToY, size, size, null);
 		}
 	}
 }
