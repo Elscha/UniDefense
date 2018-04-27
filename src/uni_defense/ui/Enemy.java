@@ -24,7 +24,7 @@ public class Enemy extends AbstractGraphicComponent implements Runnable {
 			System.err.println("Couldn't load picture");
 		}
 		
-		new Thread(this).start();
+		//new Thread(this).start();
 		
 	}
 	
@@ -32,21 +32,12 @@ public class Enemy extends AbstractGraphicComponent implements Runnable {
 	@Override
 	public void update(Graphics g) {
 		super.update(g);
-		g.setColor(getBackground());
-		g.clearRect(0, 0, 20, 20);
-        
 		g.drawImage(images[pictureIndex++], 20, 20, null);
 		
 		if (pictureIndex >= images.length) {
 			pictureIndex = 0;
 		}
 		
-		try {
-			Thread.sleep(200);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 
@@ -55,6 +46,12 @@ public class Enemy extends AbstractGraphicComponent implements Runnable {
 		while(true) {
 			if (null != getGraphics()) {
 				update(getGraphics());
+				try {
+					Thread.sleep(200);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		
 		}
