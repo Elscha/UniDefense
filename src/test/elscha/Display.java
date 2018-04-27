@@ -62,7 +62,7 @@ public class Display implements Runnable {
 	        	jframe.add(background);
 	        }
 
-	        canvas = new Enemy("sprites/enemies/worker");
+	        canvas = new Enemy("sprites/enemies/worker", 16);
 //	        canvas = new Enemy("ground");
 	        canvas.setPreferredSize(new Dimension(16, 16));
 	        canvas.setMaximumSize(new Dimension(16, 16));

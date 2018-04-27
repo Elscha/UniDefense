@@ -21,7 +21,7 @@ public class BackgroundTile extends AbstractGraphicComponent {
 		file = new File(AbstractGraphicComponent.BASE_FOLDER + path);
 		
 		if (null != file && file.isFile()) {
-			image = ImageLoader.loadImage(file);
+			image = GraphicUtils.loadImage(file);
 		} else {
 			System.err.println("Couldn't load picture");
 		}

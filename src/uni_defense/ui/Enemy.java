@@ -1,16 +1,11 @@
 package uni_defense.ui;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
-import javax.swing.ImageIcon;
-
-public class Enemy extends AbstractGraphicComponent implements Runnable {
+public class Enemy extends AbstractGraphicComponent {
 	
 	private File folder;
 	private BufferedImage[] images;
@@ -18,6 +13,11 @@ public class Enemy extends AbstractGraphicComponent implements Runnable {
 	
 	
 	public Enemy(String path) {
+		this(path, 0);
+		
+	}
+	
+	public Enemy(String path, int size) {
 		folder = new File(AbstractGraphicComponent.BASE_FOLDER + path);
 		
 		if (null != folder && folder.isDirectory()) {
@@ -25,11 +25,19 @@ public class Enemy extends AbstractGraphicComponent implements Runnable {
 			
 			images = new BufferedImage[pictures.length];
 			for (int i = 0; i < pictures.length; i++) {
-				images[i] = ImageLoader.loadImage(pictures[i]);
+				images[i] = GraphicUtils.loadImage(pictures[i]);
+				
+				if (size > 0 && (images[i].getWidth() != size || images[i].getHeight() != size)) {
+					images[i] = GraphicUtils.scale(images[i], size);
+				}
 			}
 		} else {
 			System.err.println("Couldn't load picture");
 		}
+		
+		setPreferredSize(new Dimension(size, size));
+        setMaximumSize(new Dimension(size, size));
+        setMinimumSize(new Dimension(size, size));
 		
 		//new Thread(this).start();
 		
@@ -46,39 +54,4 @@ public class Enemy extends AbstractGraphicComponent implements Runnable {
 		}
 		
 	}
-
-
-	/**
-	 * 
-	 * @see <a href="https://stackoverflow.com/a/4216635">https://stackoverflow.com/a/4216635</a>
-	 */
-	private static ImageIcon scale(BufferedImage before) {
-	     int w = before.getWidth();
-	     int h = before.getHeight();
-	     BufferedImage after = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
-	     AffineTransform at = new AffineTransform();
-	     at.scale(0.5, 0.5);
-	     AffineTransformOp scaleOp = 
-	        new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
-	     after = scaleOp.filter(before, after);
-	     
-	     return new ImageIcon(after);
-	}
-	
-	@Override
-	public void run() {
-		while(true) {
-			if (null != getGraphics()) {
-				update(getGraphics());
-				try {
-					Thread.sleep(200);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		
-		}
-	}
-
 }
