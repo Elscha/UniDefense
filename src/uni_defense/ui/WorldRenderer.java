@@ -112,14 +112,7 @@ public class WorldRenderer extends JPanel {
                     int drawToX = tileToPixels(x);
                     int drawToY = tileToPixels(y);
                     
-                    String id = building.getID();
-                    Sprite sprite = buildings.get(id);
-                    if (null == sprite) {
-                        sprite = new Sprite("sprites/buildings/" + building.getClass().getSimpleName().toLowerCase(), TILE_SIZE);
-                        buildings.put(id, sprite);
-                    }
-                    
-                    g.drawImage(sprite.getImage(), drawToX, drawToY, TILE_SIZE - 1, TILE_SIZE - 1, null);
+                    g.drawImage(BUILDING_MAPPING.get(building.getClass()), drawToX, drawToY, TILE_SIZE - 1, TILE_SIZE - 1, null);
                 }
             }
         }
