@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 
 import uni_defense.logic.buildings.Archer;
 import uni_defense.logic.buildings.Building;
+import uni_defense.logic.buildings.Canon;
 import uni_defense.logic.enemies.Enemy;
 import uni_defense.logic.world.GroundTile;
 import uni_defense.logic.world.MovableObject;
@@ -44,6 +45,7 @@ public class WorldRenderer extends JPanel {
 		// Buildings
 		Map<Class<? extends Building>, Image> tmpBuildings = new HashMap<>();
 		tmpBuildings.put(Archer.class, StaticPictures.ARCHER_BUILDING);
+		tmpBuildings.put(Canon.class, StaticPictures.ARCHER_BUILDING);
 		BUILDING_MAPPING = Collections.unmodifiableMap(tmpBuildings);
 	}
 	

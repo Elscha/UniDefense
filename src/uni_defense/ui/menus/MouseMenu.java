@@ -1,5 +1,6 @@
 package uni_defense.ui.menus;
 
+import java.awt.event.MouseAdapter;
 import java.util.List;
 
 import javax.swing.JMenuItem;
@@ -18,6 +19,11 @@ public class MouseMenu extends JPopupMenu {
         for (Class<? extends Building> towerClass : towers) {
 			JMenuItem btn = new JMenuItem(towerClass.getSimpleName());
 			add(btn);
+			
+			addMouseListener(new MouseAdapter() {
+				
+				
+			});
 		}
     }
 }
