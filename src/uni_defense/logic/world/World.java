@@ -28,8 +28,8 @@ public class World {
     public World() {
         height = 64;
         width = 64;
-        this.spawn = new Point(32, 63);
-        this.castle = new Point(32, 0);
+        this.spawn = new Point(16, 31);
+        this.castle = new Point(16, 0);
         
         initGround();
         
