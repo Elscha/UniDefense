@@ -5,7 +5,7 @@ public class NodeSearch {
 	Point p;
 	public NodeSearch(int cost, Point p, int fcost) {
 		this.cost=cost;
-		this.cost=fcost;
+		this.fcost=fcost;
 		this.p=new Point(p.getX(),p.getY());
 	}
 	public int getFcost() {
