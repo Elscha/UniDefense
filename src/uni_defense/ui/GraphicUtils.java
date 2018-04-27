@@ -40,12 +40,13 @@ public class GraphicUtils {
 	     BufferedImage after = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
 	     AffineTransform at = new AffineTransform();
 	     
-	     double widthScale = (double) size / after.getWidth();
-	     double heightcale = (double) size / after.getHeight();
+	     System.out.println(after.getWidth());
+	     
+	     double widthScale = 0.5f * ((double) size / after.getWidth());
+	     double heightcale = 0.5f * ((double) size / after.getHeight());
 	     
 	     at.scale(widthScale, heightcale);
-	     AffineTransformOp scaleOp = 
-	        new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
+	     AffineTransformOp scaleOp = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
 	     after = scaleOp.filter(before, after);
 	     
 	     return after;
