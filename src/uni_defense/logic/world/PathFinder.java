@@ -70,6 +70,7 @@ public class PathFinder {
 	
 	public List<Point> findPath(int x1, int y1, int x2, int y2) {
 		 //First point on this list is the start
+
 		this.reset();
 		NodeSearch actual;
 		this.costMap[x1][y1]=0;
@@ -88,7 +89,11 @@ public class PathFinder {
 		int modx [] = {-1,+1,0,0};
 		int mody [] = {0,0,-1,+1};
 		int dirV [] = {RIGHT,LEFT,DOWN,UP}; // this is the direction the new node will come from. int={1,2,3,4}
-		
+		if ((x1==x2)&&(y2==y1)){
+			List<Point> closed = new LinkedList<>();
+			closed.add(0, new Point(x1,y1));
+			return closed;
+		}
 		prio.add(new NodeSearch(0,new Point(x1,y1),manhattanD(x1, y1, x2, y2))); //add start node
 		//while there is stuff to check! CHECK DAT STUFF!
 //		System.out.println("before while");
