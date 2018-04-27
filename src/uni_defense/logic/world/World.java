@@ -28,6 +28,8 @@ public class World {
     public World() {
         height = 64;
         width = 64;
+        this.spawn = new Point(32, 63);
+        this.castle = new Point(32, 0);
         
         initGround();
         
@@ -36,8 +38,6 @@ public class World {
         objects = new HashSet<>(1337);
         objects.add(new Worker(this));
         
-        this.spawn = new Point(32, 63);
-        this.castle = new Point(32, 0);
     }
     
     private void initGround() {
