@@ -1,8 +1,11 @@
 package uni_defense.ui.menus;
 
+import java.util.List;
+
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
+import uni_defense.logic.buildings.Building;
 import uni_defense.logic.world.World;
 
 public class MouseMenu extends JPopupMenu {
@@ -11,9 +14,10 @@ public class MouseMenu extends JPopupMenu {
 	private int tileX;
 	private int tileY;
 	
-    JMenuItem anItem;
-    public MouseMenu(World worldModel, int tileX, int tileY) {
-        anItem = new JMenuItem("Build something");
-        add(anItem);
+    public MouseMenu(World worldModel, List<Class<? extends Building>> towers, int tileX, int tileY) {
+        for (Class<? extends Building> towerClass : towers) {
+			JMenuItem btn = new JMenuItem(towerClass.getSimpleName());
+			add(btn);
+		}
     }
 }

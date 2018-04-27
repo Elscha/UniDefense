@@ -5,8 +5,10 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.swing.JPanel;
@@ -29,6 +31,7 @@ public class WorldRenderer extends JPanel {
 	private static final Map<GroundTile, Image> GROUND_TILE_MAPPING;
 	private static final Map<Class<? extends Building>, Image> BUILDING_MAPPING;
 	private Map<String, Sprite> enemies = new HashMap<>();
+	private List<Class<? extends Building>> towers = new ArrayList<>();
 	
 	static {
 		// Ground tiles
@@ -51,6 +54,7 @@ public class WorldRenderer extends JPanel {
 		setMinimumSize(size);
 		setMaximumSize(size);
 		setPreferredSize(size);
+		towers.addAll(BUILDING_MAPPING.keySet());
 		
 		addMouseListener(new MouseAdapter() {
 			
@@ -65,7 +69,7 @@ public class WorldRenderer extends JPanel {
 		    private void doPop(MouseEvent e){
 		    	int tileX = pixelsToTile(e.getX());
 		    	int tileY = pixelsToTile(e.getY());
-		    	MouseMenu menu = new MouseMenu(worldModel, tileX, tileY);
+		    	MouseMenu menu = new MouseMenu(worldModel, towers, tileX, tileY);
 		        menu.show(e.getComponent(), e.getX(), e.getY());
 		        System.out.println("tile: " + pixelsToTile(e.getX()) +":"+ pixelsToTile(e.getY()));
 		    }
