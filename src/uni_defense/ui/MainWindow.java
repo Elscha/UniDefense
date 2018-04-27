@@ -18,7 +18,7 @@ public class MainWindow extends JFrame implements Runnable {
     private static final long serialVersionUID = -5181257872336051731L;
 
     private WorldRenderer renderer;
-    
+
 	private World world;
 	
 	public MainWindow() throws IOException {

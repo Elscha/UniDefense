@@ -43,6 +43,9 @@ public class WorldRenderer extends JPanel {
 		// Ground tiles
 		Map<GroundTile, Image> tmpTiles = new HashMap<>();
 		tmpTiles.put(GroundTile.GRASS, StaticPictures.GRASS_BACKGROUND);
+		tmpTiles.put(GroundTile.DIRT, StaticPictures.DIRT_BACKGROUND);
+		tmpTiles.put(GroundTile.WATER, StaticPictures.WATER_BACKGROUND);
+		tmpTiles.put(GroundTile.STONE, StaticPictures.STONE_BACKGROUND);
 		GROUND_TILE_MAPPING = Collections.unmodifiableMap(tmpTiles);
 		
 		// Buildings
