@@ -3,6 +3,8 @@ package uni_defense.ui;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -13,6 +15,7 @@ import uni_defense.logic.enemies.Enemy;
 import uni_defense.logic.world.GroundTile;
 import uni_defense.logic.world.MovableObject;
 import uni_defense.logic.world.World;
+import uni_defense.ui.menus.MouseMenu;
 
 public class WorldRenderer extends JPanel {
 	
@@ -40,8 +43,30 @@ public class WorldRenderer extends JPanel {
 		setMinimumSize(size);
 		setMaximumSize(size);
 		setPreferredSize(size);
+		
+		addMouseListener(new MouseAdapter() {
+			
+			public void mousePressed(MouseEvent e){
+		        if (e.isPopupTrigger())
+		            doPop(e);
+		    }
+
+		    public void mouseReleased(MouseEvent e){
+		        if (e.isPopupTrigger())
+		            doPop(e);
+		    }
+
+		    private void doPop(MouseEvent e){
+		    	MouseMenu menu = new MouseMenu();
+		        menu.show(e.getComponent(), e.getX(), e.getY());
+		        System.out.println("tile: " + pixelsToTile(e.getX()) +":"+ pixelsToTile(e.getY()));
+		    }
+		});
 	}
 
+	private int pixelsToTile(int pixel) {
+		return pixel / TILE_SIZE;
+	}
 	
 	@Override
 	public void paint(Graphics g) {
