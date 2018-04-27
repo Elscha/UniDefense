@@ -1,14 +1,18 @@
 package uni_defense.logic.world;
 
+import uni_defense.logic.exceptions.WorldNotFittingException;
+
+import java.util.Arrays;
+
 public enum GroundTile {
 
-    GRASS(true, true),
+    GRASS(true, true), //G
     
-    DIRT(true, false),
+    DIRT(true, false), //D
     
-    STONE(false, true),
+    STONE(false, true), //S
     
-    WATER(false, false);
+    WATER(false, false); //W
     
     
     private boolean walkable;
@@ -26,6 +30,12 @@ public enum GroundTile {
 
     public boolean isBuildable() {
         return buildable;
+    }
+
+    public static GroundTile getByFirstLetter(String letter){
+        return Arrays.stream(values())
+                .filter(groundTile -> groundTile.name().startsWith(letter))
+                .findFirst().orElseThrow(() -> new WorldNotFittingException());
     }
     
 }
