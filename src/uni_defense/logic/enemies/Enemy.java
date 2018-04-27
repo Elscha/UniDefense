@@ -111,10 +111,12 @@ public abstract class Enemy extends MovableObject {
     }
     
     public void damage(int damage) {
-        this.hp -= damage;
-        if (hp <= 0) {
-            world.removeObject(this);
-            new Sound("sfx/death.wav").soundStart();
+        if (hp > 0) {
+            this.hp -= damage;
+            if (hp <= 0) {
+                world.removeObject(this);
+                new Sound("sfx/death.wav").soundStart();
+            }
         }
     }
     
