@@ -115,6 +115,7 @@ public abstract class Enemy extends MovableObject {
             this.hp -= damage;
             if (hp <= 0) {
                 world.removeObject(this);
+                Player.INSTANCE.updateGold(getGold());
                 new Sound("sfx/death.wav").soundStart();
             }
         }
