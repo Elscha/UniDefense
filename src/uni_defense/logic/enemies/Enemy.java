@@ -2,6 +2,7 @@ package uni_defense.logic.enemies;
 
 import java.util.List;
 
+import uni_defense.audio.Sound;
 import uni_defense.logic.player.Player;
 import uni_defense.logic.world.MovableObject;
 import uni_defense.logic.world.PathFinder;
@@ -115,6 +116,7 @@ public abstract class Enemy extends MovableObject {
         this.hp -= damage;
         if (hp <= 0) {
             world.removeObject(this);
+            new Sound("sfx/bleep1.wav").soundStart();
         }
     }
     

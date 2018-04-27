@@ -1,5 +1,6 @@
 package uni_defense.logic.buildings;
 
+import uni_defense.audio.Sound;
 import uni_defense.logic.buildings.bullets.Fireball;
 import uni_defense.logic.enemies.Enemy;
 import uni_defense.logic.world.World;
@@ -23,6 +24,7 @@ public class Canon extends ShootingBuilding {
     @Override
     public void shootEnemy(int x, int y, Enemy enemy) {
         getWorld().addObject(new Fireball(getWorld(), x, y, enemy));
+        new Sound("sfx/bleep2.wav").soundStart();
     }
     
 }

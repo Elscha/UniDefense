@@ -1,5 +1,6 @@
 package uni_defense.logic.buildings;
 
+import uni_defense.audio.Sound;
 import uni_defense.logic.buildings.bullets.Bullet;
 import uni_defense.logic.enemies.Enemy;
 import uni_defense.logic.world.World;
@@ -22,7 +23,8 @@ public class Archer extends ShootingBuilding {
     
     @Override
     public void shootEnemy(int x, int y, Enemy enemy) {
-        getWorld().addObject(new Bullet(getWorld(), x, y, (Enemy) enemy));        
+        getWorld().addObject(new Bullet(getWorld(), x, y, (Enemy) enemy));
+        new Sound("sfx/bleep2.wav").soundStart();
     }
     
 }
