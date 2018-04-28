@@ -77,6 +77,7 @@ public class World {
         boolean canBuild = ground[x][y].isBuildable() && buildings[x][y] == null;
         
         canBuild &= castle.getX() != x || castle.getY() != y;
+        canBuild &= spawn.getX() != x || spawn.getY() != y;
         
         if (canBuild) {
             for (MovableObject obj : objects) {
