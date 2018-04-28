@@ -88,10 +88,13 @@ public class MainWindow extends JFrame implements Runnable {
 	    wavesToDo.add(new WorkerWave(world));
 	    wavesToDo.add(new WorkerWave(world));
 	    wavesToDo.add(new WorkerBossWave(world));
+	    wavesToDo.add(new WorkerWave(world));
+	    wavesToDo.add(new WorkerBossWave(world));
+	    wavesToDo.add(new WorkerBossWave(world));
+	    wavesToDo.add(new WorkerBossWave(world));
+	    wavesToDo.add(new WorkerWave(world));
+	    wavesToDo.add(new WorkerWave(world));
 	    wavesToDo.add(new Wave2(world));
-	    wavesToDo.add(new WorkerBossWave(world));
-	    wavesToDo.add(new WorkerBossWave(world));
-	    wavesToDo.add(new WorkerBossWave(world));
 	    
 	    final int wantedFps = 60;
 	    
