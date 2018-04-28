@@ -125,97 +125,98 @@ public class WorldRenderer extends JPanel {
 	
 	@Override
 	public void paint(Graphics g) {
-		// Draw Background
-		for (int x = 0; x < worldModel.getWidth(); x++) {
-			for (int y = 0; y < worldModel.getHeight(); y++) {
-				
-				GroundTile tile = worldModel.getGroundTile(x, y);
-				
-				int drawToX = tileToPixels(x);
-				int drawToY = tileToPixels(y);
-				
-				g.drawImage(GROUND_TILE_MAPPING.get(tile), drawToX, drawToY, TILE_SIZE, TILE_SIZE, null);
-			}
-		}
-
-		
-		// draw buildings
-		for (int x = 0; x < worldModel.getWidth(); x++) {
-            for (int y = 0; y < worldModel.getHeight(); y++) {
-                
-                Building building = worldModel.getBuilding(x, y);
-                
-                if (building != null) {
-                    int drawToX = tileToPixels(x);
-                    int drawToY = tileToPixels(y);
+	    synchronized (WorldRenderer.class) {
+    		// Draw Background
+    		for (int x = 0; x < worldModel.getWidth(); x++) {
+    			for (int y = 0; y < worldModel.getHeight(); y++) {
+    				
+    				GroundTile tile = worldModel.getGroundTile(x, y);
+    				
+    				int drawToX = tileToPixels(x);
+    				int drawToY = tileToPixels(y);
+    				
+    				g.drawImage(GROUND_TILE_MAPPING.get(tile), drawToX, drawToY, TILE_SIZE, TILE_SIZE, null);
+    			}
+    		}
+    
+    		
+    		// draw buildings
+    		for (int x = 0; x < worldModel.getWidth(); x++) {
+                for (int y = 0; y < worldModel.getHeight(); y++) {
                     
-                    g.drawImage(BUILDING_MAPPING.get(building.getClass()), drawToX, drawToY, TILE_SIZE, TILE_SIZE, null);
+                    Building building = worldModel.getBuilding(x, y);
+                    
+                    if (building != null) {
+                        int drawToX = tileToPixels(x);
+                        int drawToY = tileToPixels(y);
+                        
+                        g.drawImage(BUILDING_MAPPING.get(building.getClass()), drawToX, drawToY, TILE_SIZE, TILE_SIZE, null);
+                    }
                 }
             }
-        }
-		
-		// draw castle
-		{
-		    int x = worldModel.getCastlePos().getX();
-		    int y = worldModel.getCastlePos().getY();
-		    
-		    int drawToX = tileToPixels(x);
-            int drawToY = tileToPixels(y);
-
-            g.drawImage(StaticPictures.CASTLE_BUILDING, drawToX, drawToY, TILE_SIZE, TILE_SIZE, null);
-            
-		}
-		
-		// draw spawn
-		{
-		    int x = worldModel.getSpawnPos().getX();
-		    int y = worldModel.getSpawnPos().getY();
-		    
-		    int drawToX = tileToPixels(x);
-		    int drawToY = tileToPixels(y);
-		    
-		    g.drawImage(StaticPictures.SPAWN_BUILDING, drawToX, drawToY, TILE_SIZE, TILE_SIZE, null);
-		    
-		}
-		
-		double dtime;
-		synchronized (WorldRenderer.class) {
-		    dtime = WorldRenderer.dtime;
-        }
-		// Draw enemies
-		for (MovableObject obj : worldModel.getObjects()) {
-			int drawToX = (int) (obj.getX() * TILE_SIZE);
-			int drawToY = (int) (obj.getY() * TILE_SIZE);
-			
-			
-			String id = obj.getID();
-			Sprite sprite = enemies.get(id);
-			int size = obj.getSize();
-			if (null == sprite) {
-				sprite = new Sprite("sprites/enemies/" + obj.getClass().getSimpleName().toLowerCase(), size);
-				enemies.put(id, sprite);
-			}
-			if (size == 0) {
-				size = TILE_SIZE;
-			}
-			
-			g.drawImage(sprite.getImage(dtime), drawToX - size / 2 + TILE_SIZE / 2, drawToY - size / 2 + TILE_SIZE / 2, size, size, null);
-			
-			if (obj instanceof Enemy) {
-			    Enemy enemy = (Enemy) obj;
-			    
-			    double hpRatio = (double) enemy.getHp() / enemy.getMaxHp();
-			    
-			    g.setColor(Color.RED);
-			    g.fillRect(drawToX - size / 2 + TILE_SIZE / 2, drawToY - size / 2 + TILE_SIZE / 2, (int) (size * hpRatio), 5);
-			    
-			    
-			}
-		}
-		
-		g.setColor(Color.WHITE);
-		g.drawString((currentWaveName != null ? "Wave " + waveNumber + ": "  +currentWaveName : "Wave: (none)"), 10, 10);
-		
+    		
+    		// draw castle
+    		{
+    		    int x = worldModel.getCastlePos().getX();
+    		    int y = worldModel.getCastlePos().getY();
+    		    
+    		    int drawToX = tileToPixels(x);
+                int drawToY = tileToPixels(y);
+    
+                g.drawImage(StaticPictures.CASTLE_BUILDING, drawToX, drawToY, TILE_SIZE, TILE_SIZE, null);
+                
+    		}
+    		
+    		// draw spawn
+    		{
+    		    int x = worldModel.getSpawnPos().getX();
+    		    int y = worldModel.getSpawnPos().getY();
+    		    
+    		    int drawToX = tileToPixels(x);
+    		    int drawToY = tileToPixels(y);
+    		    
+    		    g.drawImage(StaticPictures.SPAWN_BUILDING, drawToX, drawToY, TILE_SIZE, TILE_SIZE, null);
+    		    
+    		}
+    		
+    		double dtime;
+    		synchronized (WorldRenderer.class) {
+    		    dtime = WorldRenderer.dtime;
+            }
+    		// Draw enemies
+    		for (MovableObject obj : worldModel.getObjects()) {
+    			int drawToX = (int) (obj.getX() * TILE_SIZE);
+    			int drawToY = (int) (obj.getY() * TILE_SIZE);
+    			
+    			
+    			String id = obj.getID();
+    			Sprite sprite = enemies.get(id);
+    			int size = obj.getSize();
+    			if (null == sprite) {
+    				sprite = new Sprite("sprites/enemies/" + obj.getClass().getSimpleName().toLowerCase(), size);
+    				enemies.put(id, sprite);
+    			}
+    			if (size == 0) {
+    				size = TILE_SIZE;
+    			}
+    			
+    			g.drawImage(sprite.getImage(dtime), drawToX - size / 2 + TILE_SIZE / 2, drawToY - size / 2 + TILE_SIZE / 2, size, size, null);
+    			
+    			if (obj instanceof Enemy) {
+    			    Enemy enemy = (Enemy) obj;
+    			    
+    			    double hpRatio = (double) enemy.getHp() / enemy.getMaxHp();
+    			    
+    			    g.setColor(Color.RED);
+    			    g.fillRect(drawToX - size / 2 + TILE_SIZE / 2, drawToY - size / 2 + TILE_SIZE / 2, (int) (size * hpRatio), 5);
+    			    
+    			    
+    			}
+    		}
+    		
+    		g.setColor(Color.WHITE);
+    		g.drawString((currentWaveName != null ? "Wave " + waveNumber + ": "  +currentWaveName : "Wave: (none)"), 10, 10);
+    	}
 	}
 
 }

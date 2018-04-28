@@ -124,7 +124,10 @@ public class MainWindow extends JFrame implements Runnable {
 			}
 			
 			renderer.setDtime(dtime);
-			repaint();
+		    repaint();
+		    
+		    synchronized (WorldRenderer.class) {
+            }
 			
 		    try {
 		        Thread.sleep((long) Math.max(0, wantedDtime - ((System.nanoTime() / 1000000.0) - tLast)));
