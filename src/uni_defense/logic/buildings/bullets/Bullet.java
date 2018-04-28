@@ -1,6 +1,5 @@
 package uni_defense.logic.buildings.bullets;
 
-import uni_defense.logic.buildings.ShootingBuilding;
 import uni_defense.logic.enemies.Enemy;
 import uni_defense.logic.world.GroundTile;
 import uni_defense.logic.world.MovableObject;
