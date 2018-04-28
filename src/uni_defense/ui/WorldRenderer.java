@@ -39,7 +39,7 @@ public class WorldRenderer extends JPanel {
 	private Map<String, Sprite> enemies = new HashMap<>();
 	private List<Class<? extends Building>> towers = new ArrayList<>();
 	
-	private double dtime;
+	private static double dtime;
 	
 	static {
 		// Ground tiles
@@ -107,7 +107,9 @@ public class WorldRenderer extends JPanel {
 	}
 	
 	public void setDtime(double dtime) {
-	    this.dtime = dtime;
+	    synchronized (WorldRenderer.class) {
+	        WorldRenderer.dtime = dtime;
+        }
 	}
 	
 	@Override
@@ -165,6 +167,10 @@ public class WorldRenderer extends JPanel {
 		    
 		}
 		
+		double dtime;
+		synchronized (WorldRenderer.class) {
+		    dtime = WorldRenderer.dtime;
+        }
 		// Draw enemies
 		for (MovableObject obj : worldModel.getObjects()) {
 			int drawToX = (int) (obj.getX() * TILE_SIZE);
