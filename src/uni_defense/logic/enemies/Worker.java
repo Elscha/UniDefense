@@ -31,7 +31,7 @@ public class Worker extends Enemy {
     
     @Override
     public int getGold() {
-        return boss ? 100 : 1;
+        return boss ? 15 : 1;
     }
     
     @Override
