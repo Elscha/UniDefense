@@ -55,8 +55,11 @@ public class MainWindow extends JFrame implements Runnable, IWaveListener {
 	public MainWindow() throws IOException {
 		super("UniDefense");
 		
-		
-		world = WorldManager.loadMap(new File(getClass().getClassLoader().getResource("sampleMap_01.csv").getFile()));
+		File baseFile = new File(getClass().getClassLoader().getResource("sampleMap_01.csv").getFile());
+		if (!baseFile.exists()) {
+			baseFile = new File(new File(".").getAbsoluteFile() + "/sampleMap_01.csv");
+		}
+		world = WorldManager.loadMap(baseFile);
 		
 		if (NETWORK) {
 		    int result = JOptionPane.showOptionDialog(null, "Server or Client?", "Networking Type", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Server", "Client" }, "Server");

@@ -32,6 +32,9 @@
   	
   	<copy todir="${dist}/lib/">
   	  <fileset dir="resources/uni_defense/ui"/>
+  	  <fileset dir="resources">
+  	  	<include name="**/*.csv"/>
+  	  </fileset>
   	</copy>
   </target>
 
