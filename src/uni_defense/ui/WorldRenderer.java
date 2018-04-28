@@ -153,6 +153,18 @@ public class WorldRenderer extends JPanel {
             
 		}
 		
+		// draw spawn
+		{
+		    int x = worldModel.getSpawnPos().getX();
+		    int y = worldModel.getSpawnPos().getY();
+		    
+		    int drawToX = tileToPixels(x);
+		    int drawToY = tileToPixels(y);
+		    
+		    g.drawImage(StaticPictures.SPAWN_BUILDING, drawToX, drawToY, TILE_SIZE, TILE_SIZE, null);
+		    
+		}
+		
 		// Draw enemies
 		for (MovableObject obj : worldModel.getObjects()) {
 			int drawToX = (int) (obj.getX() * TILE_SIZE);

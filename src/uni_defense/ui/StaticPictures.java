@@ -15,5 +15,6 @@ public class StaticPictures {
 	public static BufferedImage ARCHER_BUILDING = GraphicUtils.loadImage(new File(GraphicUtils.BASE_FOLDER  + "buildings/archer.png"));
 	public static BufferedImage CANON_BUILDING = GraphicUtils.loadImage(new File(GraphicUtils.BASE_FOLDER  + "buildings/canon.png"));
 	public static BufferedImage CASTLE_BUILDING = GraphicUtils.loadImage(new File(GraphicUtils.BASE_FOLDER  + "buildings/castle.png"));
+	public static BufferedImage SPAWN_BUILDING = GraphicUtils.loadImage(new File(GraphicUtils.BASE_FOLDER  + "ground/spawn.png"));
 	
 }
