@@ -8,6 +8,8 @@ public class BuildingModel {
 	
 	public static final Map<Class<? extends Building>, Integer> BUILDING_PRICES;
 	
+	public static final Map<Class<? extends Building>, Integer> BUILDING_RANGES;
+	
 	public static final Map<Class<? extends Building>, Integer> UPGRADE_PRICES;
 	
 	public static final Map<Class<? extends Building>, Class<? extends Building>> UPGRADE_TARGET;
@@ -28,6 +30,14 @@ public class BuildingModel {
 		tmpUpgrd.put(Archer.class, ArcherLvl2.class);
 		tmpUpgrd.put(Canon.class, CanonLvl2.class);
 		UPGRADE_TARGET = Collections.unmodifiableMap(tmpUpgrd);
+		
+		Map<Class<? extends Building>, Integer> tmpRngs = new HashMap<>();
+		tmpRngs.put(Archer.class, 5);
+		tmpRngs.put(ArcherLvl2.class, 5);
+		tmpRngs.put(Canon.class, 6);
+		tmpRngs.put(CanonLvl2.class, 6);
+		tmpRngs.put(IceTower.class, 4);
+		BUILDING_RANGES = Collections.unmodifiableMap(tmpRngs);
 	}
 
 }

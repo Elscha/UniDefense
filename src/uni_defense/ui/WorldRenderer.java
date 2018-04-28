@@ -43,6 +43,10 @@ public class WorldRenderer extends JPanel {
 	private Map<String, Sprite> enemies = new HashMap<>();
 	private List<Class<? extends Building>> towers = new ArrayList<>();
 	
+	private int range = -1;
+	private int rangeX;
+	private int rangeY;
+	
 	private static int waveNumber;
 	
 	private static String currentWaveName;
@@ -87,12 +91,14 @@ public class WorldRenderer extends JPanel {
 		addMouseListener(new MouseAdapter() {
 			
 			public void mousePressed(MouseEvent e){
+			    clearRange();
 				if (e.isPopupTrigger()) {
 					doPop(e);
 				}
 		    }
 
 		    public void mouseReleased(MouseEvent e){
+		        clearRange();
 		    	if (e.isPopupTrigger()) {
 					doPop(e);
 				}
@@ -101,7 +107,7 @@ public class WorldRenderer extends JPanel {
 		    private void doPop(MouseEvent e){
 		    	int tileX = pixelsToTile(e.getX());
 		    	int tileY = pixelsToTile(e.getY());
-		    	MouseMenu menu = new MouseMenu(worldModel, towers, tileX, tileY);
+		    	MouseMenu menu = new MouseMenu(worldModel, WorldRenderer.this, towers, tileX, tileY);
 		        menu.show(e.getComponent(), e.getX(), e.getY());
 //		        System.out.println("tile: " + pixelsToTile(e.getX()) +":"+ pixelsToTile(e.getY()));
 		    }
@@ -113,6 +119,16 @@ public class WorldRenderer extends JPanel {
 	}
 	private int tileToPixels(int pixel) {
 		return (pixel * TILE_SIZE);
+	}
+	
+	public void setRange(int range, int tileX, int tileY) {
+	   this.range = range;
+	   this.rangeX = tileX;
+	   this.rangeY = tileY;
+	}
+	
+	public void clearRange() {
+	    this.range = -1;
 	}
 	
 	public void setCurrentWaveName(String name) {
@@ -219,6 +235,15 @@ public class WorldRenderer extends JPanel {
                         g.fillOval(drawToX - size / 2 + TILE_SIZE / 2, drawToY - size / 2 + TILE_SIZE / 2, size, size);
     			    }
     			}
+    		}
+    		
+    		// draw range of currently hovered item
+    		if (range > 0) {
+    		    int drawToX = (int) (rangeX * TILE_SIZE);
+                int drawToY = (int) (rangeY * TILE_SIZE);
+                
+    		    g.setColor(Color.WHITE);
+    		    g.drawOval(drawToX - range * TILE_SIZE + TILE_SIZE / 2, drawToY - range * TILE_SIZE + TILE_SIZE / 2, 2 * range * TILE_SIZE, 2 * range * TILE_SIZE);
     		}
     		
     		g.setColor(Color.WHITE);

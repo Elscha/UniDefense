@@ -15,14 +15,13 @@ import uni_defense.logic.player.Player;
 import uni_defense.logic.world.PathFinder;
 import uni_defense.logic.world.Point;
 import uni_defense.logic.world.World;
+import uni_defense.ui.WorldRenderer;
 
 public class MouseMenu extends JPopupMenu {
 	
-	private World worldModel;
-	private int tileX;
-	private int tileY;
-	
-    public MouseMenu(World worldModel, List<Class<? extends Building>> towers, int tileX, int tileY) {
+    private static final long serialVersionUID = 3350135400630671697L;
+
+    public MouseMenu(World worldModel, WorldRenderer renderer, List<Class<? extends Building>> towers, int tileX, int tileY) {
         
     	if (worldModel.isBuildable(tileX, tileY)) {
 	    	for (Class<? extends Building> towerClass : towers) {
@@ -33,8 +32,23 @@ public class MouseMenu extends JPopupMenu {
 					btn.setEnabled(false);
 				}
 				
+				int range = BuildingModel.BUILDING_RANGES.get(towerClass);
+
 				btn.addMouseListener(new MouseAdapter() {
+				    
+				    @Override
+				    public void mouseExited(MouseEvent e) {
+				        renderer.clearRange();
+				    }
+				    
+				    @Override
+				    public void mouseEntered(MouseEvent e) {
+				        renderer.setRange(range, tileX, tileY);
+				    }
+				    
 					public void mousePressed(MouseEvent e) {
+                        renderer.clearRange();
+                        
 						if (Player.INSTANCE.getGold() >= price) {
 							try {
 								Constructor<? extends Building> constructor = towerClass.getConstructor(World.class);
@@ -59,10 +73,13 @@ public class MouseMenu extends JPopupMenu {
 	    	}
 		} else if (worldModel.getBuilding(tileX, tileY) != null) {
 		    
+		    Building b = worldModel.getBuilding(tileX, tileY);
+		    
+            renderer.setRange(BuildingModel.BUILDING_RANGES.get(b.getClass()), tileX, tileY);
 		    
 			JMenuItem btnUpgrade = new JMenuItem("Upgrade");
 			
-			Integer price = BuildingModel.UPGRADE_PRICES.get(worldModel.getBuilding(tileX, tileY).getClass());
+			Integer price = BuildingModel.UPGRADE_PRICES.get(b.getClass());
 			btnUpgrade.setEnabled(price != null);
 			if (price != null) {
 			    btnUpgrade.setText("Upgrade (" + price + ")");
@@ -71,6 +88,8 @@ public class MouseMenu extends JPopupMenu {
 			add(btnUpgrade);
 			btnUpgrade.addMouseListener(new MouseAdapter() {
                 public void mousePressed(MouseEvent e) {
+                    renderer.clearRange();
+                    
                     Building building = worldModel.getBuilding(tileX, tileY);
                     if (building != null) {
                         Integer price = BuildingModel.UPGRADE_PRICES.get(building.getClass());
@@ -99,6 +118,8 @@ public class MouseMenu extends JPopupMenu {
 			add(btnSell);
 			btnSell.addMouseListener(new MouseAdapter() {
 				public void mousePressed(MouseEvent e) {
+                    renderer.clearRange();
+                    
 				    Building building = worldModel.getBuilding(tileX, tileY);
 				    if (building != null) {
 				        Integer price = BuildingModel.BUILDING_PRICES.get(building.getClass());
@@ -126,4 +147,5 @@ public class MouseMenu extends JPopupMenu {
 			});
 		}
     }
+    
 }
