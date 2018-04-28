@@ -199,7 +199,6 @@ public class MainWindow extends JFrame implements Runnable, IWaveListener {
 			    currentWave.step(dtime);
 			}
 			
-			renderer.setDtime(dtime);
 		    repaint();
 		    
 		    try {

@@ -43,8 +43,6 @@ public class WorldRenderer extends JPanel {
 	private Map<String, Sprite> enemies = new HashMap<>();
 	private List<Class<? extends Building>> towers = new ArrayList<>();
 	
-	private static double dtime;
-	
 	private static int waveNumber;
 	
 	private static String currentWaveName;
@@ -117,12 +115,6 @@ public class WorldRenderer extends JPanel {
 		return (pixel * TILE_SIZE);
 	}
 	
-	public void setDtime(double dtime) {
-	    synchronized (WorldRenderer.class) {
-	        WorldRenderer.dtime = dtime;
-        }
-	}
-	
 	public void setCurrentWaveName(String name) {
 	    currentWaveName = name;
 	    if (name != null) {
@@ -186,10 +178,6 @@ public class WorldRenderer extends JPanel {
     		    
     		}
     		
-    		double dtime;
-    		synchronized (WorldRenderer.class) {
-    		    dtime = WorldRenderer.dtime;
-            }
     		// Draw enemies
     		for (MovableObject obj : worldModel.getObjects()) {
     			int drawToX = (int) (obj.getX() * TILE_SIZE);
@@ -216,7 +204,7 @@ public class WorldRenderer extends JPanel {
     				size = TILE_SIZE;
     			}
     			
-    			g.drawImage(sprite.getImage(dtime), drawToX - size / 2 + TILE_SIZE / 2, drawToY - size / 2 + TILE_SIZE / 2, size, size, null);
+    			g.drawImage(sprite.getImage(), drawToX - size / 2 + TILE_SIZE / 2, drawToY - size / 2 + TILE_SIZE / 2, size, size, null);
     			
     			if (obj instanceof Enemy) {
     			    Enemy enemy = (Enemy) obj;

@@ -10,6 +10,9 @@ public class Sprite {
 	
 	private double cummulatedDtime;
 	
+	private long last = System.currentTimeMillis();
+	
+	
 	
 	public Sprite(String path) {
 		this(path, 0);
@@ -36,9 +39,12 @@ public class Sprite {
 	}
 	
 	
-	public BufferedImage getImage(double dtime) {
+	public BufferedImage getImage() {
 	    
-	    cummulatedDtime += dtime;
+	    long diff = System.currentTimeMillis() - last;
+	    last = System.currentTimeMillis();
+	    
+	    cummulatedDtime += diff;
 	    
 	    if (cummulatedDtime > 300) {
 	        pictureIndex++;
