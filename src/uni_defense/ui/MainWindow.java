@@ -9,6 +9,7 @@ import java.util.LinkedList;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
@@ -21,10 +22,16 @@ import uni_defense.logic.enemies.wave.WorkerWave;
 import uni_defense.logic.player.Player;
 import uni_defense.logic.world.World;
 import uni_defense.logic.world.loading.WorldManager;
+import uni_defense.networking.Client;
+import uni_defense.networking.IWaveListener;
+import uni_defense.networking.Server;
+import uni_defense.networking.Side;
 import uni_defense.ui.menus.GameMenu;
 
-public class MainWindow extends JFrame implements Runnable {
+public class MainWindow extends JFrame implements Runnable, IWaveListener {
 
+    public static final boolean NETWORK = true;
+    
     private static final long serialVersionUID = -5181257872336051731L;
 
     private WorldRenderer renderer;
@@ -36,10 +43,43 @@ public class MainWindow extends JFrame implements Runnable {
 	
 	private Deque<AbstractWave> wavesToDo = new LinkedList<>();
 	
+	private Side comm;
+	
 	public MainWindow() throws IOException {
 		super("UniDefense");
-
+		
+		
 		world = WorldManager.loadMap(new File(getClass().getClassLoader().getResource("sampleMap_01.csv").getFile()));
+		
+		if (NETWORK) {
+		    int result = JOptionPane.showOptionDialog(null, "Server or Client?", "Networking Type", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Server", "Client" }, "Server");
+		    
+		    if (result == 0) {
+		        comm = new Server(1224, world, this);
+		        
+		    } else if (result == 1) {
+		        String address = JOptionPane.showInputDialog("Address");
+		        comm = new Client(address, 1224, world, this);
+		        
+		        
+		    } else {
+		        return;
+		    }
+		    
+		} else {
+	        wavesToDo.add(new WorkerWave(world));
+	        wavesToDo.add(new WorkerWave(world));
+	        wavesToDo.add(new WorkerBossWave(world));
+	        wavesToDo.add(new WorkerWave(world));
+	        wavesToDo.add(new WorkerBossWave(world));
+	        wavesToDo.add(new WorkerBossWave(world));
+	        wavesToDo.add(new WorkerBossWave(world));
+	        wavesToDo.add(new WorkerWave(world));
+	        wavesToDo.add(new WorkerWave(world));
+	        wavesToDo.add(new Wave2(world));
+		}
+
+		
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(true);
         glass = (JPanel) this.getGlassPane();
@@ -78,6 +118,7 @@ public class MainWindow extends JFrame implements Runnable {
         this.speed = speed;
     }
 	
+	@Override
 	public void addWave(AbstractWave wave) {
 	    wavesToDo.addLast(wave);
 	}
@@ -89,18 +130,6 @@ public class MainWindow extends JFrame implements Runnable {
 
 	@Override
 	public void run() {
-	    // TODO
-	    wavesToDo.add(new WorkerWave(world));
-	    wavesToDo.add(new WorkerWave(world));
-	    wavesToDo.add(new WorkerBossWave(world));
-	    wavesToDo.add(new WorkerWave(world));
-	    wavesToDo.add(new WorkerBossWave(world));
-	    wavesToDo.add(new WorkerBossWave(world));
-	    wavesToDo.add(new WorkerBossWave(world));
-	    wavesToDo.add(new WorkerWave(world));
-	    wavesToDo.add(new WorkerWave(world));
-	    wavesToDo.add(new Wave2(world));
-	    
 	    final int wantedFps = 60;
 	    
 	    final double wantedDtime = 1000.0 / wantedFps;
