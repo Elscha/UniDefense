@@ -16,9 +16,11 @@ import java.util.Map;
 import javax.swing.JPanel;
 
 import uni_defense.logic.buildings.Archer;
+import uni_defense.logic.buildings.ArcherLvl2;
 import uni_defense.logic.buildings.Building;
 import uni_defense.logic.buildings.BuildingModel;
 import uni_defense.logic.buildings.Canon;
+import uni_defense.logic.buildings.CanonLvl2;
 import uni_defense.logic.buildings.IceTower;
 import uni_defense.logic.buildings.bullets.IceTowerEffect;
 import uni_defense.logic.enemies.Enemy;
@@ -59,7 +61,9 @@ public class WorldRenderer extends JPanel {
 		// Buildings
 		Map<Class<? extends Building>, Image> tmpBuildings = new HashMap<>();
 		tmpBuildings.put(Archer.class, StaticPictures.ARCHER_BUILDING);
+		tmpBuildings.put(ArcherLvl2.class, StaticPictures.ARCHER2_BUILDING);
 		tmpBuildings.put(Canon.class, StaticPictures.CANON_BUILDING);
+		tmpBuildings.put(CanonLvl2.class, StaticPictures.CANON2_BUILDING);
 		tmpBuildings.put(IceTower.class, StaticPictures.ICE_TOWER_BUILDING);
 		BUILDING_MAPPING = Collections.unmodifiableMap(tmpBuildings);
 	}
@@ -73,7 +77,7 @@ public class WorldRenderer extends JPanel {
 		setMinimumSize(size);
 		setMaximumSize(size);
 		setPreferredSize(size);
-		towers.addAll(BUILDING_MAPPING.keySet());
+		towers.addAll(BuildingModel.BUILDING_PRICES.keySet());
 		Collections.sort(towers, new Comparator<Class<? extends Building>>() {
 
 			@Override

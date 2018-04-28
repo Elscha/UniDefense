@@ -4,6 +4,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.lang.reflect.Constructor;
 import java.util.List;
+import java.util.Map.Entry;
 
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
@@ -58,7 +59,35 @@ public class MouseMenu extends JPopupMenu {
 	    	}
 		} else if (worldModel.getBuilding(tileX, tileY) != null) {
 			JMenuItem btnUpgrade = new JMenuItem("Upgrade");
+			
+			Building b = worldModel.getBuilding(tileX, tileY);
+			btnUpgrade.setEnabled(BuildingModel.UPGRADE_TARGET.containsKey(b.getClass()));
+			
 			add(btnUpgrade);
+			btnUpgrade.addMouseListener(new MouseAdapter() {
+                public void mousePressed(MouseEvent e) {
+                    Building building = worldModel.getBuilding(tileX, tileY);
+                    if (building != null) {
+                        Integer price = BuildingModel.UPGRADE_PRICES.get(building.getClass());
+                        Class<? extends Building> upgrade = BuildingModel.UPGRADE_TARGET.get(building.getClass());
+                        if (price != null && upgrade != null && Player.INSTANCE.getGold() >= price) {
+                            try {
+                                Player.INSTANCE.updateGold(-price);
+                                worldModel.setBuildings(tileX, tileY, upgrade.getConstructor(World.class).newInstance(worldModel));
+                            } catch (ReflectiveOperationException e1) {
+                                // TODO Auto-generated catch block
+                                e1.printStackTrace();
+                            } catch (IllegalArgumentException e1) {
+                                // TODO Auto-generated catch block
+                                e1.printStackTrace();
+                            } catch (SecurityException e1) {
+                                // TODO Auto-generated catch block
+                                e1.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            });
 			// TODO action missing
 			
 			JMenuItem btnSell = new JMenuItem("Sell tower");
@@ -67,8 +96,24 @@ public class MouseMenu extends JPopupMenu {
 				public void mousePressed(MouseEvent e) {
 				    Building building = worldModel.getBuilding(tileX, tileY);
 				    if (building != null) {
-				        int price = BuildingModel.BUILDING_PRICES.get(building.getClass());
-				        price *= 0.8;
+				        Integer price = BuildingModel.BUILDING_PRICES.get(building.getClass());
+				        if (price == null) {
+				            Class<? extends Building> original = null;
+				            for (Entry<Class<? extends Building>, Class<? extends Building>> entry : BuildingModel.UPGRADE_TARGET.entrySet()) {
+				                if (entry.getValue() == building.getClass()) {
+				                    original = entry.getKey();
+				                    continue;
+				                }
+				            }
+				            
+				            if (original == null) {
+				                return;
+				            }
+				            
+				            price = BuildingModel.BUILDING_PRICES.get(original) + BuildingModel.UPGRADE_PRICES.get(original);
+				        }
+				        
+				        price = (int) (price * 0.8);
 				        Player.INSTANCE.updateGold(price);
 				        worldModel.setBuildings(tileX, tileY, null);
 				    }

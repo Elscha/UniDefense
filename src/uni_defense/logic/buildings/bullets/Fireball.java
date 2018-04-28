@@ -13,7 +13,7 @@ public class Fireball extends MovableObject {
      */
     private double speed = 3;
     
-    private int damage = 7;
+    private int damage;
     
     private Enemy target;
     
@@ -21,8 +21,9 @@ public class Fireball extends MovableObject {
 
     private Point bulletSpawn;
     
-    public Fireball(World world, double x, double y, Enemy target) {
+    public Fireball(World world, double x, double y, Enemy target, int damage) {
         super(x, y);
+        this.damage = damage;
         this.world = world;
         this.target = target;
         bulletSpawn = new Point((int) Math.round(x), (int) Math.round(y));

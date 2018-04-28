@@ -5,9 +5,9 @@ import uni_defense.logic.buildings.bullets.Fireball;
 import uni_defense.logic.enemies.Enemy;
 import uni_defense.logic.world.World;
 
-public class Canon extends ShootingBuilding {
+public class CanonLvl2 extends ShootingBuilding {
     
-    public Canon(World world) {
+    public CanonLvl2(World world) {
         super(world);
     }
 
@@ -18,12 +18,12 @@ public class Canon extends ShootingBuilding {
 
     @Override
     public double getCooldown() {
-        return 8000;
+        return 6000;
     }
 
     @Override
     public void shootEnemy(int x, int y, Enemy enemy) {
-        getWorld().addObject(new Fireball(getWorld(), x, y, enemy, 8));
+        getWorld().addObject(new Fireball(getWorld(), x, y, enemy, 15));
         new Sound("sfx/bleep3.wav").soundStart();
     }
     

@@ -1,29 +1,29 @@
 package uni_defense.logic.buildings;
 
 import uni_defense.audio.Sound;
-import uni_defense.logic.buildings.bullets.Fireball;
+import uni_defense.logic.buildings.bullets.Bullet;
 import uni_defense.logic.enemies.Enemy;
 import uni_defense.logic.world.World;
 
-public class Canon extends ShootingBuilding {
-    
-    public Canon(World world) {
+public class ArcherLvl2 extends ShootingBuilding {
+
+    public ArcherLvl2(World world) {
         super(world);
     }
-
-    @Override
-    public int getRange() {
-        return 6;
-    }
-
+    
     @Override
     public double getCooldown() {
-        return 8000;
+        return 1500;
     }
-
+    
+    @Override
+    public int getRange() {
+        return 5;
+    }
+    
     @Override
     public void shootEnemy(int x, int y, Enemy enemy) {
-        getWorld().addObject(new Fireball(getWorld(), x, y, enemy, 8));
+        getWorld().addObject(new Bullet(getWorld(), x, y, (Enemy) enemy, 8));
         new Sound("sfx/bleep3.wav").soundStart();
     }
     
@@ -34,7 +34,7 @@ public class Canon extends ShootingBuilding {
     
     @Override
     public int getThreatLevel() {
-        return 7;
+        return 5;
     }
     
 }
