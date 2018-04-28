@@ -12,6 +12,7 @@ public class BuildingModel {
 		Map<Class<? extends Building>, Integer> tmpPrices = new HashMap<>();
 		tmpPrices.put(Archer.class, 10);
 		tmpPrices.put(Canon.class, 20);
+		tmpPrices.put(IceTower.class, 50);
 		BUILDING_PRICES = Collections.unmodifiableMap(tmpPrices);
 	}
 

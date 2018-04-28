@@ -11,6 +11,8 @@ import uni_defense.logic.world.World;
 
 public abstract class Enemy extends MovableObject {
 
+    private double frozen;
+    
     protected World world;
     
     private PathFinder pathFinder;
@@ -65,6 +67,11 @@ public abstract class Enemy extends MovableObject {
     @Override
     public void step(double dtime) {
         double walkInThisStep = (dtime / 1000) * getSpeed();
+        
+        if (frozen > 0) {
+            walkInThisStep *= 0.5;
+            frozen -= dtime;
+        }
         
         if (Math.round(getX()) == finalTarget.getX() && Math.round(getY()) == finalTarget.getY()) {
             Player.INSTANCE.damage(getDamage());
@@ -136,6 +143,14 @@ public abstract class Enemy extends MovableObject {
     
     public int getHp() {
         return hp;
+    }
+    
+    public void freeze() {
+        frozen = 3000;
+    }
+    
+    public boolean isFrozen() {
+        return frozen > 0;
     }
     
     public abstract int getMaxHp();

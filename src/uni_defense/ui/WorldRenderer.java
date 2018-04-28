@@ -19,6 +19,8 @@ import uni_defense.logic.buildings.Archer;
 import uni_defense.logic.buildings.Building;
 import uni_defense.logic.buildings.BuildingModel;
 import uni_defense.logic.buildings.Canon;
+import uni_defense.logic.buildings.IceTower;
+import uni_defense.logic.buildings.bullets.IceTowerEffect;
 import uni_defense.logic.enemies.Enemy;
 import uni_defense.logic.world.GroundTile;
 import uni_defense.logic.world.MovableObject;
@@ -58,6 +60,7 @@ public class WorldRenderer extends JPanel {
 		Map<Class<? extends Building>, Image> tmpBuildings = new HashMap<>();
 		tmpBuildings.put(Archer.class, StaticPictures.ARCHER_BUILDING);
 		tmpBuildings.put(Canon.class, StaticPictures.CANON_BUILDING);
+		tmpBuildings.put(IceTower.class, StaticPictures.ICE_TOWER_BUILDING);
 		BUILDING_MAPPING = Collections.unmodifiableMap(tmpBuildings);
 	}
 	
@@ -189,6 +192,15 @@ public class WorldRenderer extends JPanel {
     			int drawToY = (int) (obj.getY() * TILE_SIZE);
     			
     			
+    			if (obj instanceof IceTowerEffect) {
+    			    // special case
+    			    
+    			    g.setColor(new Color(50, 50, 255, 100));
+    			    g.fillOval(drawToX - TILE_SIZE * IceTower.RANGE + TILE_SIZE / 2, drawToY - TILE_SIZE * IceTower.RANGE + TILE_SIZE / 2, TILE_SIZE * IceTower.RANGE * 2, TILE_SIZE * IceTower.RANGE * 2);
+    			    
+    			    continue;
+    			}
+    			
     			String id = obj.getID();
     			Sprite sprite = enemies.get(id);
     			int size = obj.getSize();
@@ -210,7 +222,10 @@ public class WorldRenderer extends JPanel {
     			    g.setColor(Color.RED);
     			    g.fillRect(drawToX - size / 2 + TILE_SIZE / 2, drawToY - size / 2 + TILE_SIZE / 2, (int) (size * hpRatio), 5);
     			    
-    			    
+    			    if (enemy.isFrozen()) {
+                        g.setColor(new Color(0, 0, 255, 50));
+                        g.fillOval(drawToX - size / 2 + TILE_SIZE / 2, drawToY - size / 2 + TILE_SIZE / 2, size, size);
+    			    }
     			}
     		}
     		

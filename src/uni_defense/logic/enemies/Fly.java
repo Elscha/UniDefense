@@ -28,6 +28,10 @@ public class Fly extends Enemy {
     public void step(double dtime) {
         double walkInThisStep = (dtime / 1000) * getSpeed();
         
+        if (isFrozen()) {
+            walkInThisStep *= 0.5;
+        }
+        
         double dx = finalTarget.getX() - getX();
         double dy = finalTarget.getY() - getY();
         
