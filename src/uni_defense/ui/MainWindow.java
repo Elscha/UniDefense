@@ -224,7 +224,10 @@ public class MainWindow extends JFrame implements Runnable, IWaveListener {
 		music.musicStop();
 		
 		if (Player.INSTANCE.getCurrentlifes() <= 0) {
-		    comm.lost();
+		    
+		    if (NETWORK) {
+		        comm.lost();
+		    }
 		    
 		    Sound snd = new Sound("bgm/GameOver.wav");
 		    snd.soundStart();
