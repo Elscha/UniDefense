@@ -11,6 +11,8 @@ import javax.swing.JPopupMenu;
 import uni_defense.logic.buildings.Building;
 import uni_defense.logic.buildings.BuildingModel;
 import uni_defense.logic.player.Player;
+import uni_defense.logic.world.PathFinder;
+import uni_defense.logic.world.Point;
 import uni_defense.logic.world.World;
 
 public class MouseMenu extends JPopupMenu {
@@ -38,8 +40,14 @@ public class MouseMenu extends JPopupMenu {
 								Building newTower = constructor.newInstance(worldModel);
 								worldModel.setBuildings(tileX, tileY, newTower);
 								
-								// TODO check if there still exist a path
-								Player.INSTANCE.updateGold(-price);
+								PathFinder finder = new PathFinder(worldModel);
+								Point spawn = worldModel.getSpawnPos();
+								Point destination = worldModel.getCastlePos();
+								if (!finder.existPath(spawn, destination)) {
+									worldModel.setBuildings(tileX, tileY, null);
+								} else {
+									Player.INSTANCE.updateGold(-price);
+								}
 							} catch (ReflectiveOperationException | SecurityException e1) {
 								// TODO Auto-generated catch block
 								e1.printStackTrace();

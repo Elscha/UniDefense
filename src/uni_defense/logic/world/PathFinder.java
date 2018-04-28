@@ -68,6 +68,10 @@ public class PathFinder {
 		return closed;
 	}
 	
+	public boolean existPath(Point start, Point destination) {
+		return null != findPath(start.getX(), start.getY(), destination.getX(), destination.getY());
+	}
+	
 	public List<Point> findPath(int x1, int y1, int x2, int y2) {
 		 //First point on this list is the start
 
