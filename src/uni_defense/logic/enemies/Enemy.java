@@ -11,14 +11,14 @@ import uni_defense.logic.world.World;
 
 public abstract class Enemy extends MovableObject {
 
-    private World world;
+    protected World world;
     
     private PathFinder pathFinder;
     
     /**
      * The final target to move to.
      */
-    private Point finalTarget;
+    protected Point finalTarget;
     
     /**
      * The next tile to move on.

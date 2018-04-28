@@ -78,6 +78,10 @@ public class GameMenu extends JToolBar implements Runnable, ActionListener {
             btn2.setActionCommand("Shrew");
             btn2.addActionListener(this);
             waveButtons.add(btn2);
+            JButton btn3 = new JButton("Flies (40)");
+            btn3.setActionCommand("Fly");
+            btn3.addActionListener(this);
+            waveButtons.add(btn2);
             this.add(waveButtons);
         }
         
@@ -130,6 +134,10 @@ public class GameMenu extends JToolBar implements Runnable, ActionListener {
         case "Shrew":
             wave = Wave2.class;
             cost = 60;
+            break;
+        case "Fly":
+            wave = Wave2.class;
+            cost = 40;
             break;
         default:
            return;

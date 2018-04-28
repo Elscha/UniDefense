@@ -16,6 +16,7 @@ import javax.swing.JSplitPane;
 
 import uni_defense.audio.Music;
 import uni_defense.logic.enemies.wave.AbstractWave;
+import uni_defense.logic.enemies.wave.FlyWave;
 import uni_defense.logic.enemies.wave.Wave2;
 import uni_defense.logic.enemies.wave.WorkerBossWave;
 import uni_defense.logic.enemies.wave.WorkerWave;
@@ -30,7 +31,7 @@ import uni_defense.ui.menus.GameMenu;
 
 public class MainWindow extends JFrame implements Runnable, IWaveListener {
 
-    public static final boolean NETWORK = true;
+    public static final boolean NETWORK = false;
     
     private static final long serialVersionUID = -5181257872336051731L;
 
@@ -72,6 +73,7 @@ public class MainWindow extends JFrame implements Runnable, IWaveListener {
 	        wavesToDo.add(new WorkerBossWave(world));
 	        wavesToDo.add(new WorkerWave(world));
 	        wavesToDo.add(new WorkerBossWave(world));
+	        wavesToDo.add(new FlyWave(world));
 	        wavesToDo.add(new WorkerBossWave(world));
 	        wavesToDo.add(new WorkerBossWave(world));
 	        wavesToDo.add(new WorkerWave(world));
