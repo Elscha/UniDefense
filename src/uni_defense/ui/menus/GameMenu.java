@@ -52,7 +52,6 @@ public class GameMenu extends JToolBar implements Runnable {
 	}
 
 	private void updateMenubar() {
-		System.out.println("Update");
 		jtextGold.setText(("Gold : " + Player.INSTANCE.getGold()));
 		jtextLifes.setText(("Lifes : " + Player.INSTANCE.getCurrentlifes() + "/" + Player.INSTANCE.getMaxlifes()));
 		jtextWave.setText(("Wave : " + Player.INSTANCE.getCurrentwave() + "/" + Player.INSTANCE.getEndwave())); 
@@ -72,7 +71,6 @@ public class GameMenu extends JToolBar implements Runnable {
 	@Override
 	public void run() {
 		while(true) {
-			System.out.println("Update");
 			updateMenubar();
 			try {
 				Thread.sleep(200);
