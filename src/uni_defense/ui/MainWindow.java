@@ -92,12 +92,12 @@ public class MainWindow extends JFrame implements Runnable, IWaveListener {
         worldPane.setMinimumSize(renderer.getSize());
         worldPane.setMaximumSize(renderer.getSize());
         worldPane.setPreferredSize(renderer.getSize());
-        GameMenu menu = new GameMenu();
+        GameMenu menu = new GameMenu(this);
         Dimension menuSize = new Dimension(dim.width, 100);
         menu.setMinimumSize(menuSize);
         menu.setMaximumSize(menuSize);
         menu.setPreferredSize(menuSize);
-        JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, worldPane, new GameMenu());
+        JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, worldPane, new GameMenu(this));
         setSize((int)dim.getWidth(), (int) dim.getHeight() + 120);
         splitPane.setDividerLocation(renderer.getHeight());
         splitPane.setMinimumSize(dim);
@@ -176,6 +176,12 @@ public class MainWindow extends JFrame implements Runnable, IWaveListener {
 		glass.setVisible(true);
 		glass.revalidate();
 		glass.repaint();
+	}
+	
+	public void sendWave(Class<? extends AbstractWave> wave) {
+	    if (NETWORK) {
+	        comm.sendWave(wave);
+	    }
 	}
 
 }

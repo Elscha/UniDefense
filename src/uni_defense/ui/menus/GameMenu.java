@@ -1,12 +1,23 @@
 package uni_defense.ui.menus;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
 
+import uni_defense.logic.enemies.wave.AbstractWave;
+import uni_defense.logic.enemies.wave.Wave2;
+import uni_defense.logic.enemies.wave.WorkerBossWave;
+import uni_defense.logic.enemies.wave.WorkerWave;
 import uni_defense.logic.player.Player;
+import uni_defense.ui.MainWindow;
 
-public class GameMenu extends JToolBar implements Runnable {
+public class GameMenu extends JToolBar implements Runnable, ActionListener {
 
 	private JTextField jtextGold;
 	private JTextField jtextLifes;
@@ -14,7 +25,11 @@ public class GameMenu extends JToolBar implements Runnable {
 	private JTextField jtextKills;
 	private JTextField jtextEnemies;
 	
-	public GameMenu() {
+	private MainWindow window;
+	
+	public GameMenu(MainWindow window) {
+	    this.window = window;
+	    
 		this.setFloatable(false);
         this.setRollover(true);
         
@@ -46,7 +61,25 @@ public class GameMenu extends JToolBar implements Runnable {
         jtextEnemies.setColumns(10);
         jtextEnemies.setEnabled(false);
         this.add(jtextEnemies);
-        this.addSeparator();        
+        this.addSeparator();
+        
+        if (MainWindow.NETWORK) {
+            JPanel waveButtons = new JPanel();
+            waveButtons.setLayout(new BoxLayout(waveButtons, BoxLayout.Y_AXIS));
+            JButton btn0 = new JButton("Worker Wave (20)");
+            btn0.setActionCommand("WorkerWave");
+            btn0.addActionListener(this);
+            waveButtons.add(btn0);
+            JButton btn1 = new JButton("Worker Boss Wave (40)");
+            btn1.setActionCommand("BossWave");
+            btn1.addActionListener(this);
+            waveButtons.add(btn1);
+            JButton btn2 = new JButton("Horrible Shrew (60)");
+            btn2.setActionCommand("Shrew");
+            btn2.addActionListener(this);
+            waveButtons.add(btn2);
+            this.add(waveButtons);
+        }
         
         new Thread(this).start();
 	}
@@ -60,7 +93,7 @@ public class GameMenu extends JToolBar implements Runnable {
 	}
 	
 	public static void main(String[] args) {
-		GameMenu menu = new GameMenu();
+		GameMenu menu = new GameMenu(null);
 		JFrame frame = new JFrame("test");
 		frame.add(menu);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -80,4 +113,31 @@ public class GameMenu extends JToolBar implements Runnable {
 			}
 		}
 	}
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        Class<? extends AbstractWave> wave = null;
+        int cost = 0;
+        switch (e.getActionCommand()) {
+        case "WorkerWave":
+            wave = WorkerWave.class;
+            cost = 20;
+            break;
+        case "BossWave":
+            wave = WorkerBossWave.class;
+            cost = 40;
+            break;
+        case "Shrew":
+            wave = Wave2.class;
+            cost = 60;
+            break;
+        default:
+           return;
+        }
+        
+        if (Player.INSTANCE.getGold() >= cost) {
+            Player.INSTANCE.updateGold(-cost);
+            window.sendWave(wave);
+        }
+    }
 }
