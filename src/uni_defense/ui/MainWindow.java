@@ -76,7 +76,7 @@ public class MainWindow extends JFrame implements Runnable {
 		
 		double timer = 0.0;
 		
-		while(true) {
+		while(Player.INSTANCE.getCurrentlifes() > 0) {
 		    
 		    long currentStep = System.nanoTime();
 		    double dtime = (currentStep - lastStep ) / 1000000.0;
@@ -103,7 +103,7 @@ public class MainWindow extends JFrame implements Runnable {
 		    }
 		    tLast = System.nanoTime() / 1000000.0;
 		}
-		
+		this.setGlassPane(new GameOverPane());
 	}
 
 }
