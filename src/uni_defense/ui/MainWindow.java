@@ -96,12 +96,12 @@ public class MainWindow extends JFrame implements Runnable, IWaveListener {
         worldPane.setMaximumSize(renderer.getSize());
         worldPane.setPreferredSize(renderer.getSize());
         GameMenu menu = new GameMenu(this);
-        Dimension menuSize = new Dimension(dim.width, 100);
+        Dimension menuSize = new Dimension(dim.width, 180);
         menu.setMinimumSize(menuSize);
         menu.setMaximumSize(menuSize);
         menu.setPreferredSize(menuSize);
         JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, worldPane, new GameMenu(this));
-        setSize((int)dim.getWidth(), (int) dim.getHeight() + 120);
+        setSize((int)dim.getWidth(), (int) dim.getHeight() + 140);
         splitPane.setDividerLocation(renderer.getHeight());
         splitPane.setMinimumSize(dim);
         splitPane.setMaximumSize(dim);

@@ -11,6 +11,7 @@ import javax.swing.JTextField;
 import javax.swing.JToolBar;
 
 import uni_defense.logic.enemies.wave.AbstractWave;
+import uni_defense.logic.enemies.wave.FlyWave;
 import uni_defense.logic.enemies.wave.Wave2;
 import uni_defense.logic.enemies.wave.WorkerBossWave;
 import uni_defense.logic.enemies.wave.WorkerWave;
@@ -63,7 +64,7 @@ public class GameMenu extends JToolBar implements Runnable, ActionListener {
         this.add(jtextEnemies);
         this.addSeparator();
         
-//        if (MainWindow.NETWORK) {
+        if (MainWindow.NETWORK) {
             JPanel waveButtons = new JPanel();
             waveButtons.setLayout(new BoxLayout(waveButtons, BoxLayout.Y_AXIS));
             JButton btn0 = new JButton("Worker Wave (20)");
@@ -83,7 +84,7 @@ public class GameMenu extends JToolBar implements Runnable, ActionListener {
             btn3.addActionListener(this);
             waveButtons.add(btn3);
             this.add(waveButtons);
-//        }
+        }
         
         new Thread(this).start();
 	}
@@ -136,7 +137,7 @@ public class GameMenu extends JToolBar implements Runnable, ActionListener {
             cost = 60;
             break;
         case "Fly":
-            wave = Wave2.class;
+            wave = FlyWave.class;
             cost = 40;
             break;
         default:
