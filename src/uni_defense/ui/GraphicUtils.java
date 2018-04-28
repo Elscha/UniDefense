@@ -38,8 +38,8 @@ public class GraphicUtils {
 	     
 //	     System.out.println(after.getWidth());
 	     
-	     double widthScale = 0.5f * ((double) size / after.getWidth());
-	     double heightcale = 0.5f * ((double) size / after.getHeight());
+	     double widthScale = 0.5f * ((double) size / WorldRenderer.TILE_SIZE);
+	     double heightcale = 0.5f * ((double) size / WorldRenderer.TILE_SIZE);
 	     
 	     at.scale(widthScale, heightcale);
 	     AffineTransformOp scaleOp = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
