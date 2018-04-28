@@ -3,13 +3,17 @@ package uni_defense.ui;
 import java.awt.Dimension;
 import java.io.File;
 import java.io.IOException;
+import java.util.Deque;
+import java.util.LinkedList;
 
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 
 import uni_defense.audio.Music;
-import uni_defense.logic.enemies.Worker;
+import uni_defense.logic.enemies.wave.AbstractWave;
+import uni_defense.logic.enemies.wave.WorkerBossWave;
+import uni_defense.logic.enemies.wave.WorkerWave;
 import uni_defense.logic.player.Player;
 import uni_defense.logic.world.World;
 import uni_defense.logic.world.loading.WorldManager;
@@ -24,6 +28,8 @@ public class MainWindow extends JFrame implements Runnable {
 	private World world;
 	
 	private double speed = 1.0;
+	
+	private Deque<AbstractWave> wavesToDo = new LinkedList<>();
 	
 	public MainWindow() throws IOException {
 		super("UniDefense");
@@ -66,6 +72,10 @@ public class MainWindow extends JFrame implements Runnable {
         this.speed = speed;
     }
 	
+	public void addWave(AbstractWave wave) {
+	    wavesToDo.addLast(wave);
+	}
+	
 	public static void main(String[] args) throws IOException {
 
 		new MainWindow();
@@ -73,6 +83,15 @@ public class MainWindow extends JFrame implements Runnable {
 
 	@Override
 	public void run() {
+	    // TODO
+	    wavesToDo.add(new WorkerWave(world));
+	    wavesToDo.add(new WorkerWave(world));
+	    wavesToDo.add(new WorkerBossWave(world));
+	    wavesToDo.add(new WorkerWave(world));
+	    wavesToDo.add(new WorkerBossWave(world));
+	    wavesToDo.add(new WorkerBossWave(world));
+	    wavesToDo.add(new WorkerBossWave(world));
+	    
 	    final int wantedFps = 60;
 	    
 	    final double wantedDtime = 1000.0 / wantedFps;
@@ -80,7 +99,7 @@ public class MainWindow extends JFrame implements Runnable {
 		long lastStep = System.nanoTime();
 		double tLast = System.nanoTime() / 1000000.0;
 		
-		double timer = 0.0;
+		AbstractWave currentWave = null;
 		
 		while(Player.INSTANCE.getCurrentlifes() > 0) {
 		    
@@ -91,14 +110,12 @@ public class MainWindow extends JFrame implements Runnable {
 			world.step(dtime);
 			lastStep = currentStep;
 
-			timer += dtime;
-			if (timer > 5000) {
-			    if (Math.random() < 0.1) {
-			        world.addObject(new Worker(world, true));
-			    } else {
-			        world.addObject(new Worker(world));
-			    }
-			    timer = 0.0;
+			if (currentWave == null || currentWave.done()) {
+			    currentWave = wavesToDo.poll();
+			}
+			
+			if (currentWave != null) {
+			    currentWave.step(dtime);
 			}
 			
 			renderer.setDtime(dtime);
