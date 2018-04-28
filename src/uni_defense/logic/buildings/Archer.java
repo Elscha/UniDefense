@@ -27,4 +27,14 @@ public class Archer extends ShootingBuilding {
         new Sound("sfx/bleep3.wav").soundStart();
     }
     
+    @Override
+    public int getInfluenceRange() {
+        return getRange();
+    }
+    
+    @Override
+    public int getThreatLevel() {
+        return 5;
+    }
+    
 }

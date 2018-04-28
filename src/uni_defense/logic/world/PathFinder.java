@@ -73,12 +73,10 @@ public class PathFinder {
 	}
 	
 	
+	//First point on this list is the start
 	public List<Point> findPath(int x1, int y1, int x2, int y2)
 	{
-		return findPath(x1,y1,x2,y2,null);
-	}
-		 //First point on this list is the start
-	public List<Point> findPath(int x1, int y1, int x2, int y2, int[][]influence) {
+	    int[][]influence = world.getInfluence();
 
 		this.reset();
 		NodeSearch actual;

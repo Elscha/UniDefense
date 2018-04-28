@@ -20,6 +20,9 @@ public class World {
     
     // [x][y]
     private Building[][] buildings;
+    
+    private int[][] influence;
+    
     private Set<MovableObject> objects;
     
     private Set<MovableObject> markedForRemoval = new HashSet<>(100);
@@ -32,6 +35,7 @@ public class World {
         initGround();
 
         buildings = new Building[Main.STANDARD_WIDTH][Main.STANDARD_HEIGHT];
+        influence = new int[Main.STANDARD_WIDTH][Main.STANDARD_HEIGHT];
         
         buildings[15][3] = new Archer(this);
         
@@ -101,7 +105,44 @@ public class World {
     }
     
     public void setBuildings(int x, int y, Building building) {
+        Building previous = this.buildings[x][y];
+        
+        if (previous != null) {
+            for (int xx = x - previous.getInfluenceRange(); xx <= x + previous.getInfluenceRange(); xx++) {
+                for (int yy = y - previous.getInfluenceRange(); yy <= y + previous.getInfluenceRange(); yy++) {
+                    
+                    if (xx >= 0 && xx < getWidth() && yy >= 0 && yy < getHeight()) {
+                        int dx = xx - x;
+                        int dy = yy - y;
+                        int dist = (int) Math.sqrt(dx * dx + dy * dy);
+                        
+                        if (dist <= previous.getInfluenceRange()) {
+                            influence[xx][yy] -= previous.getThreatLevel();
+                        }
+                    }
+                }
+            }
+        }
+        
         this.buildings[x][y] = building;
+        
+        if (building != null) {
+            for (int xx = x - building.getInfluenceRange(); xx <= x + building.getInfluenceRange(); xx++) {
+                for (int yy = y - building.getInfluenceRange(); yy <= y + building.getInfluenceRange(); yy++) {
+                    
+                    if (xx >= 0 && xx < getWidth() && yy >= 0 && yy < getHeight()) {
+                        int dx = xx - x;
+                        int dy = yy - y;
+                        int dist = (int) Math.sqrt(dx * dx + dy * dy);
+                        
+                        if (dist <= building.getInfluenceRange()) {
+                            influence[xx][yy] += building.getThreatLevel();
+                        }
+                    }
+                }
+            }
+        }
+        
     }
     
     public int getWidth() {
@@ -178,5 +219,11 @@ public class World {
         }
         
         buildings = new Building[getWidth()][getHeight()];
+        influence = new int[getWidth()][getHeight()];
     }
+    
+    public int[][] getInfluence() {
+        return influence;
+    }
+    
 }

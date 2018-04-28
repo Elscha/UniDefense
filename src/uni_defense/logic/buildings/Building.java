@@ -7,6 +7,10 @@ public abstract class Building {
      */
     public abstract void step(double dtime, int x, int y);
     
+    public abstract int getInfluenceRange();
+    
+    public abstract int getThreatLevel();
+    
     public String getID() {
         return this.getClass().getSimpleName().toLowerCase();
     }
