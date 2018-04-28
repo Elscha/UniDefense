@@ -33,7 +33,7 @@ import uni_defense.ui.menus.MenuBar;
 
 public class MainWindow extends JFrame implements Runnable, IWaveListener {
 
-    public static final boolean NETWORK = false;
+    public static boolean NETWORK = false;
     
     private static final long serialVersionUID = -5181257872336051731L;
 
