@@ -25,18 +25,9 @@ public abstract class Enemy extends MovableObject {
      */
     private Point currentTarget;
     
-    private int size;
-    
     private int hp;
     
-    /**
-     * @param speed Tiles per second.
-     */
     public Enemy(World world) {
-        this(world, 0);
-    }
-    
-    public Enemy(World world, int size) {
         super(world.getSpawnPos().getX(), world.getSpawnPos().getY());
         
         this.world = world;
@@ -46,7 +37,10 @@ public abstract class Enemy extends MovableObject {
         
         currentTarget = findNextCurrentTarget();
         
-        this.size = size;
+        initHp();
+    }
+    
+    protected void initHp() {
         this.hp = getMaxHp();
     }
     
@@ -55,13 +49,6 @@ public abstract class Enemy extends MovableObject {
      */
     public abstract double getSpeed();
     
-    
-    
-    @Override
-    public int getSize() {
-		return size;
-	}
-
 	// protected for test cases
     protected Point findNextCurrentTarget() {
         List<Point> path = pathFinder.findPath((int) Math.round(getX()), (int) Math.round(getY()), finalTarget.getX(), finalTarget.getY());
@@ -129,7 +116,7 @@ public abstract class Enemy extends MovableObject {
 
     @Override
     public String getID() {
-    	return this.getClass().getSimpleName().toLowerCase() + size;
+    	return this.getClass().getSimpleName().toLowerCase() + getSize();
     }
     
     /**

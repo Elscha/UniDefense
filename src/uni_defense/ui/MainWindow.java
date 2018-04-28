@@ -9,6 +9,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 
 import uni_defense.audio.Music;
+import uni_defense.logic.enemies.Worker;
 import uni_defense.logic.player.Player;
 import uni_defense.logic.world.World;
 import uni_defense.logic.world.loading.WorldManager;
@@ -71,12 +72,24 @@ public class MainWindow extends JFrame implements Runnable {
 		long lastStep = System.nanoTime();
 		double tLast = System.nanoTime() / 1000000.0;
 		
+		double timer = 0.0;
+		
 		while(true) {
 		    
 		    long currentStep = System.nanoTime();
 		    double dtime = (currentStep - lastStep ) / 1000000.0;
 			world.step(dtime);
 			lastStep = currentStep;
+
+			timer += dtime;
+			if (timer > 5000) {
+			    if (Math.random() < 0.1) {
+			        world.addObject(new Worker(world, true));
+			    } else {
+			        world.addObject(new Worker(world));
+			    }
+			    timer = 0.0;
+			}
 			
 			renderer.setDtime(dtime);
 			repaint();
