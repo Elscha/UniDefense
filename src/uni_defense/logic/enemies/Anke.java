@@ -22,7 +22,7 @@ public class Anke extends Enemy {
     
     @Override
     protected void playDeathSound() {
-        new Sound("sfx/death2.wav").soundStart();
+        new Sound("sfx/death2.wav").soundStart(true, 15f);
     }
     
     @Override

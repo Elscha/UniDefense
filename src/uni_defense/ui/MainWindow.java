@@ -1,12 +1,15 @@
 package uni_defense.ui;
 
 import java.awt.Dimension;
+import java.awt.Font;
 import java.io.File;
 import java.io.IOException;
 import java.util.Deque;
 import java.util.LinkedList;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 
@@ -28,7 +31,8 @@ public class MainWindow extends JFrame implements Runnable {
 
 	private World world;
 	
-	private double speed = 1.0;
+	private double speed = 100.0;
+	private JPanel glass;
 	
 	private Deque<AbstractWave> wavesToDo = new LinkedList<>();
 	
@@ -38,6 +42,7 @@ public class MainWindow extends JFrame implements Runnable {
 		world = WorldManager.loadMap(new File(getClass().getClassLoader().getResource("sampleMap_01.csv").getFile()));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(true);
+        glass = (JPanel) this.getGlassPane();
         
         renderer = new WorldRenderer(world);
         Player.INSTANCE.setGold(100);
@@ -136,7 +141,13 @@ public class MainWindow extends JFrame implements Runnable {
 		    }
 		    tLast = System.nanoTime() / 1000000.0;
 		}
-		this.setGlassPane(new GameOverPane());
+		JLabel lblGameOver = new JLabel("Game Over");
+		Font oldFont = lblGameOver.getFont();
+		lblGameOver.setFont(new Font(oldFont.getFontName(), Font.BOLD, 60));
+		glass.add(lblGameOver);
+		glass.setVisible(true);
+		glass.revalidate();
+		glass.repaint();
 	}
 
 }
