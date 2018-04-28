@@ -23,6 +23,8 @@ public class MainWindow extends JFrame implements Runnable {
 
 	private World world;
 	
+	private double speed = 1.0;
+	
 	public MainWindow() throws IOException {
 		super("UniDefense");
 
@@ -60,6 +62,10 @@ public class MainWindow extends JFrame implements Runnable {
         th.start();
 	}
 
+	public void setSpeed(double speed) {
+        this.speed = speed;
+    }
+	
 	public static void main(String[] args) throws IOException {
 
 		new MainWindow();
@@ -80,6 +86,8 @@ public class MainWindow extends JFrame implements Runnable {
 		    
 		    long currentStep = System.nanoTime();
 		    double dtime = (currentStep - lastStep ) / 1000000.0;
+		    dtime *= speed;
+		    
 			world.step(dtime);
 			lastStep = currentStep;
 
