@@ -29,6 +29,7 @@ import uni_defense.networking.IWaveListener;
 import uni_defense.networking.NetworkConnection;
 import uni_defense.networking.Server;
 import uni_defense.ui.menus.GameMenu;
+import uni_defense.ui.menus.MenuBar;
 
 public class MainWindow extends JFrame implements Runnable, IWaveListener {
 
@@ -86,6 +87,7 @@ public class MainWindow extends JFrame implements Runnable, IWaveListener {
 
 		
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setJMenuBar(new MenuBar(this, world));
         setResizable(true);
         glass = (JPanel) this.getGlassPane();
         
@@ -120,6 +122,10 @@ public class MainWindow extends JFrame implements Runnable, IWaveListener {
 	public void setSpeed(double speed) {
         this.speed = speed;
     }
+	
+	public double getSpeed() {
+		return this.speed;
+	}
 	
 	@Override
 	public void addWave(AbstractWave wave) {
