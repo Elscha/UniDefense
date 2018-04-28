@@ -3,9 +3,9 @@ package uni_defense.logic.enemies.wave;
 import uni_defense.logic.enemies.Worker;
 import uni_defense.logic.world.World;
 
-public class WorkerWave extends AbstractWave {
+public class WorkerBossWave extends AbstractWave {
 
-    private final double TIMING = 2000;
+    private final double TIMING = 1200;
     
     private int numWorkers;
     
@@ -15,10 +15,10 @@ public class WorkerWave extends AbstractWave {
     
     private double timer;
     
-    public WorkerWave(World world) {
+    public WorkerBossWave(World world) {
         this.world = world;
         
-        numWorkers = (int) (Math.random() * 5 + 5);
+        numWorkers = (int) (Math.random() * 2 + 2);
     }
     
     @Override
@@ -32,7 +32,11 @@ public class WorkerWave extends AbstractWave {
         if (timer > TIMING) {
             timer = 0;
             
-            world.addObject(new Worker(world));
+            if (created + 1 == numWorkers) {
+                world.addObject(new Worker(world, true));
+            } else {
+                world.addObject(new Worker(world));
+            }
             created++;
         }
     }
