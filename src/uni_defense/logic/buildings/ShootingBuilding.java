@@ -1,5 +1,8 @@
 package uni_defense.logic.buildings;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import uni_defense.logic.enemies.Enemy;
 import uni_defense.logic.world.MovableObject;
 import uni_defense.logic.world.World;
@@ -22,13 +25,15 @@ public abstract class ShootingBuilding extends Building {
     
     public abstract double getCooldown();
     
-    private boolean isInRange(Enemy enemy, int x, int y) {
+    private double getDistance(Enemy enemy, int x, int y) {
         double dx = enemy.getX() - x;
         double dy = enemy.getY() - y;
         
-        double distance = Math.sqrt(dx * dx + dy * dy); 
-        
-        return distance <= getRange();
+        return Math.sqrt(dx * dx + dy * dy); 
+    }
+    
+    private boolean isInRange(Enemy enemy, int x, int y) {
+        return getDistance(enemy, x, y) <= getRange();
     }
     
     @Override
@@ -38,16 +43,32 @@ public abstract class ShootingBuilding extends Building {
         }
         
         if (cooldown <= 0) {
+            Set<Enemy> enemiesInRange = new HashSet<>();
+            
             // search enemy in range
             for (MovableObject enemy : world.getObjects()) {
                 if (enemy instanceof Enemy && isInRange((Enemy) enemy, x, y)) {
-                    // shoot the enemy
-                    shootEnemy(x, y, (Enemy) enemy);
-                    
-                    // cooldown
-                    cooldown = getCooldown();
-                    break;
+                    enemiesInRange.add((Enemy) enemy);
                 }
+            }
+            
+            if (!enemiesInRange.isEmpty()) {
+                // find closest enemy
+                Enemy closest = null;
+                double distance = 0;
+                for (Enemy enemy : enemiesInRange) {
+                    double dist = getDistance(enemy, x, y);
+                    if (closest == null || distance > dist) {
+                        closest = enemy;
+                        distance = dist;
+                    }
+                }
+                
+                // shoot the enemy
+                shootEnemy(x, y, closest);
+                
+                // cooldown
+                cooldown = getCooldown();
             }
         }
     }
