@@ -1,5 +1,6 @@
 package uni_defense.logic.enemies;
 
+import uni_defense.audio.Sound;
 import uni_defense.logic.world.World;
 
 public class Anke extends Enemy {
@@ -17,6 +18,11 @@ public class Anke extends Enemy {
     	if (boss) {
     	    initHp(); // init again, because boss is only set now
     	}
+    }
+    
+    @Override
+    protected void playDeathSound() {
+        new Sound("sfx/death2.wav").soundStart();
     }
     
     @Override
