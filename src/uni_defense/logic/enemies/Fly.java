@@ -36,6 +36,7 @@ public class Fly extends Enemy {
         if (walkInThisStep >= distance) {
             Player.INSTANCE.damage(getDamage());
             world.removeObject(this);
+            Player.INSTANCE.decreaseEnemiesAliveByOne();
             
         } else {
             double ratio = walkInThisStep / distance;

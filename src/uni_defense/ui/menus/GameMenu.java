@@ -63,7 +63,7 @@ public class GameMenu extends JToolBar implements Runnable, ActionListener {
         this.add(jtextEnemies);
         this.addSeparator();
         
-        if (MainWindow.NETWORK) {
+//        if (MainWindow.NETWORK) {
             JPanel waveButtons = new JPanel();
             waveButtons.setLayout(new BoxLayout(waveButtons, BoxLayout.Y_AXIS));
             JButton btn0 = new JButton("Worker Wave (20)");
@@ -81,9 +81,9 @@ public class GameMenu extends JToolBar implements Runnable, ActionListener {
             JButton btn3 = new JButton("Flies (40)");
             btn3.setActionCommand("Fly");
             btn3.addActionListener(this);
-            waveButtons.add(btn2);
+            waveButtons.add(btn3);
             this.add(waveButtons);
-        }
+//        }
         
         new Thread(this).start();
 	}
@@ -91,7 +91,7 @@ public class GameMenu extends JToolBar implements Runnable, ActionListener {
 	private void updateMenubar() {
 		jtextGold.setText(("Gold : " + Player.INSTANCE.getGold()));
 		jtextLifes.setText(("Lifes : " + Player.INSTANCE.getCurrentlifes() + "/" + Player.INSTANCE.getMaxlifes()));
-		jtextWave.setText(("Wave : " + Player.INSTANCE.getCurrentwave() + "/" + Player.INSTANCE.getEndwave())); 
+		jtextWave.setText(("Wave : " + Player.INSTANCE.getCurrentwave())); 
 		jtextKills.setText(("Total killcount : " + Player.INSTANCE.getEnemiesKilled())); 
 		jtextEnemies.setText(("Enemies alive : " + Player.INSTANCE.getEnemiesAlive())); 
 	}

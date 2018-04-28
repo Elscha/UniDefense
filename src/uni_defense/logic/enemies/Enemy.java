@@ -29,6 +29,7 @@ public abstract class Enemy extends MovableObject {
     
     public Enemy(World world) {
         super(world.getSpawnPos().getX(), world.getSpawnPos().getY());
+        Player.INSTANCE.setEnemiesAlive(Player.INSTANCE.getEnemiesAlive() + 1);
         
         this.world = world;
         
@@ -68,6 +69,7 @@ public abstract class Enemy extends MovableObject {
         if (Math.round(getX()) == finalTarget.getX() && Math.round(getY()) == finalTarget.getY()) {
             Player.INSTANCE.damage(getDamage());
             world.removeObject(this);
+            Player.INSTANCE.decreaseEnemiesAliveByOne();
             return;
         }
         
@@ -103,6 +105,8 @@ public abstract class Enemy extends MovableObject {
             if (hp <= 0) {
                 world.removeObject(this);
                 Player.INSTANCE.updateGold(getGold());
+                Player.INSTANCE.increaseEnemiesKilledByOne();
+                Player.INSTANCE.decreaseEnemiesAliveByOne();
                 playDeathSound();
             }
         }

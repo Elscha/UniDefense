@@ -32,7 +32,7 @@ import uni_defense.ui.menus.GameMenu;
 
 public class MainWindow extends JFrame implements Runnable, IWaveListener {
 
-    public static final boolean NETWORK = false;
+    public static final boolean NETWORK = true;
     
     private static final long serialVersionUID = -5181257872336051731L;
 
@@ -165,6 +165,9 @@ public class MainWindow extends JFrame implements Runnable, IWaveListener {
 			if (currentWave == null || currentWave.done()) {
 			    currentWave = wavesToDo.poll();
 			    renderer.setCurrentWaveName(currentWave != null ? currentWave.getName() : null);
+			    if (currentWave != null) {
+			        Player.INSTANCE.increaseWaveByOne();
+			    }
 			}
 			
 			if (currentWave != null) {
