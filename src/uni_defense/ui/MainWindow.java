@@ -15,6 +15,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 
 import uni_defense.audio.Music;
+import uni_defense.audio.Sound;
 import uni_defense.logic.enemies.wave.AbstractWave;
 import uni_defense.logic.enemies.wave.FlyWave;
 import uni_defense.logic.enemies.wave.Wave2;
@@ -110,8 +111,6 @@ public class MainWindow extends JFrame implements Runnable, IWaveListener {
         
         setVisible(true);
         
-        new Music("bgm/1.wav").musicStart();
-        
         Thread th = new Thread(this);
         th.start();
 	}
@@ -132,6 +131,9 @@ public class MainWindow extends JFrame implements Runnable, IWaveListener {
 
 	@Override
 	public void run() {
+	    Music music = new Music("bgm/1.wav");
+	    music.musicStart();
+	    
 	    final int wantedFps = 60;
 	    
 	    final double wantedDtime = 1000.0 / wantedFps;
@@ -179,6 +181,12 @@ public class MainWindow extends JFrame implements Runnable, IWaveListener {
 		    }
 		    tLast = System.nanoTime() / 1000000.0;
 		}
+		
+		music.musicStop();
+		
+		Sound snd = new Sound("bgm/GameOver.wav");
+		snd.soundStart();
+		
 		JLabel lblGameOver = new JLabel("Game Over");
 		Font oldFont = lblGameOver.getFont();
 		lblGameOver.setFont(new Font(oldFont.getFontName(), Font.BOLD, 60));
