@@ -122,9 +122,9 @@ public class WorldRenderer extends JPanel {
 				int drawToY = tileToPixels(y);
 				
 				g.drawImage(GROUND_TILE_MAPPING.get(tile), drawToX, drawToY, TILE_SIZE, TILE_SIZE, null);
-				
 			}
 		}
+
 		
 		// draw buildings
 		for (int x = 0; x < worldModel.getWidth(); x++) {

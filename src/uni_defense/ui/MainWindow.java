@@ -33,21 +33,23 @@ public class MainWindow extends JFrame implements Runnable {
         renderer = new WorldRenderer(world);
         Player.INSTANCE.setGold(100);
         WorldRenderer renderer = new WorldRenderer(world);
-        JScrollPane worldPane = new JScrollPane(renderer, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        JScrollPane worldPane = new JScrollPane(renderer, JScrollPane.VERTICAL_SCROLLBAR_NEVER, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        Dimension dim = new Dimension(renderer.getMinimumSize().width + 21, renderer.getMinimumSize().height + 20);
+        worldPane.setMinimumSize(renderer.getSize());
+        worldPane.setMaximumSize(renderer.getSize());
+        worldPane.setPreferredSize(renderer.getSize());
         GameMenu menu = new GameMenu();
-        Dimension menuSize = new Dimension(renderer.getWidth(), 100);
+        Dimension menuSize = new Dimension(dim.width, 100);
         menu.setMinimumSize(menuSize);
         menu.setMaximumSize(menuSize);
         menu.setPreferredSize(menuSize);
         JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, worldPane, new GameMenu());
-        setSize(renderer.getWidth(), renderer.getHeight() + 100);
+        setSize((int)dim.getWidth(), (int) dim.getHeight() + 120);
         splitPane.setDividerLocation(renderer.getHeight());
-        splitPane.setMinimumSize(renderer.getMinimumSize());
-        splitPane.setMaximumSize(renderer.getMaximumSize());
-        splitPane.setPreferredSize(renderer.getPreferredSize());
-        
-//        add(new WorldRenderer(world));
-//        add(new GameMenu());
+        splitPane.setMinimumSize(dim);
+        splitPane.setMaximumSize(dim);
+        splitPane.setPreferredSize(dim);
+
         add(splitPane);
         
         setVisible(true);
