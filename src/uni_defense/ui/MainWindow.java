@@ -116,6 +116,7 @@ public class MainWindow extends JFrame implements Runnable {
 
 			if (currentWave == null || currentWave.done()) {
 			    currentWave = wavesToDo.poll();
+			    renderer.setCurrentWaveName(currentWave != null ? currentWave.getName() : null);
 			}
 			
 			if (currentWave != null) {

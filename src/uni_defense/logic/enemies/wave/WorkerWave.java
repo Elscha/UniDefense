@@ -42,4 +42,9 @@ public class WorkerWave extends AbstractWave {
         return created >= numWorkers;
     }
     
+    @Override
+    public String getName() {
+        return "Workers";
+    }
+    
 }

@@ -51,4 +51,9 @@ public class Wave2 extends AbstractWave {
         return created >= numWorkers;
     }
     
+    @Override
+    public String getName() {
+        return "Horrible Shrew";
+    }
+    
 }

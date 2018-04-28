@@ -6,4 +6,6 @@ public abstract class AbstractWave {
 
     public abstract boolean done();
     
+    public abstract String getName();
+    
 }

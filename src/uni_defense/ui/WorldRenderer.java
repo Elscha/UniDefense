@@ -41,6 +41,10 @@ public class WorldRenderer extends JPanel {
 	
 	private static double dtime;
 	
+	private static int waveNumber;
+	
+	private static String currentWaveName;
+	
 	static {
 		// Ground tiles
 		Map<GroundTile, Image> tmpTiles = new HashMap<>();
@@ -111,6 +115,13 @@ public class WorldRenderer extends JPanel {
 	        WorldRenderer.dtime = dtime;
         }
 	}
+	
+	public void setCurrentWaveName(String name) {
+	    currentWaveName = name;
+	    if (name != null) {
+	        waveNumber++;
+	    }
+    }
 	
 	@Override
 	public void paint(Graphics g) {
@@ -201,5 +212,10 @@ public class WorldRenderer extends JPanel {
 			    
 			}
 		}
+		
+		g.setColor(Color.WHITE);
+		g.drawString((currentWaveName != null ? "Wave " + waveNumber + ": "  +currentWaveName : "Wave: (none)"), 10, 10);
+		
 	}
+
 }
