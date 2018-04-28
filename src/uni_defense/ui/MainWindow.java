@@ -139,11 +139,19 @@ public class MainWindow extends JFrame implements Runnable, IWaveListener {
 		
 		AbstractWave currentWave = null;
 		
+		double goldTimer = 0;
+		
 		while(Player.INSTANCE.getCurrentlifes() > 0) {
 		    
 		    long currentStep = System.nanoTime();
 		    double dtime = (currentStep - lastStep ) / 1000000.0;
 		    dtime *= speed;
+		    
+		    goldTimer += dtime;
+		    if (goldTimer >= 10000) {
+		        goldTimer = 0;
+		        Player.INSTANCE.updateGold(10);
+		    }
 		    
 		    synchronized (world) {
 		        world.step(dtime);
