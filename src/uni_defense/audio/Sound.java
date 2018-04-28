@@ -36,10 +36,10 @@ public class Sound {
 
     public void soundStart()
     {
-    	 this.soundStart(false);
+    	 this.soundStart(false,0);
     }
     
-    public void soundStart (boolean louder)
+    public void soundStart (boolean louder, float decibels)
     //starts music
     {
         if (loop)
@@ -49,9 +49,11 @@ public class Sound {
         }
         else
         {
-        	FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-        	gainControl.setValue(10.0f); // Reduce volume by 10 decibels.
-            clip.start();
+        	if(louder) {
+        		FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+        		gainControl.setValue(decibels); // Reduce volume by 10 decibels.
+        	}
+        	clip.start();
             //starts music as not on loop
         }
 
