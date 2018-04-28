@@ -6,4 +6,6 @@ public interface IWaveListener {
 
     public void addWave(AbstractWave wave);
     
+    public void onVictory();
+    
 }

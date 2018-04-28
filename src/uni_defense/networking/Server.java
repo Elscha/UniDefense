@@ -6,7 +6,7 @@ import java.net.Socket;
 
 import uni_defense.logic.world.World;
 
-public class Server extends Side {
+public class Server extends NetworkConnection {
 
     private Socket socket;
     

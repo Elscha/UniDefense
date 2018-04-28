@@ -7,7 +7,7 @@ import java.io.OutputStream;
 import uni_defense.logic.enemies.wave.AbstractWave;
 import uni_defense.logic.world.World;
 
-public abstract class Side implements Runnable {
+public abstract class NetworkConnection implements Runnable {
 
     private OutputStream out;
     
@@ -17,7 +17,7 @@ public abstract class Side implements Runnable {
     
     private World world;
     
-    public Side(World world, IWaveListener listener) {
+    public NetworkConnection(World world, IWaveListener listener) {
         this.world = world;
         this.listener = listener;
     }
@@ -30,6 +30,14 @@ public abstract class Side implements Runnable {
     }
     
     protected abstract void onDone();
+    
+    public void lost() {
+        try {
+            out.write(Command.LOST.getId());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     
     public void stop() {
         try {
@@ -72,7 +80,11 @@ public abstract class Side implements Runnable {
                         listener.addWave(wave);
                     }
                     break;
-                
+
+                case LOST:
+                    listener.onVictory();
+                    break;
+                    
                 case DISCONNECT:
                     onDone();
                     return;

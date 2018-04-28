@@ -22,6 +22,11 @@ public class NetworkTest {
                     public void addWave(AbstractWave wave) {
                         System.out.println("Got wave " + wave);
                     }
+                    
+                    public void onVictory() {
+                        
+                    };
+                    
                 });
             } catch (IOException e) {
                 // TODO Auto-generated catch block
@@ -38,6 +43,14 @@ public class NetworkTest {
                 public void addWave(AbstractWave wave) {
                     System.out.println("Got wave: " + wave);
                 }
+                
+                
+                @Override
+                public void onVictory() {
+                    // TODO Auto-generated method stub
+                    
+                }
+                
             });
             client.sendWave(WorkerBossWave.class);
             

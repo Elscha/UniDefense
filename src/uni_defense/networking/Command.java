@@ -3,8 +3,8 @@ package uni_defense.networking;
 public enum Command {
 
     WAVE((byte) 1),
-    
     DISCONNECT((byte) 2),
+    LOST((byte) 3),
     
     ;
     
@@ -22,6 +22,7 @@ public enum Command {
         switch (id) {
         case 1: return WAVE;
         case 2: return DISCONNECT;
+        case 3: return LOST;
         default: return null;
         }
     }

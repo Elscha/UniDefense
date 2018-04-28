@@ -26,13 +26,13 @@ import uni_defense.logic.world.World;
 import uni_defense.logic.world.loading.WorldManager;
 import uni_defense.networking.Client;
 import uni_defense.networking.IWaveListener;
+import uni_defense.networking.NetworkConnection;
 import uni_defense.networking.Server;
-import uni_defense.networking.Side;
 import uni_defense.ui.menus.GameMenu;
 
 public class MainWindow extends JFrame implements Runnable, IWaveListener {
 
-    public static final boolean NETWORK = true;
+    public static final boolean NETWORK = false;
     
     private static final long serialVersionUID = -5181257872336051731L;
 
@@ -45,7 +45,9 @@ public class MainWindow extends JFrame implements Runnable, IWaveListener {
 	
 	private Deque<AbstractWave> wavesToDo = new LinkedList<>();
 	
-	private Side comm;
+	private NetworkConnection comm;
+	
+	private boolean won;
 	
 	public MainWindow() throws IOException {
 		super("UniDefense");
@@ -124,6 +126,11 @@ public class MainWindow extends JFrame implements Runnable, IWaveListener {
 	    wavesToDo.addLast(wave);
 	}
 	
+	@Override
+	public void onVictory() {
+	    won = true;
+	}
+	
 	public static void main(String[] args) throws IOException {
 
 		new MainWindow();
@@ -145,7 +152,7 @@ public class MainWindow extends JFrame implements Runnable, IWaveListener {
 		
 		double goldTimer = 0;
 		
-		while(Player.INSTANCE.getCurrentlifes() > 0) {
+		while(Player.INSTANCE.getCurrentlifes() > 0 && !won) {
 		    
 		    long currentStep = System.nanoTime();
 		    double dtime = (currentStep - lastStep ) / 1000000.0;
@@ -168,6 +175,10 @@ public class MainWindow extends JFrame implements Runnable, IWaveListener {
 			    if (currentWave != null) {
 			        Player.INSTANCE.increaseWaveByOne();
 			    }
+			    
+			    if (!NETWORK && currentWave == null && Player.INSTANCE.getEnemiesAlive() == 0) {
+			        won = true;
+			    }
 			}
 			
 			if (currentWave != null) {
@@ -187,16 +198,34 @@ public class MainWindow extends JFrame implements Runnable, IWaveListener {
 		
 		music.musicStop();
 		
-		Sound snd = new Sound("bgm/GameOver.wav");
-		snd.soundStart();
+		if (Player.INSTANCE.getCurrentlifes() <= 0) {
+		    comm.lost();
+		    
+		    Sound snd = new Sound("bgm/GameOver.wav");
+		    snd.soundStart();
+		    
+		    JLabel lblGameOver = new JLabel("Game Over");
+		    Font oldFont = lblGameOver.getFont();
+		    lblGameOver.setFont(new Font(oldFont.getFontName(), Font.BOLD, 60));
+		    glass.add(lblGameOver);
+		    glass.setVisible(true);
+		    glass.revalidate();
+		    glass.repaint();
+		} else {
+		    Sound snd = new Sound("bgm/victory.wav");
+		    snd.soundStart();
+		    
+		    JLabel lblGameOver = new JLabel("Victory!");
+		    Font oldFont = lblGameOver.getFont();
+		    lblGameOver.setFont(new Font(oldFont.getFontName(), Font.BOLD, 60));
+		    glass.add(lblGameOver);
+		    glass.setVisible(true);
+		    glass.revalidate();
+		    glass.repaint();
+		}
 		
-		JLabel lblGameOver = new JLabel("Game Over");
-		Font oldFont = lblGameOver.getFont();
-		lblGameOver.setFont(new Font(oldFont.getFontName(), Font.BOLD, 60));
-		glass.add(lblGameOver);
-		glass.setVisible(true);
-		glass.revalidate();
-		glass.repaint();
+		comm.stop();
+		
 	}
 	
 	public void sendWave(Class<? extends AbstractWave> wave) {
