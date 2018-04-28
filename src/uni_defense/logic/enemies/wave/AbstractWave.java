@@ -14,7 +14,7 @@ public abstract class AbstractWave {
         switch (id) {
         case 1: return new WorkerWave(world);
         case 2: return new WorkerBossWave(world);
-        case 3: return new Wave2(world);
+        case 3: return new AnkeWave(world);
         case 4: return new FlyWave(world);
         default: return null;
         }

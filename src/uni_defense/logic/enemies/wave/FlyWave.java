@@ -16,9 +16,13 @@ public class FlyWave extends AbstractWave {
     private double timer;
     
     public FlyWave(World world) {
+        this(world, 2, 2);
+    }
+    
+    public FlyWave(World world, int n1, int n2) {
         this.world = world;
         
-        numFlies = (int) (Math.random() * 2 + 2);
+        numFlies = (int) (Math.random() * n1 + n2);
     }
     
     @Override

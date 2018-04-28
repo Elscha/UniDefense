@@ -10,10 +10,14 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import uni_defense.audio.Music;
+
 public class SplashFrame extends JFrame {
+	private Music splashSong = new Music("bgm/splashSong.wav");
     
     public SplashFrame() {
         super("UniDefense loads...");
+        splashSong.musicStart();
         setLayout(new BorderLayout());
         SplashPanel splash = new SplashPanel();
         setSize(splash.getWidth(), splash.getHeight() + 100);
@@ -28,6 +32,7 @@ public class SplashFrame extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				splashSong.musicStop();
 				SplashFrame.this.dispose();
 				try {
 					new MainWindow();
@@ -44,6 +49,7 @@ public class SplashFrame extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				splashSong.musicStop();
 				SplashFrame.this.dispose();
 				try {
 					MainWindow.NETWORK = true;

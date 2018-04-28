@@ -17,8 +17,9 @@ import javax.swing.JSplitPane;
 import uni_defense.audio.Music;
 import uni_defense.audio.Sound;
 import uni_defense.logic.enemies.wave.AbstractWave;
+import uni_defense.logic.enemies.wave.AnkeBossWave;
+import uni_defense.logic.enemies.wave.AnkeWave;
 import uni_defense.logic.enemies.wave.FlyWave;
-import uni_defense.logic.enemies.wave.Wave2;
 import uni_defense.logic.enemies.wave.WorkerBossWave;
 import uni_defense.logic.enemies.wave.WorkerWave;
 import uni_defense.logic.player.Player;
@@ -82,7 +83,10 @@ public class MainWindow extends JFrame implements Runnable, IWaveListener {
 	        wavesToDo.add(new WorkerBossWave(world));
 	        wavesToDo.add(new WorkerWave(world));
 	        wavesToDo.add(new WorkerWave(world));
-	        wavesToDo.add(new Wave2(world));
+	        wavesToDo.add(new AnkeWave(world));
+	        wavesToDo.add(new FlyWave(world, 5, 5));
+	        wavesToDo.add(new AnkeWave(world, 20, 50));
+	        wavesToDo.add(new AnkeBossWave(world, 20, 50));
 		}
 
 		
@@ -113,6 +117,7 @@ public class MainWindow extends JFrame implements Runnable, IWaveListener {
 
         add(splitPane);
         
+        setLocationRelativeTo(null);
         setVisible(true);
         
         Thread th = new Thread(this);

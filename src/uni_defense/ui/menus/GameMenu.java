@@ -12,7 +12,7 @@ import javax.swing.JToolBar;
 
 import uni_defense.logic.enemies.wave.AbstractWave;
 import uni_defense.logic.enemies.wave.FlyWave;
-import uni_defense.logic.enemies.wave.Wave2;
+import uni_defense.logic.enemies.wave.AnkeWave;
 import uni_defense.logic.enemies.wave.WorkerBossWave;
 import uni_defense.logic.enemies.wave.WorkerWave;
 import uni_defense.logic.player.Player;
@@ -133,7 +133,7 @@ public class GameMenu extends JToolBar implements Runnable, ActionListener {
             cost = 40;
             break;
         case "Shrew":
-            wave = Wave2.class;
+            wave = AnkeWave.class;
             cost = 60;
             break;
         case "Fly":
