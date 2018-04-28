@@ -65,7 +65,13 @@ public class MouseMenu extends JPopupMenu {
 			add(btnSell);
 			btnSell.addMouseListener(new MouseAdapter() {
 				public void mousePressed(MouseEvent e) {
-					worldModel.setBuildings(tileX, tileY, null);
+				    Building building = worldModel.getBuilding(tileX, tileY);
+				    if (building != null) {
+				        int price = BuildingModel.BUILDING_PRICES.get(building.getClass());
+				        price *= 0.8;
+				        Player.INSTANCE.updateGold(price);
+				        worldModel.setBuildings(tileX, tileY, null);
+				    }
 				}
 			});
 		}
