@@ -12,3 +12,5 @@
 log/
 target/
 lib/
+/build/
+/dist/

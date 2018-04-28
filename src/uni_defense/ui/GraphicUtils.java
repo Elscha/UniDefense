@@ -5,12 +5,30 @@ import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
 import javax.imageio.ImageIO;
 
 public class GraphicUtils {
 	
-	public final static String BASE_FOLDER =  GraphicUtils.class.getResource(".").getFile() + "/";
+	public final static String BASE_FOLDER;
+	
+	static {
+		String folder = "";
+		try {
+			URL url = GraphicUtils.class.getResource(".");
+			if (null != url) {
+				folder = url.getFile() + "/";
+			} else {
+				folder = new File(".").getAbsolutePath() + "/";
+			}
+//			System.out.println(f.getAbsolutePath());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		BASE_FOLDER = folder;
+	}
 	
 	public static BufferedImage loadImage(File file) {
 		BufferedImage bi = null;
@@ -18,6 +36,7 @@ public class GraphicUtils {
             bi = ImageIO.read(file); 
 
         } catch (IOException e) {
+        	System.out.println("Could not load: " + file.getAbsolutePath());
             e.printStackTrace();
             System.exit(1);
         }
