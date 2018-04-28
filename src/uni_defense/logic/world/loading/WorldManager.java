@@ -29,11 +29,11 @@ public class WorldManager {
 
         //[x][Y]
 
-        GroundTile[][] ground = new GroundTile[stringMap.length][stringMap[0].length];
+        GroundTile[][] ground = new GroundTile[stringMap.length][stringMap[0].length - 1];
         for (int y = 1; y < stringMap[0].length; y++) {
             for (int x = 0; x < stringMap.length; x++) {
                 String tile = stringMap[x][y];
-                ground[x][y] = GroundTile.getByFirstLetter(tile);
+                ground[x][y - 1] = GroundTile.getByFirstLetter(tile);
             }
         }
 

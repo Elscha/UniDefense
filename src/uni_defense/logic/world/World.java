@@ -47,8 +47,6 @@ public class World {
 
         setGround(ground);
 
-        buildings[15][3] = new Archer(this);
-
         objects = new HashSet<>(1337);
     }
     
@@ -170,6 +168,15 @@ public class World {
 
     public void setGround(GroundTile[][] newGround) {
         ground = newGround;
+        
+        for (int x = 0; x < getWidth(); x++) {
+            for (int y = 0; y < getHeight(); y++) {
+                if (ground[x][y] == null) {
+                    throw new RuntimeException("ground at " + x + " " + y + " is null");
+                }
+            }
+        }
+        
         buildings = new Building[getWidth()][getHeight()];
     }
 }
