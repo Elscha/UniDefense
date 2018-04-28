@@ -167,7 +167,15 @@ public class MainWindow extends JFrame implements Runnable, IWaveListener {
 		    goldTimer += dtime;
 		    if (goldTimer >= 10000) {
 		        goldTimer = 0;
-		        Player.INSTANCE.updateGold(10);
+		        
+		        int amount;
+		        if (NETWORK) {
+		            amount = (int) Math.max(10, Player.INSTANCE.getGold() * 0.05);
+		        } else {
+		            amount = (int) (Player.INSTANCE.getGold() * 0.05);
+		        }
+		        
+		        Player.INSTANCE.updateGold(amount);
 		    }
 		    
 		    synchronized (world) {
@@ -230,7 +238,9 @@ public class MainWindow extends JFrame implements Runnable, IWaveListener {
 		    glass.repaint();
 		}
 		
-		comm.stop();
+		if (NETWORK) {
+		    comm.stop();
+		}
 		
 	}
 	
