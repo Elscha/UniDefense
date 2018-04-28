@@ -47,4 +47,8 @@ public class WorkerWave extends AbstractWave {
         return "Workers";
     }
     
+    public static byte getId() {
+        return 1;
+    }
+    
 }

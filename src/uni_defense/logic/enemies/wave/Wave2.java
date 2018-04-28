@@ -56,4 +56,8 @@ public class Wave2 extends AbstractWave {
         return "Horrible Shrew";
     }
     
+    public static byte getId() {
+        return 3;
+    }
+    
 }

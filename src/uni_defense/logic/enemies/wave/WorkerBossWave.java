@@ -51,4 +51,8 @@ public class WorkerBossWave extends AbstractWave {
         return "Worker Boss";
     }
     
+    public static byte getId() {
+        return 2;
+    }
+    
 }
