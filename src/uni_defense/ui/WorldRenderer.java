@@ -125,7 +125,7 @@ public class WorldRenderer extends JPanel {
 	
 	@Override
 	public void paint(Graphics g) {
-	    synchronized (WorldRenderer.class) {
+	    synchronized (worldModel) {
     		// Draw Background
     		for (int x = 0; x < worldModel.getWidth(); x++) {
     			for (int y = 0; y < worldModel.getHeight(); y++) {

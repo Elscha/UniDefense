@@ -31,7 +31,7 @@ public class MainWindow extends JFrame implements Runnable {
 
 	private World world;
 	
-	private double speed = 100.0;
+	private double speed = 1.0;
 	private JPanel glass;
 	
 	private Deque<AbstractWave> wavesToDo = new LinkedList<>();
@@ -116,7 +116,9 @@ public class MainWindow extends JFrame implements Runnable {
 		    double dtime = (currentStep - lastStep ) / 1000000.0;
 		    dtime *= speed;
 		    
-			world.step(dtime);
+		    synchronized (world) {
+		        world.step(dtime);
+            }
 			lastStep = currentStep;
 
 			if (currentWave == null || currentWave.done()) {
@@ -131,9 +133,6 @@ public class MainWindow extends JFrame implements Runnable {
 			renderer.setDtime(dtime);
 		    repaint();
 		    
-		    synchronized (WorldRenderer.class) {
-            }
-			
 		    try {
 		        Thread.sleep((long) Math.max(0, wantedDtime - ((System.nanoTime() / 1000000.0) - tLast)));
 		    } catch (InterruptedException e) {
