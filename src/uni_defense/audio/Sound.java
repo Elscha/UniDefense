@@ -42,20 +42,13 @@ public class Sound {
     public void soundStart (boolean louder, float decibels)
     //starts music
     {
-        if (loop)
-        {
-            clip.loop(Clip.LOOP_CONTINUOUSLY);
-            //starts music on loop if loop is requested
-        }
-        else
-        {
+
         	if(louder) {
         		FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
         		gainControl.setValue(decibels); // Reduce volume by 10 decibels.
         	}
         	clip.start();
             //starts music as not on loop
-        }
 
     }
 

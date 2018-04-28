@@ -10,7 +10,7 @@ public class AudioTest {
 	@Test
 	public void test() {
 		int x=1;
-		Music bgmMus = new Music("bgm/1.wav");
+		Music bgmMus = new Music("bgm/splashSong.wav");
 		Sound sfxTest = new Sound("sfx/bleep1.wav");
 		bgmMus.musicStart();
 		try {

@@ -36,17 +36,8 @@ public class Music {
     public void musicStart ()
     //starts music
     {
-        if (loop)
-        {
             clip.loop(Clip.LOOP_CONTINUOUSLY);
             //starts music on loop if loop is requested
-        }
-        else
-        {
-            clip.start();
-            //starts music as not on loop
-        }
-
     }
 
 
