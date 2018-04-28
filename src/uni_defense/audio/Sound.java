@@ -6,6 +6,7 @@ import java.io.IOException;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 //source: https://stackoverflow.com/questions/23986793/java-playing-a-sound-on-top-of-background-music
@@ -33,7 +34,12 @@ public class Sound {
         //tries to load file into java's built in audio player, else prints the error to console
     }
 
-    public void soundStart ()
+    public void soundStart()
+    {
+    	 this.soundStart(false);
+    }
+    
+    public void soundStart (boolean louder)
     //starts music
     {
         if (loop)
@@ -43,6 +49,8 @@ public class Sound {
         }
         else
         {
+        	FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+        	gainControl.setValue(10.0f); // Reduce volume by 10 decibels.
             clip.start();
             //starts music as not on loop
         }
