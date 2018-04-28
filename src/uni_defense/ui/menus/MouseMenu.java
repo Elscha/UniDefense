@@ -58,10 +58,15 @@ public class MouseMenu extends JPopupMenu {
 				});
 	    	}
 		} else if (worldModel.getBuilding(tileX, tileY) != null) {
+		    
+		    
 			JMenuItem btnUpgrade = new JMenuItem("Upgrade");
 			
-			Building b = worldModel.getBuilding(tileX, tileY);
-			btnUpgrade.setEnabled(BuildingModel.UPGRADE_TARGET.containsKey(b.getClass()));
+			Integer price = BuildingModel.UPGRADE_PRICES.get(worldModel.getBuilding(tileX, tileY).getClass());
+			btnUpgrade.setEnabled(price != null);
+			if (price != null) {
+			    btnUpgrade.setText("Upgrade (" + price + ")");
+			}
 			
 			add(btnUpgrade);
 			btnUpgrade.addMouseListener(new MouseAdapter() {
