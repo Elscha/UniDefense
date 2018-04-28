@@ -8,6 +8,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +17,7 @@ import javax.swing.JPanel;
 
 import uni_defense.logic.buildings.Archer;
 import uni_defense.logic.buildings.Building;
+import uni_defense.logic.buildings.BuildingModel;
 import uni_defense.logic.buildings.Canon;
 import uni_defense.logic.enemies.Enemy;
 import uni_defense.logic.world.GroundTile;
@@ -65,6 +67,13 @@ public class WorldRenderer extends JPanel {
 		setMaximumSize(size);
 		setPreferredSize(size);
 		towers.addAll(BUILDING_MAPPING.keySet());
+		Collections.sort(towers, new Comparator<Class<? extends Building>>() {
+
+			@Override
+			public int compare(Class<? extends Building> o1, Class<? extends Building> o2) {
+				return Integer.compare(BuildingModel.BUILDING_PRICES.get(o1), BuildingModel.BUILDING_PRICES.get(o2));
+			}
+		});
 		
 		addMouseListener(new MouseAdapter() {
 			
