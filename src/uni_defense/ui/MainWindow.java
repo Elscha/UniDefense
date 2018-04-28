@@ -137,10 +137,10 @@ public class MainWindow extends JFrame implements Runnable, IWaveListener {
 	    won = true;
 	}
 	
-	public static void main(String[] args) throws IOException {
-
-		new MainWindow();
-	}
+//	public static void main(String[] args) throws IOException {
+//
+//		new MainWindow();
+//	}
 
 	@Override
 	public void run() {

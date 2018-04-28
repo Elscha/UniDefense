@@ -20,4 +20,6 @@ public class StaticPictures {
 	public static BufferedImage CASTLE_BUILDING = GraphicUtils.loadImage(new File(GraphicUtils.BASE_FOLDER  + "buildings/castle.png"));
 	public static BufferedImage SPAWN_BUILDING = GraphicUtils.loadImage(new File(GraphicUtils.BASE_FOLDER  + "ground/spawn.png"));
 	
+	// Other stuff
+	public static BufferedImage SPLASH_SCREEN = GraphicUtils.loadImage(new File(GraphicUtils.BASE_FOLDER  + "splash/splash.png"));
 }

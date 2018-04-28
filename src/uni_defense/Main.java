@@ -1,5 +1,7 @@
 package uni_defense;
 
+import uni_defense.ui.SplashFrame;
+
 public class Main {
 
     public static final int STANDARD_WIDTH = 32;
@@ -7,6 +9,6 @@ public class Main {
 
 
     public static void main(String[] args) {
-        System.out.println("Hello World 2");
+    	new SplashFrame();
     }
 }
