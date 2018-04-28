@@ -5,23 +5,30 @@ import uni_defense.logic.world.World;
 
 public class Fly extends Enemy {
 
+	private boolean boss;
+	
     public Fly(World world) {
-        super(world);
+        this(world, false);
+    }
+    
+    public Fly(World world, boolean boss) {
+    	super(world);
+    	this.boss = boss;
     }
 
     @Override
     public double getSpeed() {
-        return 0.35;
+        return boss ? 0.5 : 0.35 ;
     }
 
     @Override
     public int getMaxHp() {
-        return 15;
+        return boss ? 45 : 15;
     }
 
     @Override
     public int getGold() {
-        return 10;
+        return boss ? 15 : 10;
     }
     
     @Override

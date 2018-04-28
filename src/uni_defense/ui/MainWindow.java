@@ -19,6 +19,7 @@ import uni_defense.audio.Sound;
 import uni_defense.logic.enemies.wave.AbstractWave;
 import uni_defense.logic.enemies.wave.AnkeBossWave;
 import uni_defense.logic.enemies.wave.AnkeWave;
+import uni_defense.logic.enemies.wave.FlyBossWave;
 import uni_defense.logic.enemies.wave.FlyWave;
 import uni_defense.logic.enemies.wave.WorkerBossWave;
 import uni_defense.logic.enemies.wave.WorkerWave;
@@ -87,6 +88,9 @@ public class MainWindow extends JFrame implements Runnable, IWaveListener {
 	        wavesToDo.add(new FlyWave(world, 5, 5));
 	        wavesToDo.add(new AnkeWave(world, 20, 50));
 	        wavesToDo.add(new AnkeBossWave(world, 20, 50));
+	        wavesToDo.add(new WorkerBossWave(world, 50, 70));
+	        wavesToDo.add(new FlyBossWave(world, 20, 20));
+	        
 		}
 
 		

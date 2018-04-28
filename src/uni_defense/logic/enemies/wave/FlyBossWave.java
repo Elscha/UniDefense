@@ -1,13 +1,13 @@
 package uni_defense.logic.enemies.wave;
 
-import uni_defense.logic.enemies.Worker;
+import uni_defense.logic.enemies.Fly;
 import uni_defense.logic.world.World;
 
-public class WorkerBossWave extends AbstractWave {
+public class FlyBossWave extends AbstractWave {
 
-    private final double TIMING = 1200;
+    private final double TIMING = 5000;
     
-    private int numWorkers;
+    private int numFlies;
     
     private int created;
     
@@ -15,13 +15,14 @@ public class WorkerBossWave extends AbstractWave {
     
     private double timer;
     
-    public WorkerBossWave(World world) {
+    public FlyBossWave(World world) {
         this(world, 2, 2);
     }
-    public WorkerBossWave(World world, int n1, int n2) {
-    	this.world = world;
-    	
-    	numWorkers = (int) (Math.random() * n1 + n2);
+    
+    public FlyBossWave(World world, int n1, int n2) {
+        this.world = world;
+        
+        numFlies = (int) (Math.random() * n1 + n2);
     }
     
     @Override
@@ -35,27 +36,23 @@ public class WorkerBossWave extends AbstractWave {
         if (timer > TIMING) {
             timer = 0;
             
-            if (created + 1 == numWorkers) {
-                world.addObject(new Worker(world, true));
-            } else {
-                world.addObject(new Worker(world));
-            }
+            world.addObject(new Fly(world));
             created++;
         }
     }
     
     @Override
     public boolean done() {
-        return created >= numWorkers;
+        return created >= numFlies;
     }
     
     @Override
     public String getName() {
-        return "Worker Boss";
+        return "Flies";
     }
     
     public static byte getId() {
-        return 2;
+        return 4;
     }
     
 }
